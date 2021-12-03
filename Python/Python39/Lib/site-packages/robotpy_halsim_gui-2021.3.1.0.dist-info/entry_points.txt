@@ -1,0 +1,3 @@
+[robotpybuild]
+halsim_gui = halsim_gui.pkgcfg
+
