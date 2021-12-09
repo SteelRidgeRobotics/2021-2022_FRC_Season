@@ -2,6 +2,7 @@ import wpilib
 import wpilib.drive
 
 class MyRobot(wpilib.TimedRobot):
+    # Will need to install CTRE library through robotpy package with python
     def robotInit(self):
         self.fLeftMotor = wpilib.CANTalon(0) 
         self.bLeftMotor = wpilib.CANTalon(1) 
