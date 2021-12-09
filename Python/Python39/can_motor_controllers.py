@@ -1,9 +1,16 @@
 import wpilib
+import ctre
 import wpilib.drive
 
 class MyRobot(wpilib.TimedRobot):
     # Will need to install CTRE library through robotpy package with python
     def robotInit(self):
+        self.fLeftMotor = ctre.TalonFX(0) 
+        self.bLeftMotor = ctre.TalonFX((1) 
+        self.fRightMotor = ctre.TalonFX((2) 
+        self.bRightMotor = ctre.TalonFX((3) 
+        """
+        Need to use a different object. CANTalon object is not accepted anymore
         self.fLeftMotor = wpilib.CANTalon(0) 
         self.bLeftMotor = wpilib.CANTalon(1) 
         self.fRightMotor = wpilib.CANTalon(2) 
@@ -31,6 +38,7 @@ class MyRobot(wpilib.TimedRobot):
         self.drive = wpilib.drive.DifferentialDrive(self.fLeftMotor, fRightMotor)
         
         self.timer = wpilib.Timer()
+        """
     def autonomousInit(self):
         self.timer.reset()
         wpilib.SmartDashboard.putNumber("Left Encoder Raw", self.fLeftMotor.getSensorPosition())
