@@ -9,6 +9,15 @@ class MyRobot(wpilib.TimedRobot):
         self.bLeftMotor = ctre.TalonFX(1) 
         self.fRightMotor = ctre.TalonFX(2) 
         self.bRightMotor = ctre.TalonFX(3) 
+        
+        # Set Controll Modes & makes sure there is no movement
+        self.fLeftMotor.set(ControlMode.PercentOutput, 0)
+        self.bLeftMotor.set(ControlMode.Follower, 0)
+        self.fRightMotor.set(ControlMode.PercentOutput, 0) 
+        self.bRightMotor.set(ControlMode.Follower, 2)
+        
+        
+        
         """
         Need to use a different object. CANTalon object is not accepted anymore
         self.fLeftMotor = wpilib.CANTalon(0) 
