@@ -11,24 +11,32 @@ class MyRobot(wpilib.TimedRobot):
         self.bRightMotor = ctre.TalonFX(3) 
         
         # Set Controll Modes & makes sure there is no movement
-        self.fLeftMotor.set(ControlMode.PercentOutput, 0)
-        self.bLeftMotor.set(ControlMode.Follower, 0)
-        self.fRightMotor.set(ControlMode.PercentOutput, 0) 
-        self.bRightMotor.set(ControlMode.Follower, 2)
+        self.fLeftMotor.set(ctre.ControlMode.PercentOutput, 0)
+        self.bLeftMotor.set(ctre.ControlMode.Follower, 0)
+        self.fRightMotor.set(ctre.ControlMode.PercentOutput, 0) 
+        self.bRightMotor.set(ctre.ControlMode.Follower, 2)
         
+        # Configure Sensors
+        #.configSelectedFeedbackSensor(feedback device, pidIdx, timeoutMs)
+        # pidIdx: 0 for primary loop, 1 for auxillary
+        # timeoutMs: timeout value in ms. Will not check if 0, will send error message if exceeds timeout
+        self.fLeftMotor.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, 0)
+        self.bLeftMotor.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, 0)
+        self.fRightMotor.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, 0)
+        self.bRightMotor.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, 0)
         
         
         """
         Need to use a different object. CANTalon object is not accepted anymore
-        self.fLeftMotor = wpilib.CANTalon(0) 
-        self.bLeftMotor = wpilib.CANTalon(1) 
-        self.fRightMotor = wpilib.CANTalon(2) 
-        self.bRightMotor = wpilib.CANTalon(3) 
+        #self.fLeftMotor = wpilib.CANTalon(0) 
+        #self.bLeftMotor = wpilib.CANTalon(1) 
+        #self.fRightMotor = wpilib.CANTalon(2) 
+        #self.bRightMotor = wpilib.CANTalon(3) 
         
-        self.bLeftMotor.changeControlMode(wpilib.CANTalon.ControlMode.Follower)
-        self.bLeftMotor.set(0)
-        self.bRightMotor.changeControlMode(wpilib.CANTalon.ControlMode.Follower)
-        self.bRightMotor.set(2)
+        #self.bLeftMotor.changeControlMode(wpilib.CANTalon.ControlMode.Follower)
+        #self.bLeftMotor.set(0)
+        #self.bRightMotor.changeControlMode(wpilib.CANTalon.ControlMode.Follower)
+        #self.bRightMotor.set(2)
         
         self.fLeftMotor.reverseSensor(True)
         self.fRightMotor.reverseSensor(True)
@@ -36,8 +44,8 @@ class MyRobot(wpilib.TimedRobot):
         self.fLeftMotor.reverseOutput(True)
         self.fRightMotor.reverseOutput(True)
         
-        self.fLeftMotor.setFeedbackDevice(QuadEncoder)
-        self.fRightMotor.setFeedbackDevice(QuadEncoder)
+        #self.fLeftMotor.setFeedbackDevice(QuadEncoder)
+        #self.fRightMotor.setFeedbackDevice(QuadEncoder)
         
         self.fLeftMotor.getBrakeEnableDuringNeutral(True)
         self.bLeftMotor.getBrakeEnableDuringNeutral(True)
