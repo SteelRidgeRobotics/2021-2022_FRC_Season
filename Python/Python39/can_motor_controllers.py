@@ -25,6 +25,8 @@ class MyRobot(wpilib.TimedRobot):
         self.fRightMotor.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, 0)
         self.bRightMotor.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, 0)
         
+        # Getting Sensor feedback
+        #ctre.TalonFXSensorCollection(motorController)
         
         """
         Need to use a different object. CANTalon object is not accepted anymore
