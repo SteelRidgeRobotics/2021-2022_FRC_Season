@@ -28,6 +28,7 @@ class MyRobot(wpilib.TimedRobot):
         # Getting Sensor feedback
         #ctre.TalonFXSensorCollection(motorController)
         
+        
         """
         Need to use a different object. CANTalon object is not accepted anymore
         #self.fLeftMotor = wpilib.CANTalon(0) 
