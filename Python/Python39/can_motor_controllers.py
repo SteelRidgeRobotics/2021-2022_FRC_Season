@@ -2,9 +2,11 @@ import wpilib
 import ctre
 import wpilib.drive
 
-class MyRobot(wpilib.TimedRobot):
+class myRobot(wpilib.TimedRobot):
     # Will need to install CTRE library through robotpy package with python
     def robotInit(self):
+        self.Stick = wpilib.Joystick(0)
+        
         self.fLeftMotor = ctre.TalonFX(0) 
         self.bLeftMotor = ctre.TalonFX(1) 
         self.fRightMotor = ctre.TalonFX(2) 
@@ -72,7 +74,11 @@ class MyRobot(wpilib.TimedRobot):
         if self.timer.get() <= 5.0:
             self.drive.tankDrive(0.5, 0.5)
     def teleopInit(self):
+        self.myRobot.setSafetyEnabled(True)
     def teleopPeriodic(self):
+        left = (self.Stick.getY()*-1) + self.Stick.getX()  #0.000 to become negative -0.001
+        right = (self.Stick.getY()*-1) - self.Stick.getX() #0.000
+        self.myRobot.tankDrive(left, right)
 
 if __name__ == "__main__":
     wpilib.run(MyRobot)
