@@ -59,6 +59,7 @@ class MyRobot(wpilib.TimedRobot):
         
         self.timer = wpilib.Timer()
         """
+        self.drive = wpilib.drive.DifferentialDrive(self.fLeftMotor, fRightMotor)
     def autonomousInit(self):
         self.timer.reset()
         wpilib.SmartDashboard.putNumber("Left Encoder Raw", self.fLeftMotor.getSensorPosition())
