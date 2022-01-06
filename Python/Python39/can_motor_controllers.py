@@ -1,6 +1,6 @@
 import wpilib
 import ctre
-import wpilib.drive
+from wpilib.drive import DifferentialDirve
 
 class myRobot(wpilib.TimedRobot):
     # Will need to install CTRE library through robotpy package with python
