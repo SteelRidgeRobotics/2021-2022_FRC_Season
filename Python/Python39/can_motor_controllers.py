@@ -2,7 +2,7 @@ import wpilib
 import ctre
 from wpilib.drive import DifferentialDirve
 
-class myRobot(wpilib.TimedRobot):
+class MyRobot(wpilib.TimedRobot):
     # Will need to install CTRE library through robotpy package with python
     def robotInit(self):
         self.Stick = wpilib.Joystick(0)
@@ -81,7 +81,7 @@ class myRobot(wpilib.TimedRobot):
     def teleopPeriodic(self):
         left = (self.Stick.getY()*-1) + self.Stick.getX()  #0.000 to become negative -0.001
         right = (self.Stick.getY()*-1) - self.Stick.getX() #0.000
-        self.myRobot.tankDrive(left, right)
+        self.drive.tankDrive(left, right)
 
 if __name__ == "__main__":
-    wpilib.run(myRobot)
+    wpilib.run(MyRobot)
