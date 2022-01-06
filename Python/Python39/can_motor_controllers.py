@@ -61,7 +61,9 @@ class myRobot(wpilib.TimedRobot):
         
         self.timer = wpilib.Timer()
         """
-        self.drive = wpilib.drive.DifferentialDrive(self.fLeftMotor, fRightMotor)
+        self.timer = wpilib.Timer()
+        self.drive = wpilib.drive.DifferentialDrive(self.fLeftMotor, self.fRightMotor)
+        """
     def autonomousInit(self):
         self.timer.reset()
         wpilib.SmartDashboard.putNumber("Left Encoder Raw", self.fLeftMotor.getSensorPosition())
@@ -73,6 +75,7 @@ class myRobot(wpilib.TimedRobot):
     def autonomousPeriodic(self):
         if self.timer.get() <= 5.0:
             self.drive.tankDrive(0.5, 0.5)
+        """
     def teleopInit(self):
         self.myRobot.setSafetyEnabled(True)
     def teleopPeriodic(self):
@@ -81,4 +84,4 @@ class myRobot(wpilib.TimedRobot):
         self.myRobot.tankDrive(left, right)
 
 if __name__ == "__main__":
-    wpilib.run(MyRobot)
+    wpilib.run(myRobot)
