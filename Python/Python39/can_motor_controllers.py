@@ -50,9 +50,9 @@ class MyRobot(wpilib.TimedRobot):
         """
     def disabledPeriodic(self):
         self.fLeftMotor.disable()
-        self.bLeftMotor.di
-        self.fRightMotor
-        self.bRightMotor
+        self.bLeftMotor.disable()
+        self.fRightMotor.disable()
+        self.bRightMotor.disable()
     
     def teleopInit(self):
         self.myRobot.setSafetyEnabled(True)
