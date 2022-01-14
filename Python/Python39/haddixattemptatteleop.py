@@ -19,5 +19,5 @@ class myRobot(wpilib.TimedRobot):
         self.myRobot.tankDrive(self.xbox.getY(self.xbox.Hand.kLeftHand)*-1,
                                self.xbox.getY(self.xbox.Hand.kRightHand)*-1)
 if __name__ == "__main__":
-    wpilib.run(MyRobot)
+    wpilib.run(myRobot)
         
