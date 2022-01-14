@@ -5,7 +5,7 @@ import ctre
 
 
 
-class MyRobot(wpilib.IterativeRobot):
+class MyRobot(wpilib.TimedRobot):
    
 
     def robotInit(self):
