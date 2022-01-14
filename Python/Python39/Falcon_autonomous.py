@@ -21,9 +21,9 @@ class MyRobot(wpilib.IterativeRobot):
         self.fRightMotor.set(ctre.TalonFXControlMode.PercentOutput, 0) 
         self.bRightMotor.set(ctre.TalonFXControlMode.Follower, 2)
         
-        # We can get positions by using the integrated sensor for autonomous code in the future
-        #self.fLeftMotor.configSelectedFeedbackSensor(ctre.TalonFXFeedbackDevice.IntegratedSensor, self.kPIDLoopIdx, self.kTimeoutMs)
-        #self.fRightMotor.configSelectedFeedbackSensor(ctre.TalonFXFeedbackDevice.IntegratedSensor, self.kPIDLoopIdx, self.kTimeoutMs)
+        # Choose the intregrated sensor as our feedback device
+        self.fLeftMotor.configSelectedFeedbackSensor(ctre.TalonFXFeedbackDevice.IntegratedSensor, self.kPIDLoopIdx, self.kTimeoutMs)
+        self.fRightMotor.configSelectedFeedbackSensor(ctre.TalonFXFeedbackDevice.IntegratedSensor, self.kPIDLoopIdx, self.kTimeoutMs)
         
         
         self.timer = wpilib.Timer()
