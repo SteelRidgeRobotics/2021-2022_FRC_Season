@@ -2,25 +2,50 @@
 
 import wpilib
 import ctre
+import robotpy
 
 
 class MyRobot(wpilib.IterativeRobot):
-    """
-    This is a short sample program demonstrating how to use the basic throttle
-    mode of the TalonSRX
-    """
+   
 
     def robotInit(self):
-        self.motor = ctre.WPI_TalonSRX(1)  # Initialize the TalonSRX on device 1.
+        self.fRight = ctre.WPI_TalonFX(0)
+        self.fLeft = ctre.WPI_TalonFX(1) 
+        self.bRight = ctre.WPI_TalonFX(2) 
+        self.bLeft = ctre.WPI_TalonFX(3) 
+        
+        self.timer = wpilib.Timer()
 
     def disabledPeriodic(self):
-        self.motor.disable()
+        self.fRight.disable()
+        self.fLeft.disable()
+        self.bRight.disable()
+        self.bLeft.disable()
+        
+    def autonomousInit(self):
+        self.timer.start()  
 
-    def teleopPeriodic(self):
-        # Set the motor's output to half power.
-        # This takes a number from -1 (100% speed in reverse) to +1 (100%
-        # speed going forward)
-        self.motor.set(0.5)
+    def autonomousPeriodic(self):
+        if self.timer.get() <=5:
+            self.fRight.set(0.5)
+        
+        if self.timer.get() <=10:
+            self.fRight.set(0)
+            self.fLeft.set(0.5)
+            
+        
+        if self.timer.get() <=15:
+            self.fLeft.set(0)
+            self.bRight.set(0.5)
+            
+        
+        if self.timer.get() <=20:
+            self.bRight.set(0)
+            self.bLeft.set(0.5)
+            
+        
+        if self.timer.get() <= 25:
+            self.bLeft.set(0)
 
 
 if __name__ == "__main__":
