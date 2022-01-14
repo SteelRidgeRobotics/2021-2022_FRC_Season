@@ -2,7 +2,7 @@
 
 import wpilib
 import ctre
-import robotpy
+
 
 
 class MyRobot(wpilib.IterativeRobot):
