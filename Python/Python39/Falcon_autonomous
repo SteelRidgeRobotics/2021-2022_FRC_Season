@@ -4,9 +4,9 @@ from wpilib.drive import DifferentialDirve
 
 class MyRobot(wpilib.IterativeRobot):
     # NOTE: There are 2048 units per revolution for the talon fx (which is integrated in the falcon 500)
-    #kSlotIdx = 0
-    #kPIDLoopIdx = 0
-    #kTimeoutMs = 10
+    kSlotIdx = 0
+    kPIDLoopIdx = 0
+    kTimeoutMs = 10
     def robotInit(self):
         self.Stick = wpilib.Joystick(0)
         
