@@ -27,25 +27,25 @@ class MyRobot(wpilib.TimedRobot):
 
     def autonomousPeriodic(self):
         if self.timer.get() <=5:
-            self.fLeft.set(0.5)
+            self.fLeft.set(ctre.ControlMode.PercentOutput, 0.5)
         
         if self.timer.get() <=10:
-            self.fLeft.set(0)
-            self.bLeft.set(0.5)
+            self.fLeft.set(ctre.ControlMode.PercentOutput, 0)
+            self.bLeft.set(ctre.ControlMode.PercentOutput, 0.5)
             
         
         if self.timer.get() <=15:
-            self.bLeft.set(0)
-            self.fRight.set(0.5)
+            self.bLeft.set(ctre.ControlMode.PercentOutput, 0)
+            self.fRight.set(ctre.ControlMode.PercentOutput, 0.5)
             
         
         if self.timer.get() <=20:
-            self.fRight.set(0)
-            self.bRight.set(0.5)
+            self.fRight.set(ctre.ControlMode.PercentOutput, 0)
+            self.bRight.set(ctre.ControlMode.PercentOutput, 0.5)
             
         
         if self.timer.get() <= 25:
-            self.bRight.set(0)
+            self.bRight.set(ctre.ControlMode.PercentOutput, 0)
 
 
 if __name__ == "__main__":
