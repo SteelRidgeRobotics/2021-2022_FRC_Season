@@ -1,4 +1,4 @@
-#note: this code does not work as of 12/3/21
+#note: this is not useful code, if it should be deleted, go ahead lol -James
 #Haddix Attempt at Teleop (for certification)
 import wpilib
 from wpilib.drive import DifferentialDrive
