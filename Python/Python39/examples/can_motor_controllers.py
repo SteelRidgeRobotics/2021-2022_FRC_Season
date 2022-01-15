@@ -1,6 +1,6 @@
-import wpilib
+dimport wpilib
 import ctre
-from wpilib.drive import DifferentialDirve
+from wpilib.drive import DifferentialDrive
 
 class MyRobot(wpilib.IterativeRobot):
     # NOTE: There are 2048 units per revolution for the talon fx (which is integrated in the falcon 500)
@@ -48,7 +48,7 @@ class MyRobot(wpilib.IterativeRobot):
         self.bRightMotor.disable()
     
     def teleopInit(self):
-        self.myRobot.setSafetyEnabled(True)
+        self.drive.setSafetyEnabled(True)
     def teleopPeriodic(self):
         left = (self.Stick.getY()*-1) + self.Stick.getX()  #0.000 to become negative -0.001
         right = (self.Stick.getY()*-1) - self.Stick.getX() #0.000
