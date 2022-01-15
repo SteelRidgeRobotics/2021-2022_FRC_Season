@@ -7,10 +7,10 @@ class myRobot(wpilib.TimedRobot):
     #init func
     def robotInit(self):
         #motors
-        self.flm = WPI_TalonFX(0)
-        self.blm = WPI_TalonFX(1)
-        self.frm = WPI_TalonFX(2)
-        self.brm = WPI_TalonFX(3)
+        self.flm = ctre.WPI_TalonFX(0)
+        self.blm = ctre.WPI_TalonFX(1)
+        self.frm = ctre.WPI_TalonFX(2)
+        self.brm = ctre.WPI_TalonFX(3)
         #setting masters + followers
         self.flm.set(ctre.ControlMode.PercentOutput, 0)
         self.blm.set(ctre.ControlMode.Follower, 0)
