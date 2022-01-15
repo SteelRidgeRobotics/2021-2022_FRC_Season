@@ -1,4 +1,4 @@
-dimport wpilib
+import wpilib
 import ctre
 from wpilib.drive import DifferentialDrive
 
@@ -52,6 +52,8 @@ class MyRobot(wpilib.IterativeRobot):
     def teleopPeriodic(self):
         left = (self.Stick.getY()*-1) + self.Stick.getX()  #0.000 to become negative -0.001
         right = (self.Stick.getY()*-1) - self.Stick.getX() #0.000
+        self.bLeftMotor.set(ctre.TalonFXControlMode.Follower, 0)
+        self.bRightMotor.set(ctre.TalonFXControlMode.Follower, 2)
         self.drive.tankDrive(left, right)
 
 if __name__ == "__main__":
