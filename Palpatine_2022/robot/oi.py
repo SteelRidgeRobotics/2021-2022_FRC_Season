@@ -6,5 +6,3 @@ class OI:
         self.init_xbox()
     def init_xbox(self):
         self.xbox = wpilib.XboxController(0)
-
-e = OI("woajh")
