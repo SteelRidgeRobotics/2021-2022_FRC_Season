@@ -15,19 +15,15 @@ class MyRobot(wpilib.IterativeRobot):
         self.fRightMotor = ctre.WPI_TalonFX(2) 
         self.bRightMotor = ctre.WPI_TalonFX(3) 
         
-        #set up followers
-        self.fLeftMotor.set(ctre.TalonFXControlMode.PercentOutput, 0)
-        self.bLeftMotor.set(ctre.TalonFXControlMode.Follower, 0)
-        self.fRightMotor.set(ctre.TalonFXControlMode.PercentOutput, 0) 
-        self.bRightMotor.set(ctre.TalonFXControlMode.Follower, 2)
-        
         # We can get positions by using the integrated sensor for autonomous code in the future
         #self.fLeftMotor.configSelectedFeedbackSensor(ctre.TalonFXFeedbackDevice.IntegratedSensor, self.kPIDLoopIdx, self.kTimeoutMs)
         #self.fRightMotor.configSelectedFeedbackSensor(ctre.TalonFXFeedbackDevice.IntegratedSensor, self.kPIDLoopIdx, self.kTimeoutMs)
         
         
         self.timer = wpilib.Timer()
-        self.drive = wpilib.drive.DifferentialDrive(self.fLeftMotor, self.fRightMotor)
+        self.left = wpilib.SpeedControllerGroup(self.fLeftMotor, self.bLeftMotor)
+        self.right = wpilib.SpeedControllerGroup(self.fRightMotor, self.bRightMotor)
+        self.drive = wpilib.drive.DifferentialDrive(self.left, self.right)
   
 #    def autonomousInit(self):
 #        self.timer.reset()
@@ -52,8 +48,8 @@ class MyRobot(wpilib.IterativeRobot):
     def teleopPeriodic(self):
         left = (self.Stick.getY()*-1) + self.Stick.getX()  #0.000 to become negative -0.001
         right = (self.Stick.getY()*-1) - self.Stick.getX() #0.000
-        self.bLeftMotor.set(ctre.TalonFXControlMode.Follower, 0)
-        self.bRightMotor.set(ctre.TalonFXControlMode.Follower, 2)
+        #self.bLeftMotor.set(ctre.TalonFXControlMode.Follower, 0)
+        #self.bRightMotor.set(ctre.TalonFXControlMode.Follower, 2)
         self.drive.tankDrive(left, right)
 
 if __name__ == "__main__":
