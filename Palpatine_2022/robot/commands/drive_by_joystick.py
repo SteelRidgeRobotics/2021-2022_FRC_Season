@@ -11,16 +11,16 @@ class DriveByJoystick(Command):
         self.robot = robot
     
     def initialize(self):
-        # Called Just before the command runs fro the first time
+        # Called just before the command runs for the first time
 
     def execute(self):
         # Called repeatedly when this command is scheduled to run
 
     def isFinished(self):
-        # Make this return true when this command no longer needs to run execute()
+        # Make this return True when this command no longer needs to run execute()
 
     def end(self, message="Ended"):
-        # called once after isFinished returns true
+        # Called once after isFinished returns True
         # Stop the drivetrain from moving any further
 
     def interrupted(self):
