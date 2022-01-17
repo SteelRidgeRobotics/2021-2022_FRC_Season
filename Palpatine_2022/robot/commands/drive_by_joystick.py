@@ -17,13 +17,10 @@ class DriveByJoystick(Command):
         # Called repeatedly when this command is scheduled to run
 
     def isFinished(self):
-<<<<<<< HEAD
         # Make this return True when this command no longer needs to run execute()
 
-=======
         # Make this return true when this command no longer needs to run execute()
         return False
->>>>>>> 428d2c7f6a6090c99ecc55c75adde4535741970f
     def end(self, message="Ended"):
         # Called once after isFinished returns True
         # Stop the drivetrain from moving any further
