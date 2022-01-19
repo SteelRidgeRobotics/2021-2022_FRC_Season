@@ -29,8 +29,8 @@ class DriveTrain(commands2.SubsystemBase):
         self.frontRight.setSensorPhase(True)
         self.backRight.setSensorPhase(True)
 
-        self.frontRight.confingSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
-        self.frontLeft.confingSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
+        self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
+        self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
 
         #set motors to brake mode
         self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
