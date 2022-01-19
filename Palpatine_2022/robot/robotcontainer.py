@@ -1,5 +1,7 @@
 import wpilib
-import commands
+import commands2
+import constants
+
 class OI:
     def __init__(self, robot):
         self.robot = robot
