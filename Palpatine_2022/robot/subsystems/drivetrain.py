@@ -61,7 +61,7 @@ class DriveTrain(commands2.SubsystemBase):
         self.fRightMotor.disable()
         self.bRightMotor.disable()
         
-    def drive_tank(left, right):
+    def drive_tank(self, left, right):
         self.drive.tankDrive(left, right)
     
     #def drive(left, right):
