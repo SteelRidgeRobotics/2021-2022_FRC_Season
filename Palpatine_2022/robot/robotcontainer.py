@@ -8,4 +8,4 @@ class RobotContainer:
         self.robot = robot
         self.init_controllers()
     def init_controllers(self):
-        self.xbox = wpilib.XboxController(0)
+        self.xbox = wpilib.XboxController(constants.kdriverControllerPort)
