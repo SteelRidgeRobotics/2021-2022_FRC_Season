@@ -1,13 +1,11 @@
 import wpilib
+import commands2
 import constants
-import wpilib.command import Subsystem
-from wpilib.drive import DifferentialDrive
 import ctre
-from wpilib import XboxController
-from robotcontainer import RobotContainer
 
 
-class DriveTrain(commands2.SubsystemBase):
+
+class Drivetrain(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
 
@@ -38,7 +36,7 @@ class DriveTrain(commands2.SubsystemBase):
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
 
-        def userDrive(self, RobotContainer.driveController) -> None:
+        #def userDrive(self, RobotContainer.driveController) -> None:
             
         """
 
@@ -54,13 +52,14 @@ class DriveTrain(commands2.SubsystemBase):
         self.drive.setSafetyEnabled(True)
         self.drive.setExpiration(0.1)
         """
-
+    """
     def disable_drive():
         self.fLeftMotor.disable()
         self.bLeftMotor.disable()
         self.fRightMotor.disable()
         self.bRightMotor.disable()
         """
+    """
     def drive_tank(self, left: float, right: float):
         self.drive.tankDrive(left, right)
         """

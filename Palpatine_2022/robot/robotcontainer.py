@@ -2,7 +2,6 @@ import wpilib
 import commands2
 import constants
 from wpilib import XboxController
-from subsystems.drivetrain import Drivetrain()
 from commands.drive_by_joystick import DriveByJoystick
 
 class RobotContainer:
@@ -10,7 +9,7 @@ class RobotContainer:
         self.robot = robot
         self.init_controllers()
     def init_controllers(self):
-        self.driverController = wpilib.XboxController(constants.kdriverControllerPort)
+        self.driverController = XboxController(constants.kdriverControllerPort)
 
         # chooser
         self.chooser = wpilib.SendableChooser()
