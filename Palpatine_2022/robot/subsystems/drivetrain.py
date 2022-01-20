@@ -6,8 +6,9 @@ import ctre
 
 
 class Drivetrain(commands2.SubsystemBase):
-    def __init__(self) -> None:
+    def __init__(self, robot):
         super().__init__()
+        self.robot = robot
 
         #initilize motors
         self.frontLeft = ctre.TalonFX(constants.kfrontLeft)
@@ -35,7 +36,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
-
+        
+        self.drive = wpilib.drive.DifferentialDrive(frontLeft, frontRight)
         #def userDrive(self, RobotContainer.driveController) -> None:
             
         """
@@ -59,10 +61,12 @@ class Drivetrain(commands2.SubsystemBase):
         self.fRightMotor.disable()
         self.bRightMotor.disable()
         """
-    """
+    def initDefaultCommand(self):
+        self.drive.setDefaultCommand(DriveByJoystick(self.robot))
+    
     def drive_tank(self, left: float, right: float):
         self.drive.tankDrive(left, right)
-        """
+    
     
     #def drive(left, right):
     #    self.
