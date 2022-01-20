@@ -1,5 +1,6 @@
 from wpilib.command import Command
 from wpilib import Timer
+from subsystems.drivetrain import Drivetrain
 
 class DriveByJoystick(Command):
     """
@@ -16,18 +17,18 @@ class DriveByJoystick(Command):
 
     #def execute(self):
         # Called repeatedly when this command is scheduled to run
+        #self.robot.drivetrain.drive_tank(left value, right value)
         
 
-    #def isFinished(self):
+    def isFinished(self):
         # Make this return True when this command no longer needs to run execute()
-        
-
-        # Make this return true when this command no longer needs to run execute()
         return False
+    
     #def end(self, message="Ended"):
     # 
         # Called once after isFinished returns True
         # Stop the drivetrain from moving any further
+        #self.robot.drivetrain.drive_tank(0, 0)
 
     def interrupted(self):
         # Called when another command which requres one or more of the same subsystems is scheduled to run
