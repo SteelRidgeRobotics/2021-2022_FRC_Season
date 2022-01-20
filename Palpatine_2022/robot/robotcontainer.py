@@ -26,6 +26,7 @@ class RobotContainer:
             DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY, lambda: -self.driverController.getRightY)
         )
         def configureButtonBindings(self):
+            print()
 
         #def getAutonomousCommand(self) -> commands.,Command:
         #    return self.chooser.getSelected()
