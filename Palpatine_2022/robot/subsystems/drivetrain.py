@@ -2,6 +2,7 @@ import wpilib
 import commands2
 import constants
 import ctre
+from commands.drive_by_joystick import DriveByJoystick
 
 
 
@@ -37,7 +38,7 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
         
-        self.drive = wpilib.drive.DifferentialDrive(frontLeft, frontRight)
+        self.drive = wpilib.drive.DifferentialDrive(self.frontLeft, self.frontRight)
         #def userDrive(self, RobotContainer.driveController) -> None:
             
         """

@@ -10,10 +10,10 @@ class MyRobot(wpilib.IterativeRobot):
     def robotInit(self):
         self.Stick = wpilib.Joystick(0)
         
-        self.fLeftMotor = ctre.WPI_TalonFX(0) 
-        self.bLeftMotor = ctre.WPI_TalonFX(1) 
-        self.fRightMotor = ctre.WPI_TalonFX(2) 
-        self.bRightMotor = ctre.WPI_TalonFX(3) 
+        self.fLeftMotor = ctre.TalonFX(0) 
+        self.bLeftMotor = ctre.TalonFX(1) 
+        self.fRightMotor = ctre.TalonFX(2) 
+        self.bRightMotor = ctre.TalonFX(3) 
         
         # We can get positions by using the integrated sensor for autonomous code in the future
         #self.fLeftMotor.configSelectedFeedbackSensor(ctre.TalonFXFeedbackDevice.IntegratedSensor, self.kPIDLoopIdx, self.kTimeoutMs)
@@ -21,9 +21,10 @@ class MyRobot(wpilib.IterativeRobot):
         
         
         self.timer = wpilib.Timer()
-        self.left = wpilib.SpeedControllerGroup(self.fLeftMotor, self.bLeftMotor)
-        self.right = wpilib.SpeedControllerGroup(self.fRightMotor, self.bRightMotor)
-        self.drive = wpilib.drive.DifferentialDrive(self.left, self.right)
+        self.bLeftMotor.follow(self.fLeftMotor)
+        self.bRightMotor.follow(self.fRightMotor)
+        #self.left = wpilib.SpeedControllerGroup(self.fLeftMotor, self.bLeftMotor)
+        #self.right = wpilib.SpeedControllerGroup(self.fRightMotor, self.bRightMotor)
   
 #    def autonomousInit(self):
 #        self.timer.reset()
@@ -37,20 +38,14 @@ class MyRobot(wpilib.IterativeRobot):
 #        if self.timer.get() <= 5.0:
 #            self.drive.tankDrive(0.5, 0.5)
 #        
-    def disabledPeriodic(self):
-        self.fLeftMotor.disable()
-        self.bLeftMotor.disable()
-        self.fRightMotor.disable()
-        self.bRightMotor.disable()
-    
-    def teleopInit(self):
-        self.drive.setSafetyEnabled(True)
+
     def teleopPeriodic(self):
         left = (self.Stick.getY()*-1) + self.Stick.getX()  #0.000 to become negative -0.001
         right = (self.Stick.getY()*-1) - self.Stick.getX() #0.000
+        self.fLeftMotor.set(left)
+        self.fRightMotor.set(right)
         #self.bLeftMotor.set(ctre.TalonFXControlMode.Follower, 0)
         #self.bRightMotor.set(ctre.TalonFXControlMode.Follower, 2)
-        self.drive.tankDrive(left, right)
 
 if __name__ == "__main__":
     wpilib.run(MyRobot)
