@@ -1,3 +1,4 @@
+import wpilib
 from wpilib.command import Command
 from wpilib import Timer
 from subsystems.drivetrain import Drivetrain
