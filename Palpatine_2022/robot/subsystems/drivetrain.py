@@ -35,7 +35,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
-
+        
+        self.drive = wpilib.drive.DifferentialDrive(frontLeft, frontRight)
         #def userDrive(self, RobotContainer.driveController) -> None:
             
         """
@@ -59,10 +60,10 @@ class Drivetrain(commands2.SubsystemBase):
         self.fRightMotor.disable()
         self.bRightMotor.disable()
         """
-    """
+    
     def drive_tank(self, left: float, right: float):
         self.drive.tankDrive(left, right)
-        """
+    
     
     #def drive(left, right):
     #    self.
