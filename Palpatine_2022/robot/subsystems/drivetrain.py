@@ -74,5 +74,5 @@ class Drivetrain(commands2.SubsystemBase):
         self.fRightMotor.disable()
         self.bRightMotor.disable()
         """
-    def initDefaultCommand(self):
-        self.drive.setDefaultCommand(DriveByJoystick(self.robot))
+    #def initDefaultCommand(self):
+    #    self.drive.setDefaultCommand(DriveByJoystick(self.robot))
