@@ -8,10 +8,8 @@ from subsystems.drivetrain import Drivetrain
 class RobotContainer:
     def __init__(self) -> None:
         self.init_controllers()
-    def init_controllers(self):
-        self.driverController = XboxController(constants.kdriverControllerPort)
 
-        self.drive = Drivetrain(self)
+        self.drive = Drivetrain()
         # chooser
         self.chooser = wpilib.SendableChooser()
 
@@ -23,8 +21,11 @@ class RobotContainer:
 
         self.configureButtonBindings
         
+        def init_controllers(self):
+            self.driverController = XboxController(constants.kdriverControllerPort)
+        
         self.drive.setDefaultCommand(
-            DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY, lambda: -self.driverController.getRightY)
+            DriveByJoystick(self.drive, self.driverController)
         )
         def configureButtonBindings(self):
             print()
