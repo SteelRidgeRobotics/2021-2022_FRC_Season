@@ -10,7 +10,7 @@ class DriveByJoystick(commands2.CommandBase):
     """
     def __init__(self, drive: Drivetrain, left: float, right: float) -> None:
         self.drive = drive
-        self.addRequirements
+        self.addRequirements([self.drive])
     
     #def initialize(self):
         # Called just before the command runs for the first time
