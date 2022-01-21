@@ -3,6 +3,7 @@ import commands2
 import constants
 import ctre
 from commands.drive_by_joystick import DriveByJoystick
+from robotcontainer import RobotContainer
 
 
 
@@ -37,9 +38,24 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
+        """
+        def userDrive(self, RobotContainer.driveController) -> None:
+            left = float((RobotContainer.driveController.getY()*-1) + RobotContainer.driveController.getX())
+            right = float((RobotContainer.driveController.getY()*-1) - RobotContainer.driveController.getX())
+
+            self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
+            self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
         
-        self.drive = wpilib.drive.DifferentialDrive(self.frontLeft, self.frontRight)
-        #def userDrive(self, RobotContainer.driveController) -> None:
+        def userDrive(self, controller) -> None:
+            left = float((controller.getY()*-1) + RobotContainer.driveController.getX())
+            right = float((controller.getY()*-1) - RobotContainer.driveController.getX())
+
+            self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
+            self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+        """
+        def userDrive(self, left: float, right: float):
+            self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
+            self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
             
         """
 
@@ -64,10 +80,3 @@ class Drivetrain(commands2.SubsystemBase):
         """
     def initDefaultCommand(self):
         self.drive.setDefaultCommand(DriveByJoystick(self.robot))
-    
-    def drive_tank(self, left: float, right: float):
-        self.drive.tankDrive(left, right)
-    
-    
-    #def drive(left, right):
-    #    self.
