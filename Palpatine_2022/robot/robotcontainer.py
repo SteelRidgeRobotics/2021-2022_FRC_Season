@@ -19,7 +19,7 @@ class RobotContainer:
 
         #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
-        self.configureButtonBindings
+        #self.configureButtonBindings
         
         def init_controllers(self):
             self.driverController = XboxController(constants.kdriverControllerPort)
@@ -27,8 +27,8 @@ class RobotContainer:
         self.drive.setDefaultCommand(
             DriveByJoystick(self.drive, self.driverController)
         )
-        def configureButtonBindings(self):
-            print()
+        #def configureButtonBindings(self):
+        #    print()
 
         #def getAutonomousCommand(self) -> commands.,Command:
         #    return self.chooser.getSelected()
