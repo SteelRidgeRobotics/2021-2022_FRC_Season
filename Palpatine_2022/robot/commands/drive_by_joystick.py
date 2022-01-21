@@ -1,16 +1,16 @@
 import wpilib
-from wpilib.command import Command
+from commands2
 from wpilib import Timer
 from subsystems.drivetrain import Drivetrain
 from robotcontainer import RobotContainer
 
-class DriveByJoystick(Command):
+class DriveByJoystick(commands2.CommandBase):
     """
     This allows us to drive the robot with an xbox controller
     """
-    def __init__(self, drive: Drivetrain):
-        Command.__init__(self, name='drivebyjoystick')
+    def __init__(self, drive: Drivetrain, left: float, right: float) -> None:
         self.drive = drive
+        self.addRequirements
     
     #def initialize(self):
         # Called just before the command runs for the first time

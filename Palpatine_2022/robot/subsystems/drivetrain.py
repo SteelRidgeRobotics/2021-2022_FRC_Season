@@ -3,14 +3,10 @@ import commands2
 import constants
 import ctre
 from commands.drive_by_joystick import DriveByJoystick
-from robotcontainer import RobotContainer
-
-
 
 class Drivetrain(commands2.SubsystemBase):
-    def __init__(self, robot):
+    def __init__(self):
         super().__init__()
-        self.robot = robot
 
         #initilize motors
         self.frontLeft = ctre.TalonFX(constants.kfrontLeft)
