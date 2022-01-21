@@ -1,7 +1,7 @@
 import wpilib
 from subsystems.drivetrain import Drivetrain
 from commandbased import CommandBasedRobot
-
+from robotcontainer import RobotContainer
 from commands import AutonomousCommandGroup
 
 class MyRobot(CommandBasedRobot):
@@ -9,11 +9,12 @@ class MyRobot(CommandBasedRobot):
     def robotInit(self):
         '''Initialize things like subsystems'''
         super().__init__()
-        #init the drive train
-        self.drivetrain = Drivetrain(self)
+        #init the drive train (This is done in the robotcontainer)
+        #self.drivetrain = Drivetrain(self) 
+        self.container = RobotContainer
 
-        self.autonomous = AutonomousCommandGroup()
+        #self.autonomous = AutonomousCommandGroup()
 
 
-    def autonomousInit(self):
-        self.autonomous.start()
+    #def autonomousInit(self):
+    #    self.autonomous.start()
