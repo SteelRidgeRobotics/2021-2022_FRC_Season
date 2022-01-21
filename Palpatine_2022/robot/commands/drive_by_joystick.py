@@ -9,6 +9,8 @@ class DriveByJoystick(commands2.CommandBase):
     This allows us to drive the robot with an xbox controller
     """
     def __init__(self, drive: Drivetrain, driveController: RobotContainer.driveController) -> None:
+        super().__init__()
+        
         self.drive = drive
         self.driveController = driveController
         self.addRequirements([self.drive])
