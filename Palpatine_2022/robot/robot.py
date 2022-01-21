@@ -14,7 +14,10 @@ class MyRobot(CommandBasedRobot):
         self.container = RobotContainer
 
         #self.autonomous = AutonomousCommandGroup()
+    #def disabledInit(self) -> None:
 
 
     #def autonomousInit(self):
     #    self.autonomous.start()
+    
+    
