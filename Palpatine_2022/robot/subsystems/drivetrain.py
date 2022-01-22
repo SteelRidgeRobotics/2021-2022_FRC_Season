@@ -1,6 +1,6 @@
 import commands2
-import constants
 import ctre
+import constants
 
 class Drivetrain(commands2.SubsystemBase):
     def __init__(self):
@@ -47,9 +47,9 @@ class Drivetrain(commands2.SubsystemBase):
             self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
             self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
         """
-        def userDrive(self, left: float, right: float):
-            self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-            self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+    def userDrive(self, left: float, right: float):
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
             
         """
 
