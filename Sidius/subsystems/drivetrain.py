@@ -28,8 +28,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.backRight.setInverted(True)
 
         #configure encoders
-        self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
-        self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
+        self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
         
         #set motors to brake mode
         self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
@@ -39,12 +39,14 @@ class Drivetrain(commands2.SubsystemBase):
 
         
 
-    def userDrive(self, left: float, right: float) -> None:
+    def userDrive(self, leftJoy: float, rightJoy: float) -> None:
         
-        self.frontLeft.set(ctre.ControlMode.PercentOutput, left)
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy)
 	    
-        self.frontRight.set(ctre.ControlMode.PercentOutput, right)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy)
     
     def stopMotors(self, left: float, right: float) -> None:
-        self.frontLeft.set(0.0)
-        self.frontRight.set(0.0)
+        self.left = 0.0
+        self.right = 0.0
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)

@@ -1,3 +1,4 @@
+from operator import le
 import wpilib
 import commands2
 import constants
@@ -29,7 +30,7 @@ class RobotContainer:
         
 
         # The robot's subsystems
-        self.drivetrain = Drivetrain()
+        self.drive = Drivetrain()
         
         # Autonomous routines
         #self.AUTOCOMMANDHERE = COMMAND()
@@ -49,7 +50,7 @@ class RobotContainer:
         self.configureButtonBindings()
 
         # set up default drive command
-        self.drivetrain.setDefaultCommand(DrivewithJoystick(self.drivetrain,lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY()))
+        self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())) 
 
     def configureButtonBindings(self):
         """
