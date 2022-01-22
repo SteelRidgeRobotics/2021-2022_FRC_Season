@@ -1,23 +1,55 @@
 import wpilib
-from subsystems.drivetrain import Drivetrain
-from commandbased import CommandBasedRobot
 from robotcontainer import RobotContainer
-from commands import AutonomousCommandGroup
+import commands2
 
-class MyRobot(CommandBasedRobot):
 
-    def robotInit(self):
+class MyRobot(commands2.TimedCommandRobot):
+
+    def robotInit(self) -> None:
         '''Initialize things like subsystems'''
         super().__init__()
         #init the drive train (This is done in the robotcontainer)
         #self.drivetrain = Drivetrain(self) 
         self.container = RobotContainer
 
-        #self.autonomous = AutonomousCommandGroup()
-    #def disabledInit(self) -> None:
+    def disabledInit(self) -> None:
+        """This function is called once each time the robot enters Disabled mode."""
+
+    def disabledPeriodic(self) -> None:
+        """This function is called periodically when disabled"""
+
+    def autonomousInit(self) -> None:
+        """This autonomous runs the autonomous command selected by your RobotContainer class."""
+        
+        #self.autonomousCommand = self.container.getAutonomousCommand()
+
+        #if self.autonomousCommand:
+        #    self.autonomousCommand.schedule()
+
+    def autonomousPeriodic(self) -> None:
+        """This function is called periodically during autonomous"""
+
+    def teleopInit(self) -> None:
+        """
+        This makes sure that the autonomous stops running when 
+        teleop starts running. If you want the autonomous to
+        continue until interrupted by another command, remove
+        this line or comment it out.
+        """
+
+       # if self.autonomousCommand:
+       #     self.autonomousCommand.cancel()
+
+    def teleopPeriodic(self) -> None:
+        """This function is called periodically during operator control"""
 
 
-    #def autonomousInit(self):
-    #    self.autonomous.start()
+    def testInit(self) -> None:
+        # Cancels all running commands at the start of test mode
+        commands2.CommandScheduler.getInstance().cancelAll()
+
+
+if __name__ == "__main__":
+    wpilib.run(MyRobot)
     
     

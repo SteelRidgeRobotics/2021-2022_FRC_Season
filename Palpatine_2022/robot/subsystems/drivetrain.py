@@ -1,8 +1,6 @@
-import wpilib
 import commands2
 import constants
 import ctre
-from commands.drive_by_joystick import DriveByJoystick
 
 class Drivetrain(commands2.SubsystemBase):
     def __init__(self):
@@ -23,8 +21,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft.setSensorPhase(False)
 
         #invert motors on right side
-        self.frontRight.setSensorPhase(True)
-        self.backRight.setSensorPhase(True)
+        self.frontRight.setInverted(True)
+        self.backRight.setInverted(True)
 
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
         self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
@@ -74,5 +72,10 @@ class Drivetrain(commands2.SubsystemBase):
         self.fRightMotor.disable()
         self.bRightMotor.disable()
         """
+    def stopMotors(self, left: float, right: float):
+        self.left = 0.0
+        self.right = 0.0
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
     #def initDefaultCommand(self):
     #    self.drive.setDefaultCommand(DriveByJoystick(self.robot))
