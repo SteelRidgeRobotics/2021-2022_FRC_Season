@@ -10,7 +10,7 @@ class MyRobot(commands2.TimedCommandRobot):
         super().__init__()
         #init the drive train (This is done in the robotcontainer)
         #self.drivetrain = Drivetrain(self) 
-        self.container = RobotContainer
+        self.container = RobotContainer()
 
     def disabledInit(self) -> None:
         """This function is called once each time the robot enters Disabled mode."""

@@ -27,7 +27,7 @@ class RobotContainer:
 
         #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
-        self.configureButtonBindings()  
+        #self.configureButtonBindings()  
         
         
         
@@ -35,9 +35,9 @@ class RobotContainer:
         self.drive.setDefaultCommand(
             DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY()))
         
-        def configureButtonBindings(self):
-            """
-            """
+        # def configureButtonBindings(self):
+        #     """
+        #     """
 
-        def getAutonomousCommand(self) -> commands2.Command:
-            return self.chooser.getSelected()
+        # def getAutonomousCommand(self) -> commands2.Command:
+        #     return self.chooser.getSelected()

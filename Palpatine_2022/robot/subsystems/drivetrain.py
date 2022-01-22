@@ -24,8 +24,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.setInverted(True)
         self.backRight.setInverted(True)
 
-        self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
-        self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.QuadEncoder, 0, constants.ktimeoutMs)
+        self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
 
         #set motors to brake mode
         self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
