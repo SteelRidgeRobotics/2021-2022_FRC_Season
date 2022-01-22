@@ -1,4 +1,3 @@
-from operator import le
 import wpilib
 import commands2
 import constants
