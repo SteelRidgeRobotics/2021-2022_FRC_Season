@@ -65,17 +65,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.drive.setSafetyEnabled(True)
         self.drive.setExpiration(0.1)
         """
-    """
-    def disable_drive():
-        self.fLeftMotor.disable()
-        self.bLeftMotor.disable()
-        self.fRightMotor.disable()
-        self.bRightMotor.disable()
-        """
     def stopMotors(self, left: float, right: float):
         self.left = 0.0
         self.right = 0.0
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
-    #def initDefaultCommand(self):
-    #    self.drive.setDefaultCommand(DriveByJoystick(self.robot))
