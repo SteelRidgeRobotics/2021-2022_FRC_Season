@@ -6,14 +6,15 @@ class DriveByJoystick(commands2.CommandBase):
     """
     This allows us to drive the robot with an xbox controller
     """
-    def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float]) -> None:
+    def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float], bumperRight: bool, bumperLeft: bool) -> None:
         super().__init__()
         
         self.drive = drive
         self.left_axis = left_axis
         self.right_axis = right_axis
         self.addRequirements([self.drive])
-
+        self.bumperRight = bumperRight
+        self.bumperLeft = bumperLeft
     
     #def initialize(self):
         # Called just before the command runs for the first time
@@ -22,7 +23,10 @@ class DriveByJoystick(commands2.CommandBase):
     def execute(self) -> None:
         # Called repeatedly when this command is scheduled to run
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
-        self.drive.userDrive(self.left_axis(), self.right_axis())
+        self.slowFactor = 1.0
+        if self.bumperRight or self.bumperLeft:
+            self.slowFactor = 0.5
+        self.drive.userDrive(self.left_axis()*self.slowFactor, self.right_axis()*self.slowFactor)
     
     def end(self, inturrupted: bool) -> None:
     # 
