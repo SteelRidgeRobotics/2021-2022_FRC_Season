@@ -23,15 +23,16 @@ class DriveByJoystick(commands2.CommandBase):
         # Called repeatedly when this command is scheduled to run
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
         self.drive.userDrive(self.left_axis(), self.right_axis())
-    def isFinished(self) -> None:
-        # Make this return True when this command no longer needs to run execute()
-        return False
     
     def end(self, inturrupted: bool) -> None:
     # 
         # Called once after isFinished returns True
         # Stop the drivetrain from moving any further
         self.drive.stopMotors()
+        
+    def isFinished(self) -> None:
+        # Make this return True when this command no longer needs to run execute()
+        return False
 """
     def interrupted(self):
         # Called when another command which requres one or more of the same subsystems is scheduled to run
