@@ -24,8 +24,13 @@ class DriveByJoystick(commands2.CommandBase):
         # Called repeatedly when this command is scheduled to run
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
         self.slowFactor = 1.0
-        if self.bumperRight or self.bumperLeft:
+        
+        if (self.bumperRight or self.bumperLeft) and self.slowFactor = 1.0:
             self.slowFactor = 0.5
+        
+        elif (self.bumperRight or self.bumperLeft) and self.slowFactor = 0.5:
+            self.slowFactor = 1.0 
+        
         self.drive.userDrive(self.left_axis()*self.slowFactor, self.right_axis()*self.slowFactor)
     
     def end(self, inturrupted: bool) -> None:
@@ -34,7 +39,7 @@ class DriveByJoystick(commands2.CommandBase):
         # Stop the drivetrain from moving any further
         self.drive.stopMotors()
         
-    def isFinished(self) -> None:
+    def isFinished(self) -> bool:
         # Make this return True when this command no longer needs to run execute()
         return False
 """
