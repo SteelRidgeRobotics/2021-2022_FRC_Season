@@ -36,21 +36,7 @@ class Drivetrain(commands2.SubsystemBase):
     def userDrive(self, left: float, right: float):
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
-            
-        """
 
-        self.fLeftMotor = ctre.WPI_TalonFX(constants.kfrontLeft)
-        self.bLeftMotor = ctre.WPI_TalonFX(constants.kbackLeft)
-        self.fRightMotor = ctre.WPI_TalonFX(constants.kfrontRight)
-        self.bRightMotor = ctre.WPI_TalonFX(constants.kbackRight)
-
-        self.spcleft = wpilib.SpeedControllerGroup(self.fLeftMotor, self.bLeftMotor)
-        self.spcright = wpilib.SpeedControllerGroup(self.fRightMotor, self.bRightMotor)
-        self.drive = wpilib.drive.DifferentialDrive(self.spcleft, self.spcright)
-
-        self.drive.setSafetyEnabled(True)
-        self.drive.setExpiration(0.1)
-        """
     def stopMotors(self, left: float, right: float):
         self.left = 0.0
         self.right = 0.0
