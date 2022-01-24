@@ -7,7 +7,6 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def robotInit(self) -> None:
         '''Initialize things like subsystems'''
-        super().__init__()
         #init the drive train (This is done in the robotcontainer)
         #self.drivetrain = Drivetrain(self) 
         self.container = RobotContainer()
