@@ -9,8 +9,8 @@ class Drivetrain(commands2.SubsystemBase):
         #initilize motors
         self.frontLeft = ctre.TalonFX(constants.kfrontLeft)
         self.backLeft = ctre.TalonFX(constants.kbackLeft)
-        self.frontRight = ctre.TalonFX(constants.kfrontLeft)
-        self.backRight = ctre.TalonFX(constants.kbackLeft)
+        self.frontRight = ctre.TalonFX(constants.kfrontRight)
+        self.backRight = ctre.TalonFX(constants.kbackRight)
 
         #set followers
         self.backLeft.follow(self.frontLeft)
