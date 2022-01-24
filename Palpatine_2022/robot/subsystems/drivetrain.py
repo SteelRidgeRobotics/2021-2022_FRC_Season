@@ -32,21 +32,7 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
-        """
-        def userDrive(self, RobotContainer.driveController) -> None:
-            left = float((RobotContainer.driveController.getY()*-1) + RobotContainer.driveController.getX())
-            right = float((RobotContainer.driveController.getY()*-1) - RobotContainer.driveController.getX())
-
-            self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-            self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
-        
-        def userDrive(self, controller) -> None:
-            left = float((controller.getY()*-1) + RobotContainer.driveController.getX())
-            right = float((controller.getY()*-1) - RobotContainer.driveController.getX())
-
-            self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-            self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
-        """
+       
     def userDrive(self, left: float, right: float):
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
