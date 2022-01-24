@@ -33,7 +33,7 @@ class RobotContainer:
         
         
         self.drive.setDefaultCommand(
-            DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY()))
+            DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), self.driverController.getLeftBumper(), self.driverController.getRightBumper()))
         
         # def configureButtonBindings(self):
         #     """
