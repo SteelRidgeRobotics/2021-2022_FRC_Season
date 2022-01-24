@@ -18,7 +18,7 @@ class Drivetrain(commands2.SubsystemBase):
 
         #reverse sensors
         self.frontLeft.setSensorPhase(False)
-        self.backLeft.setSensorPhase(False)
+        self.frontRight.setSensorPhase(False)
 
         #invert motors on right side
         self.frontRight.setInverted(True)
