@@ -6,7 +6,7 @@ class DriveByJoystick(commands2.CommandBase):
     """
     This allows us to drive the robot with an xbox controller
     """
-    def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float], bumperRight: bool, bumperLeft: bool) -> None:
+    def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float], bumperRight: typing.Callable[[], bool], bumperLeft: typing.Callable[[], bool]) -> None:
         super().__init__()
         
         self.drive = drive
@@ -25,10 +25,10 @@ class DriveByJoystick(commands2.CommandBase):
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
         self.slowFactor = 1.0
         
-        if (self.bumperRight or self.bumperLeft) and self.slowFactor = 1.0:
+        if (self.bumperRight or self.bumperLeft) and self.slowFactor ==  1.0:
             self.slowFactor = 0.5
         
-        elif (self.bumperRight or self.bumperLeft) and self.slowFactor = 0.5:
+        elif (self.bumperRight or self.bumperLeft) and self.slowFactor == 0.5:
             self.slowFactor = 1.0 
         
         self.drive.userDrive(self.left_axis()*self.slowFactor, self.right_axis()*self.slowFactor)
