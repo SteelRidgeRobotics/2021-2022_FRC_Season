@@ -37,8 +37,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy)
 
-    def stopMotors(self, left: float, right: float) -> None:
+    def stopMotors(self) -> None:
         self.left = 0.0
         self.right = 0.0
-        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
