@@ -3,7 +3,7 @@ import ctre
 import constants
 
 class Drivetrain(commands2.SubsystemBase):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         #initilize motors
@@ -33,9 +33,9 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
        
-    def userDrive(self, left: float, right: float) -> None:
-        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+    def userDrive(self, leftJoy: float, rightJoy: float) -> None:
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy)
 
     def stopMotors(self, left: float, right: float) -> None:
         self.left = 0.0
