@@ -11,9 +11,6 @@ class RobotContainer:
         # driver controller
         self.driverController = XboxController(constants.kdriverControllerPort)
         
-        # chooser
-        self.chooser = wpilib.SendableChooser()
-        
         self.frontLeft = ctre.TalonFX(constants.kfrontLeft)
         self.backLeft = ctre.TalonFX(constants.kbackLeft)
         self.frontRight = ctre.TalonFX(constants.kfrontRight)
@@ -21,6 +18,10 @@ class RobotContainer:
         
         #subsystems
         self.drive = Drivetrain()
+        
+        # chooser
+        self.chooser = wpilib.SendableChooser()
+        
         # Add commands to autonomous command chooser
         #self.chooser.setDefaultOption("Simple Auto", self.chooser)
         #self.chooser.addOption("Complex Auto", self.chooser)
@@ -35,5 +36,5 @@ class RobotContainer:
         #     """
         #     """
 
-        # def getAutonomousCommand(self) -> commands2.Command:
-        #     return self.chooser.getSelected()
+        def getAutonomousCommand(self) -> commands2.Command:
+            return self.chooser.getSelected()
