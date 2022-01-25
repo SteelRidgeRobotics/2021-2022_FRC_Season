@@ -23,7 +23,7 @@ class DriveByJoystick(commands2.CommandBase):
 
     def execute(self) -> None:
         # Called repeatedly when this command is scheduled to run
-        self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
+        #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
         self.slowFactor = 1.0
         
         if (self.bumperRight or self.bumperLeft) and self.slowFactor ==  1.0:
@@ -32,8 +32,8 @@ class DriveByJoystick(commands2.CommandBase):
         elif (self.bumperRight or self.bumperLeft) and self.slowFactor == 0.5:
             self.slowFactor = 1.0 
         
-        self.drive.userDrive(self.left_axis()*self.slowFactor, self.right_axis()*self.slowFactor)
-        self.drive.userDrive(self.left_axis(), self.right_axis())
+        self.drive.userDrive(self.left_axis*self.slowFactor, self.right_axis*self.slowFactor)
+        #self.drive.userDrive(self.left_axis(), self.right_axis())
     
     def end(self, interrupted: bool) -> None:
     # 
