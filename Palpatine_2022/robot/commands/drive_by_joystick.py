@@ -16,7 +16,7 @@ class DriveByJoystick(commands2.CommandBase):
         self.addRequirements([self.drive])
         self.bumperRight = bumperRight
         self.bumperLeft = bumperLeft
-        self.slowFactor = 1.0
+        self.slowFactor = 0.5
     
     #def initialize(self):
         # Called just before the command runs for the first time
@@ -28,14 +28,13 @@ class DriveByJoystick(commands2.CommandBase):
         
         # when the one of the bumpers is pressed, halve the speed
         if self.bumperRight or self.bumperLeft:
-            self.slowFactor = 0.5
+            self.left_axis *= self.slowFactor
+            self.right_axis *= self.slowFactor
         # 
         #elif (self.bumperRight or self.bumperLeft) and self.slowFactor == 0.5:
         #    self.slowFactor = 1.0 
-        else:
-            self.slowFactor = 1.0
         
-        self.drive.userDrive(self.left_axis*self.slowFactor, self.right_axis*self.slowFactor)
+        self.drive.userDrive(self.left_axis, self.right_axis)
         #self.drive.userDrive(self.left_axis(), self.right_axis())
     
     def end(self, interrupted: bool) -> None:
