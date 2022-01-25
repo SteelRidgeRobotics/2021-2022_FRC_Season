@@ -7,7 +7,7 @@ class DriveByJoystick(commands2.CommandBase):
     This allows us to drive the robot with an xbox controller
     """
     #def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float], bumperRight: typing.Callable[[], bool], bumperLeft: typing.Callable[[], bool]) -> None:
-    def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float]) -> None:
+    def __init__(self, drive: Drivetrain, left_axis, right_axis) -> None:
         super().__init__()
         
         self.drive = drive
@@ -35,7 +35,7 @@ class DriveByJoystick(commands2.CommandBase):
         #self.drive.userDrive(self.left_axis()*self.slowFactor, self.right_axis()*self.slowFactor)
         self.drive.userDrive(self.left_axis(), self.right_axis())
     
-    def end(self, inturrupted: bool) -> None:
+    def end(self, interrupted: bool) -> None:
     # 
         # Called once after isFinished returns True
         # Stop the drivetrain from moving any further
