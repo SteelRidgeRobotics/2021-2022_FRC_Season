@@ -13,9 +13,11 @@ class DriveByJoystick(commands2.CommandBase):
         self.drive = drive
         self.left_axis = left_axis
         self.right_axis = right_axis
-        self.addRequirements([self.drive])
         self.bumperRight = bumperRight
         self.bumperLeft = bumperLeft
+        
+        self.addRequirements([self.drive])
+        
         self.slowFactor = 0.5
     
     #def initialize(self):
