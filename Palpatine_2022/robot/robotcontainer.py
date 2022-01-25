@@ -2,14 +2,14 @@ import wpilib
 import commands2
 import constants
 import ctre
-import wpilib
+from wpilib import XboxController
 from commands.drive_by_joystick import DriveByJoystick
 from subsystems.drivetrain import Drivetrain
 
 class RobotContainer:
     def __init__(self) -> None:
         # driver controller
-        self.driverController = wpilib.XboxController(constants.kdriverControllerPort)
+        self.driverController = XboxController(constants.kdriverControllerPort)
         
         # chooser
         self.chooser = wpilib.SendableChooser()
@@ -31,7 +31,7 @@ class RobotContainer:
         
         
         
-        
+        testVar = -self.driverController.getLeftY()
         #self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), lambda: self.driverController.getRightBumper(), lambda: self.driverController.getLeftBumper()))
         self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY()))
         # def configureButtonBindings(self):
