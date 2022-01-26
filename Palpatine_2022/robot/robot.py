@@ -13,7 +13,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def disabledInit(self) -> None:
         """This function is called once each time the robot enters Disabled mode."""
-
+       
     def disabledPeriodic(self) -> None:
         """This function is called periodically when disabled"""
 
@@ -24,10 +24,10 @@ class MyRobot(commands2.TimedCommandRobot):
 
         #if self.autonomousCommand:
         #    self.autonomousCommand.schedule()
-
+        
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""
-
+       
     def teleopInit(self) -> None:
         """
         This makes sure that the autonomous stops running when 
@@ -38,11 +38,10 @@ class MyRobot(commands2.TimedCommandRobot):
 
        # if self.autonomousCommand:
        #     self.autonomousCommand.cancel()
-
+      
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""
-
-
+       
     def testInit(self) -> None:
         # Cancels all running commands at the start of test mode
         commands2.CommandScheduler.getInstance().cancelAll()
