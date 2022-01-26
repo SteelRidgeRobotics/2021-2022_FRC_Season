@@ -7,7 +7,7 @@ class DriveByJoystick(commands2.CommandBase):
     """
     This allows us to drive the robot with an xbox controller
     """
-    def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float], bumperRight: typing.Callable[[], bool]) -> None:
+    def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float], bumperRight: typing.Callable[[], bool], bumperLeft: typing.Callable[[], bool]) -> None:
     #def __init__(self, drive: Drivetrain, left_axis, right_axis) -> None:
         super().__init__()
         
@@ -15,6 +15,7 @@ class DriveByJoystick(commands2.CommandBase):
         self.left_axis = left_axis
         self.right_axis = right_axis
         self.bumperRight = bumperRight
+        self.bumperLeft = bumperLeft
         self.percent = 1.0
 
         self.addRequirements([self.drive])
@@ -30,7 +31,7 @@ class DriveByJoystick(commands2.CommandBase):
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
         
         # when the one of the bumpers is pressed, halve the speed
-        if self.bumperRight():
+        if self.bumperRight() or self.bumperLeft():
             self.percent = 0.5
             self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         # 
@@ -44,7 +45,9 @@ class DriveByJoystick(commands2.CommandBase):
         wpilib.SmartDashboard.putNumber('leftJoy:', self.left_axis())
         wpilib.SmartDashboard.putNumber('rightJoy:', self.right_axis())
         wpilib.SmartDashboard.putBoolean('Right Bumper Pressed:', self.bumperRight())
+        wpilib.SmartDashboard.putBoolean('Left Bumper Pressed:', self.bumperLeft())
         wpilib.SmartDashboard.putNumber('Speed Percentage:', self.percent)
+    
     def end(self, interrupted: bool) -> None:
     # 
         # Called once after isFinished returns True
