@@ -17,7 +17,7 @@ class DrivewithJoystick(commands2.CommandBase):
          self.drive.userDrive(self.left_axis(), self.right_axis())
 
     def end(self, interrupted: bool) -> None:
-        self.drive.stopMotors()
+        self.drive.stopMotors(0.0, 0.0)
 
     def isFinished(self) -> bool:
         return False
