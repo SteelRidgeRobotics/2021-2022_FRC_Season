@@ -1,8 +1,10 @@
+from hal import JoystickButtons
 import wpilib
 import commands2
+from commands2.button import JoystickButton
 import constants
 import ctre
-from wpilib import XboxController
+from wpilib import Joystick, XboxController
 from commands.drivewithjoystick import DrivewithJoystick
 from subsystems.drivetrain import Drivetrain
 
@@ -57,7 +59,7 @@ class RobotContainer:
         instantiating a :GenericHID or one of its subclasses (Joystick or XboxController),
         and then passing it to a JoystickButton.
         """
-
+        (JoystickButton(self.driverController, XboxController.Button.kLeftBumper).whenPressed(DrivewithJoystick(self.drive, lambda: -0.5*self.driverController.getLeftY(), lambda: -0.5*self.driverController.getRightY())).whenReleased(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())))
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()
