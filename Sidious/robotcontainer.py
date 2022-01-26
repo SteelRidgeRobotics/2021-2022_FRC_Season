@@ -59,7 +59,7 @@ class RobotContainer:
         instantiating a :GenericHID or one of its subclasses (Joystick or XboxController),
         and then passing it to a JoystickButton.
         """
-        (JoystickButton(self.driverController, XboxController.Button.kLeftBumper).whenPressed(lambda: self.drive.userDrive(-0.5*self.driverController.getLeftY(), lambda: -0.5*self.driverController.getRightY())).whenReleased(lambda: self.drive.userDrive(-self.driverController.getLeftY(), lambda: -self.driverController.getRightY())))
+        (JoystickButton(self.driverController, XboxController.Button.kLeftBumper).whenPressed(DrivewithJoystick(self.drive, lambda: -0.5*self.driverController.getLeftY(), lambda: -0.5*self.driverController.getRightY())).whenReleased(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())))
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()
