@@ -1,6 +1,7 @@
 import typing
 import commands2
 from subsystems.drivetrain import Drivetrain
+import wpilib 
 
 class DriveByJoystick(commands2.CommandBase):
     """
@@ -14,7 +15,8 @@ class DriveByJoystick(commands2.CommandBase):
         self.left_axis = left_axis
         self.right_axis = right_axis
         self.bumperRight = bumperRight
-        
+        self.percent = 1.0
+
         self.addRequirements([self.drive])
         
         self.slowFactor = 0.5
@@ -28,16 +30,21 @@ class DriveByJoystick(commands2.CommandBase):
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX())
         
         # when the one of the bumpers is pressed, halve the speed
-        if self.bumperRight:
-            self.drive.userDrive(self.left_axis(), self.right_axis(), 0.5)
+        if self.bumperRight():
+            self.percent = 0.5
+            self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         # 
         #elif (self.bumperRight or self.bumperLeft) and self.slowFactor == 0.5:
         #    self.slowFactor = 1.0 
         else:
-            self.drive.userDrive(self.left_axis(), self.right_axis(), 1.0)
+            self.percent = 1.0
+            self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         
         #self.drive.userDrive(self.left_axis(), self.right_axis())
-    
+        wpilib.SmartDashboard.putNumber('leftJoy:', self.left_axis())
+        wpilib.SmartDashboard.putNumber('rightJoy:', self.right_axis())
+        wpilib.SmartDashboard.putBoolean('Right Bumper Pressed:', self.bumperRight())
+        wpilib.SmartDashboard.putNumber('Speed Percentage:', self.percent)
     def end(self, interrupted: bool) -> None:
     # 
         # Called once after isFinished returns True
