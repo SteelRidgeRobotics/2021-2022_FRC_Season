@@ -33,12 +33,12 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
        
-    def userDrive(self, leftJoy: float, rightJoy: float) -> None:
-        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy)
-        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy)
+    def userDrive(self, leftJoy: float, rightJoy: float, percentage: float) -> None:
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy*percentage)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy*percentage)
 
-    def stopMotors(self, left: float, right: float) -> None:
+    def stopMotors(self) -> None:
         self.left = 0.0
         self.right = 0.0
-        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
