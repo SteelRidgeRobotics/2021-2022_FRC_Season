@@ -26,11 +26,11 @@ class RobotContainer:
         #self.chooser.setDefaultOption("Simple Auto", self.chooser)
         #self.chooser.addOption("Complex Auto", self.chooser)
 
-        #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
+       
 
         #self.configureButtonBindings()  
         
-        self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), self.driverController.getRightBumper()))
+        self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), lambda: self.driverController.getRightBumper(), lambda: self.driverController.getLeftBumper()))
         #self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY()))
         # def configureButtonBindings(self):
         #     """
