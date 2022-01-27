@@ -15,17 +15,21 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight = ctre.TalonFX(constants.kfrontRight)
         self.backRight = ctre.TalonFX(constants.kbackRight)
 
+        self.frontLeft.configFactoryDefault()
+        self.backLeft.configFactoryDefault()
+        self.frontRight.configFactoryDefault()
+        self.backLeft.configFactoryDefault()
+
         #set followers
         self.backLeft.follow(self.frontLeft)
         self.backRight.follow(self.frontRight)
 
-        #reverse sensors
-        self.frontLeft.setSensorPhase(False)
-        self.frontRight.setSensorPhase(False)
+        #reverse sensors-This shouldn't be necessary with TalonFX as sensors are integrated
+        
 
         #invert motors on right side
-        self.frontRight.setInverted(True)
-        self.backRight.setInverted(True)
+        self.frontRight.setInverted(ctre.TalonFXInvertType.CounterClockwise)
+        self.backRight.setInverted(ctre.TalonFXInvertType.CounterClockwise)
 
         #configure encoders
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
@@ -42,11 +46,9 @@ class Drivetrain(commands2.SubsystemBase):
     def userDrive(self, leftJoy: float, rightJoy: float) -> None:
         
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy)
-	    
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy)
     
     def stopMotors(self, left: float, right: float) -> None:
-        #self.left = 0.0
-        #self.right = 0.0
+
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
