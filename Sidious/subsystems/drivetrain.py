@@ -28,8 +28,8 @@ class Drivetrain(commands2.SubsystemBase):
         
 
         #invert motors on right side
-        self.frontRight.setInverted(ctre.TalonFXInvertType.CounterClockwise)
-        self.backRight.setInverted(ctre.TalonFXInvertType.CounterClockwise)
+        self.frontRight.setInverted(ctre.TalonFXInvertType.Clockwise)
+        self.backRight.setInverted(ctre.TalonFXInvertType.Clockwise)
 
         #configure encoders
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
