@@ -6,7 +6,9 @@ import constants
 import ctre
 from wpilib import Joystick, XboxController
 from commands.drivewithjoystick import DrivewithJoystick
+from commands.motionmagic import MotionMagic
 from subsystems.drivetrain import Drivetrain
+
 
 
 
@@ -60,6 +62,8 @@ class RobotContainer:
         and then passing it to a JoystickButton.
         """
         (JoystickButton(self.driverController, XboxController.Button.kLeftBumper).whenPressed(DrivewithJoystick(self.drive, lambda: -0.5*self.driverController.getLeftY(), lambda: -0.5*self.driverController.getRightY())).whenReleased(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())))
+        (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(MotionMagic(self.drive, constants.kUnits)))
+
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()
