@@ -4,6 +4,7 @@ import constants
 import ctre
 from wpilib import XboxController
 from commands.drive_by_joystick import DriveByJoystick
+from commands.drive_straight import DriveStraight
 from subsystems.drivetrain import Drivetrain
 #hi
 class RobotContainer:
@@ -23,8 +24,10 @@ class RobotContainer:
         self.chooser = wpilib.SendableChooser()
         
         # Add commands to autonomous command chooser
-        #self.chooser.setDefaultOption("Simple Auto", self.chooser)
-        #self.chooser.addOption("Complex Auto", self.chooser)
+        self.driveStraight = DriveStraight(self.drive, lambda: constants.kdistanceToTravel)
+        self.chooser.setDefaultOption("Drive Straight", self.driveStraight)
+
+        wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
        
 
@@ -36,5 +39,5 @@ class RobotContainer:
         #     """
         #     """
 
-        def getAutonomousCommand(self) -> commands2.Command:
-            return self.chooser.getSelected()
+    def getAutonomousCommand(self) -> commands2.Command:
+        return self.chooser.getSelected()
