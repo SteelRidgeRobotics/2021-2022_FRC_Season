@@ -51,7 +51,7 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
                 self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
         #our userdrive function
-        def userDrive(self, leftstick: float, rightstick: float, leftBumper: bool, rightBumper: bool) -> None:
+        def userDrive(self, leftstick, rightstick, leftBumper, rightBumper) -> None:
                 #check if either the leftbumper or rightbumper is down
                 if leftBumper or rightBumper:
                         #if it is we multiply our motor values by our slow factor constant
@@ -63,16 +63,23 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightstick)
 	    
         #motionmagic function
-        def motionMagic(self, units: float) -> None:
+        def motionMagic(self, units) -> None:
             self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, units)
             self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, units)
         
         #check if robot is moving
-        #why check if vel is 0? if moving wouldn't vel be not 0?
         def notInMotion(self) -> bool:
-            return self.frontLeft.getSelectedSensorPosition() != 0.0 and self.frontLeft.getSelectedSensorVelocity() == 0.0
-        
+            self.frontLeftPos = self.frontLeft.getSelectedSensorPosition()
+            self.frontLeftVel = self.frontLeft.getSelectedSensorVelocity()
+            if self.frontLeftPos != 0.0 and self.frontLeftVel == 0.0:
+                return True
+            else:
+                return False
+
         #stop the motors
         def stopMotors(self, left, right) -> None:
                 self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
                 self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+
+                self.frontLeft.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)
+                self.frontRight.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)

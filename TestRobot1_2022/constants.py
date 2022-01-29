@@ -14,5 +14,5 @@ kF = 0.06
 kP = 0.1
 kVelocity = 10567.0
 kAcceleration = 10567.0
-kUnits = 2048
+kUnits = 204800.0
 #Physical constants
