@@ -37,7 +37,7 @@ class RobotContainer:
 		"""
 		Configuring buttons
 		"""
-		JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(MotionMagic(self.drive, constants.kUnits))
+		JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(MotionMagic(self.drive, lambda: constants.kUnits))
 	
 	#get autonomous command returns self.chooser.getSelected(). but what is getSelected()? it basically returns the selected command we have selected. currently it is literally nothing
 	def getAutonomousCommand(self) -> None:

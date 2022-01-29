@@ -8,6 +8,7 @@ class MotionMagic(commands2.CommandBase):
 		self.units = units
 
 		self.addRequirements([self.drive])
+        
 	def execute(self) -> None:
 		self.drive.motionMagic(self.units())
 	def end(self) -> None:
