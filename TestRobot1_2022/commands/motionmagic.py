@@ -1,4 +1,3 @@
-import typing
 import commands2
 from subsystems.drivetrain import Drivetrain
 
@@ -9,9 +8,10 @@ class MotionMagic(commands2.CommandBase):
 		self.units = units
 
 		self.addRequirements([self.drive])
+        
 	def execute(self) -> None:
-		self.drive.motionMagic(self.units)
-	def end(self, interrupted: bool) -> None:
+		self.drive.motionMagic(self.units())
+	def end(self) -> None:
 		self.drive.stopMotors(0.0, 0.0)
 	def isFinished(self) -> bool:
-		return self.drive.inMotion()
+		return self.drive.notInMotion()
