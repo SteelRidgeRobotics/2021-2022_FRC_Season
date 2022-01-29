@@ -10,5 +10,9 @@ kbackRight = 3
 kslowFactor = 0.5
 #Encoders
 ktimeoutMs = 10
-
+kF = 0.06
+kP = 0.1
+kVelocity = 10567.0
+kAcceleration = 10567.0
+kUnits = 2048
 #Physical constants
