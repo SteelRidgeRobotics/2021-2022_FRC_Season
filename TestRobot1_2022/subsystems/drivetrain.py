@@ -69,7 +69,7 @@ class Drivetrain(commands2.SubsystemBase):
         
         #check if robot is moving
         #why check if vel is 0? if moving wouldn't vel be not 0?
-        def inMotion(self) -> bool:
+        def notInMotion(self) -> bool:
             return self.frontLeft.getSelectedSensorPosition() != 0.0 and self.frontLeft.getSelectedSensorVelocity() == 0.0
         
         #stop the motors
