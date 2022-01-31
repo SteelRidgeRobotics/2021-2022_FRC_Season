@@ -28,5 +28,5 @@ class DriveStraight(commands2.CommandBase):
     def end(self, interrupted: bool) -> None:
         self.drive.stopMotors()
 
-    def isFinished(self) -> bool: #note: when we get more advanced we will want to return a boolean for whether this is finished or not
+    def isFinished(self) -> bool:
         return self.drive.isNotinMotion()
