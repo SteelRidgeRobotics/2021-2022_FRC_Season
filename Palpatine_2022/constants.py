@@ -14,16 +14,22 @@ kbackRight = 3
 ktimeoutMs = 10
 
 #Autonomous
-kAutoBackupDistanceFeet = 8
+kAutoBackupDistanceFeet = 8                                                                                                                                                                                                                                          
 kAutoDriveSpeed = 1
 
 #Motion Magic
-kdistanceToTravel = 8
+kdistanceToTravel = 8.0
 kSlotIdx = 0
 kPIDLoopIdx = 0
 kmotorCruiseVelocity = 15000 #please change this
 kmotorAcceleration = 6000 #this too
 
+kF = 0.05
+kP = 0.155
+kD = 1.55
+kI = 0.0
+
+
 #Physical constants
-kunitsPerRotation = 2048
+kunitsPerRotation = 2048.0
 kwheelCircumference = 1.57 #this is in feet

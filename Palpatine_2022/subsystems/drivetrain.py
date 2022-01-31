@@ -1,5 +1,6 @@
 import commands2
 import ctre
+from hal import CAN_OpenStreamSession
 import constants
 
 class Drivetrain(commands2.SubsystemBase):
@@ -47,15 +48,15 @@ class Drivetrain(commands2.SubsystemBase):
         self.backRight.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
 
         #config Proportional, Integral, Derivative, and Filtered (PIDF)
-        self.frontLeft.config_kP(constants.kSlotIdx, 0.2, constants.ktimeoutMs) #please change these values later (value)
-        self.frontLeft.config_kI(constants.kSlotIdx, 0, constants.ktimeoutMs)
-        self.frontLeft.config_kD(constants.kSlotIdx, 0, constants.ktimeoutMs)
-        self.frontLeft.config_kF(constants.kSlotIdx, 0.2, constants.ktimeoutMs)
+        self.frontLeft.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs) #please change these values later (value)
+        self.frontLeft.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
+        self.frontLeft.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
+        self.frontLeft.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
 
-        self.frontRight.config_kP(constants.kSlotIdx, 0.2, constants.ktimeoutMs)
-        self.frontRight.config_kI(constants.kSlotIdx, 0, constants.ktimeoutMs)
-        self.frontRight.config_kD(constants.kSlotIdx, 0, constants.ktimeoutMs)
-        self.frontRight.config_kF(constants.kSlotIdx, 0.2, constants.ktimeoutMs)        
+        self.frontRight.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs)
+        self.frontRight.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
+        self.frontRight.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
+        self.frontRight.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)        
 
         #setting our acceleration and velocity (it's like cruise control but better hahaha laugh please laugh)
         self.frontLeft.configMotionCruiseVelocity(constants.kmotorCruiseVelocity, constants.ktimeoutMs)
@@ -79,8 +80,9 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy*percentage)
 
     def magicDrive(self, targetPos: float) -> None:
-        self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, targetPos)
-        self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, targetPos)
+        self.targetPos = targetPos
+        self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, self.targetPos)
+        self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, self.targetPos)
 
     def stopMotors(self) -> None:
         self.left = 0.0
@@ -90,3 +92,11 @@ class Drivetrain(commands2.SubsystemBase):
 
         self.frontLeft.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
         self.frontRight.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
+
+    def isNotinMotion(self) -> bool:
+        self.l_pos = self.frontLeft.getSelectedSensorPosition()
+        self.l_vel = self.frontLeft.getSelectedSensorVelocity()
+        if  self.l_vel == 0.0 and  self.l_pos != 0.0:
+            return True
+        else:
+            return False

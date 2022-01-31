@@ -1,0 +1,18 @@
+100%
+
+PID0 Vel: 20234u/100ms
+PID1 Vel: 20244u/100ms
+Motion Profile Vel: -6868u/100ms
+Integrated Sensor: 20244.00u/100ms
+error 660
+
+75%
+
+PID0 Vel: 15057u/100ms
+PID1 Vel: 15063u/100ms
+Motion Profile Vel: -6868u/100ms
+Integrated Sensor: 15063.00u/100ms
+
+F gain: 0.0509563658099223
+P gain 0.155
+D gain 1.55
