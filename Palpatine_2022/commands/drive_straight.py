@@ -12,11 +12,13 @@ class DriveStraight(commands2.CommandBase):
         #note: this targetpos is really more distance from the robot
         self.pos = constants.kunitsPerRotation * (self.distance / constants.kwheelCircumference)
 
+        self.rotations = 0
         self.addRequirements([self.drive])
 
     def execute(self) -> None:
         self.drive.magicDrive(float(self.pos))
-        wpilib.SmartDashboard.putNumber("   ClosedLoopError - ", self.drive.frontLeft.getClosedLoopError(constants.kPIDLoopIdx))
+        wpilib.SmartDashboard.putNumber("   ClosedLoopError (Left) - ", self.drive.frontLeft.getClosedLoopError(constants.kPIDLoopIdx))
+        wpilib.SmartDashboard.putNumber("   Rotations (Right) - ", (self.drive.frontLeft.getSelectedSensorPosition()/constants.kunitsPerRotation))
 
     def end(self, interrupted: bool) -> None:
         self.drive.stopMotors()
