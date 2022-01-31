@@ -10,7 +10,7 @@ class DriveStraight(commands2.CommandBase):
         self.drive = drive
         self.distance = distance
         #note: this targetpos is really more distance from the robot
-        self.pos = constants.kunitsPerRotation * (self.distance / constants.kwheelCircumference)
+        self.pos = constants.kunitsPerRotation * (self.distance / constants.kwheelCircumference) # about 5 rotations per 8 feet
 
         self.rotations = 0
         self.addRequirements([self.drive])
