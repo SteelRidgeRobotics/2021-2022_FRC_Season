@@ -17,8 +17,13 @@ class DriveStraight(commands2.CommandBase):
 
     def execute(self) -> None:
         self.drive.magicDrive(float(self.pos))
+        
         wpilib.SmartDashboard.putNumber("   ClosedLoopError (Left) - ", self.drive.frontLeft.getClosedLoopError(constants.kPIDLoopIdx))
-        wpilib.SmartDashboard.putNumber("   Rotations (Right) - ", (self.drive.frontLeft.getSelectedSensorPosition()/constants.kunitsPerRotation))
+        wpilib.SmartDashboard.putNumber("   Rotations (Left) - ", (self.drive.frontLeft.getSelectedSensorPosition()/constants.kunitsPerRotation))
+        
+        wpilib.SmartDashboard.putNumber("   ClosedLoopError (Right) - ", self.drive.frontRight.getClosedLoopError(constants.kPIDLoopIdx))
+        wpilib.SmartDashboard.putNumber("   Rotations (Right) - ", (self.drive.frontRight.getSelectedSensorPosition()/constants.kunitsPerRotation))
+
 
     def end(self, interrupted: bool) -> None:
         self.drive.stopMotors()
