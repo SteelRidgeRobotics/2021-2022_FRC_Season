@@ -53,9 +53,10 @@ class Drivetrain(commands2.SubsystemBase):
         #our userdrive function
         def userDrive(self, leftstick: float, rightstick: float, leftBumper: bool, rightBumper: bool) -> None:
                 #check if either the leftbumper or rightbumper is down
-                if leftBumper or rightBumper:
+                if leftBumper:
                         #if it is we multiply our motor values by our slow factor constant
                         leftstick *= constants.kslowFactor
+                if rightBumper:
                         rightstick *= constants.kslowFactor
                 
                 #now we set the motors using percentoutput control mode (basically we put in a percentage for the motor to use)
