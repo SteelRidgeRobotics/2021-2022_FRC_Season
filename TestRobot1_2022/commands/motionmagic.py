@@ -1,17 +1,20 @@
-import commands2
-from subsystems.drivetrain import Drivetrain
+# import commands2
+# import constants
+# from subsystems.drivetrain import Drivetrain
 
-class MotionMagic(commands2.CommandBase):
-	def __init__(self, drive: Drivetrain, units: float) -> None:
-		super().__init__()
-		self.drive = drive
-		self.units = units
-
-		self.addRequirements([self.drive])
+# class MotionMagic(commands2.CommandBase):
+# 	def __init__(self, drive: Drivetrain) -> None:
+# 		super().__init__()
+# 		self.drive = drive
+# 		self.distance = constants.kDistance
+# 		self.pos = constants.kunitsPerRotation * (self.distance / constants.kwheelCircumference)
+		
+# 		#self.rotations = 0
+# 		self.addRequirements([self.drive])
         
-	def execute(self) -> None:
-		self.drive.motionMagic(self.units())
-	def end(self) -> None:
-		self.drive.stopMotors(0.0, 0.0)
-	def isFinished(self) -> bool:
-		return self.drive.notInMotion()
+# 	def execute(self) -> None:
+# 		self.drive.motionMagic(self.pos)
+# 	def end(self) -> None:
+# 		self.drive.stopMotors()
+# 	def isFinished(self) -> bool:
+# 		return self.drive.notInMotion()

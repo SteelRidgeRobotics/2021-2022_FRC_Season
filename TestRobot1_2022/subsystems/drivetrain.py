@@ -33,19 +33,43 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
                 
                 #more configuring
-                self.frontLeft.config_kF(0, constants.kF, constants.ktimeoutMs)
-                self.frontRight.config_kF(0, constants.kF, constants.ktimeoutMs)
+                self.frontLeft.configNominalOutputForward(0, constants.ktimeoutMs)
+                self.frontRight.configNominalOutputForward(0, constants.ktimeoutMs)
+                self.frontLeft.configNominalOutputReverse(0, constants.ktimeoutMs)
+                self.frontRight.configNominalOutputReverse(0, constants.ktimeoutMs)
 
-                self.frontLeft.config_kP(0, constants.kP, constants.ktimeoutMs)
-                self.frontRight.config_kP(0, constants.kP, constants.ktimeoutMs)
+                self.frontLeft.configPeakOutputForward(1, constants.ktimeoutMs)
+                self.frontRight.configPeakOutputForward(1, constants.ktimeoutMs)
+                self.frontLeft.configPeakOutputReverse(-1, constants.ktimeoutMs)
+                self.frontRight.configPeakOutputReverse(-1, constants.ktimeoutMs)
+                
+                self.frontLeft.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
+                self.frontRight.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
+                self.backLeft.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
+                self.backRight.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
 
-                self.frontLeft.configMotionCruiseVelocity(constants.kVelocity, constants.ktimeoutMs)
-                self.frontRight.configMotionCruiseVelocity(constants.kVelocity, constants.ktimeoutMs)
+                #PID + Feed Forward
+                self.frontLeft.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs)
+                self.frontLeft.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
+                self.frontLeft.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
+                self.frontLeft.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
 
-                self.frontLeft.configMotionAcceleration(constants.kAcceleration, constants.ktimeoutMs)
-                self.frontRight.configMotionAcceleration(constants.kAcceleration, constants.ktimeoutMs)
+                self.frontRight.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs)
+                self.frontRight.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
+                self.frontRight.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
+                self.frontRight.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
 
-		        #set motors to brake mode. this means when you don't put any input into the motors, they will stop
+                #acc and velocity
+                self.frontLeft.configMotionCruiseVelocity(constants.kMagicVelocity, constants.ktimeoutMs)
+                self.frontLeft.configMotionAcceleration(constants.kMagicAcceleration, constants.ktimeoutMs)
+                self.frontRight.configMotionCruiseVelocity(constants.kMagicVelocity, constants.ktimeoutMs)
+                self.frontRight.configMotionAcceleration(constants.kMagicAcceleration, constants.ktimeoutMs)
+
+                #sensors set 0
+                self.frontLeft.setSelectedSensorPosition(0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+                self.frontRight.setSelectedSensorPosition(0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+
+		#set motors to brake mode. this means when you don't put any input into the motors, they will stop
                 self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
                 self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
                 self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
@@ -64,23 +88,19 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightstick)
 	    
         #motionmagic function
-        def motionMagic(self, units) -> None:
-            self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, units)
-            self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, units)
+        # def motionMagic(self, pos) -> None:
+        #     self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, pos)
+        #     self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, pos)
         
         #check if robot is moving
-        def notInMotion(self) -> bool:
-            self.frontLeftPos = self.frontLeft.getSelectedSensorPosition()
-            self.frontLeftVel = self.frontLeft.getSelectedSensorVelocity()
-            if self.frontLeftPos != 0.0 and self.frontLeftVel == 0.0:
-                return True
-            else:
-                return False
+        # def notInMotion(self) -> bool:
+        #     return (self.frontLeft.getSelectedSensorVelocity() == 0.0 and 
+        #     self.frontLeft.getSelectedSensorPosition() != 0.0)
 
         #stop the motors
-        def stopMotors(self, left, right) -> None:
-                self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-                self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+        def stopMotors(self) -> None: #stopmotors sets motors to 0 so we should be getting rid of this left and right at some point
+                self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+                self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
 
                 self.frontLeft.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)
                 self.frontRight.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)
