@@ -4,11 +4,10 @@ import commands2
 from commands2.button import JoystickButton
 import constants
 import ctre
-from wpilib import Joystick, XboxController
+from wpilib import XboxController
 from commands.drivewithjoystick import DrivewithJoystick
 from commands.motionmagic import MotionMagic
 from subsystems.drivetrain import Drivetrain
-
 
 
 
@@ -30,10 +29,14 @@ class RobotContainer:
         self.backLeft = ctre.TalonFX(constants.kbackLeft)
         self.frontRight = ctre.TalonFX(constants.kfrontRight)
         self.backRight = ctre.TalonFX(constants.kbackRight)
-        
 
+        self.frontClimber = ctre.TalonFX(constants.kfrontClimber)
+        self.backClimber = ctre.TalonFX(constants.kbackClimber)
+        
         # The robot's subsystems
         self.drive = Drivetrain()
+
+        self.drive.resetEncoders()
         
         # Autonomous routines
         #self.AUTOCOMMANDHERE = COMMAND()
@@ -63,7 +66,6 @@ class RobotContainer:
         """
         (JoystickButton(self.driverController, XboxController.Button.kLeftBumper).whenPressed(DrivewithJoystick(self.drive, lambda: -0.5*self.driverController.getLeftY(), lambda: -0.5*self.driverController.getRightY())).whenReleased(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())))
         (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(MotionMagic(self.drive, constants.kUnits)))
-
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()

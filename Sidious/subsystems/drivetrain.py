@@ -61,13 +61,13 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy)
     
-    def stopMotors(self, left: float, right: float) -> None:
+    def stopMotors(self) -> None:
 
-        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, left)
-        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, right)
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
 
-        self.frontLeft.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
-        self.frontRight.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
+        #self.frontLeft.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
+        #self.frontRight.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
 
     def motionMagic(self, units: float) -> None:
         self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, units)
@@ -84,3 +84,8 @@ class Drivetrain(commands2.SubsystemBase):
         
         else:
             return False
+
+    def resetEncoders(self) -> None:
+
+        self.frontLeft.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)
+        self.frontRight.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)

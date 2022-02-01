@@ -12,6 +12,12 @@ kbackLeft = 1
 kfrontRight = 2
 kbackRight = 3
 
+kfrontClimber = 4
+kbackClimber = 5
+
+kleftIntake = 6
+krightIntake = 7
+
 #Encoders
 ktimeoutMs = 10
 kF = 0.06 #Feed forward

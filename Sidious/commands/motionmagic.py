@@ -9,15 +9,16 @@ class MotionMagic(commands2.CommandBase):
         super().__init__()
         self.drive = drive
         self.units = units
+        self.drive.resetEncoders()
         
-
         self.addRequirements([self.drive])
 
     def execute(self) -> None:
          self.drive.motionMagic(self.units)
 
     def end(self, interrupted: bool) -> None:
-        self.drive.stopMotors(0.0, 0.0)
+        self.drive.stopMotors()
+        self.drive.resetEncoders()
 
     def isFinished(self) -> bool:
         return self.drive.isMoving()
