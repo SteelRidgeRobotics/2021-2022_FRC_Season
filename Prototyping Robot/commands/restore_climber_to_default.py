@@ -23,4 +23,5 @@ class RestoreClimberToDefault(commands2.CommandBase):
         self.climber.useClimber(0)
         self.climber.zeroSensor()
     
-    #def isFinished(self):
+    def isFinished(self) -> bool:
+        return self.climber.climberMotor.getSelectedSensorVelocity() < 100 # this number may change but this is an estimate of the velocity of the falcon 500 when the climber is fully retracted
