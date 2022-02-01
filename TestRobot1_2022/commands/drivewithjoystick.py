@@ -17,7 +17,7 @@ class DriveWithJoystick(commands2.CommandBase):
 	#executing the command by using userdrive
 	def execute(self) -> None:
 		#userDrive using our left and right values, plus our bumpers
-		self.drive.userDrive(self.left_axis, self.right_axis, self.leftBumper, self.rightBumper)
+		self.drive.userDrive(self.left_axis(), self.right_axis(), self.leftBumper(), self.rightBumper())
 	#stopping the motors
 	def end(self) -> None:
 		self.drive.stopMotors()
