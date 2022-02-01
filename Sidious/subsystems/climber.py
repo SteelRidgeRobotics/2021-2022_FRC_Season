@@ -10,11 +10,11 @@ class Climber(commands2.SubsystemBase):
         super().__init__()
         
         #initalize motors
-        self.frontClimber = ctre.TalonFX(constants.kfrontClimber)
-        self.backClimber = ctre.TalonFX(constants.kbackClimber)
+        self.verticalClimber = ctre.TalonFX(constants.kverticalClimber)
+        self.tiltedClimber = ctre.TalonFX(constants.ktiltedClimber)
 
         #set followers
-        self.backClimber.follow(self.frontClimber)
+        
         
         #reverse sensors-This shouldn't be necessary with TalonFX as sensors are integrated
         
@@ -33,6 +33,6 @@ class Climber(commands2.SubsystemBase):
         #self.backClimber.config_kP(0, constants.kP, constants.ktimeoutMs)
      
         #set motors to brake mode
-        self.frontClimber.setNeutralMode(ctre.NeutralMode.Brake)
-        self.backClimber.setNeutralMode(ctre.NeutralMode.Brake)
+        self.verticalClimber.setNeutralMode(ctre.NeutralMode.Brake)
+        self.tiltedClimber.setNeutralMode(ctre.NeutralMode.Brake)
         
