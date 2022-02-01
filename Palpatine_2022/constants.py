@@ -24,9 +24,9 @@ kPIDLoopIdx = 0
 kmotorCruiseVelocity = 15000 #please change this
 kmotorAcceleration = 6000 #this too
 
-kF = 0.05
-kP = 0.155
-kD = 1.55
+kF = 0.0509563647
+kP = 0.375
+kD = 11.25
 kI = 0.0
 
 
