@@ -10,6 +10,8 @@ kbackLeft = 1
 kfrontRight = 2
 kbackRight = 3
 
+kclimber = 4
+
 #Encoders
 ktimeoutMs = 10
 
