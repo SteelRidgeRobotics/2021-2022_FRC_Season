@@ -1,5 +1,6 @@
 import wpilib
 import commands2
+from commands.fully_extend_climber import FullyExtendClimber
 import constants
 import ctre
 from wpilib import XboxController
@@ -56,7 +57,9 @@ class RobotContainer:
         
         
     def configureButtonBindings(self):
-        (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(RestoreClimberToDefault(self.climber))
+       
+        (JoystickButton(self.driverController, XboxController.Button.kB).whenPressed(RestoreClimberToDefault(self.climber)))
+        (JoystickButton(self.driverController, XboxController.Button.kX).whenPressed(FullyExtendClimber(self.climber)))
 
 
     def getAutonomousCommand(self) -> commands2.Command:

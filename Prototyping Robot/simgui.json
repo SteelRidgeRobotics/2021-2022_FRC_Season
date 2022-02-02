@@ -6,5 +6,13 @@
       "/LiveWindow/Ungrouped/class frc2::SubsystemBase": "Subsystem",
       "/SmartDashboard/Autonomous": "String Chooser"
     }
+  },
+  "NetworkTables": {
+    "SmartDashboard": {
+      "Autonomous": {
+        "open": true
+      },
+      "open": true
+    }
   }
 }

@@ -37,3 +37,22 @@ class Climber(commands2.SubsystemBase):
         
     def zeroSensor(self) -> None:
         self.climberMotor.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
+
+    def isFullyRetracted(self) -> bool:
+        self.climberPos = self.climberMotor.getSelectedSensorPosition()
+        self.climberVel = self.climberMotor.getSelectedSensorVelocity()
+
+        if self.climberVel == 0.0 and self.climberPos != 0.0:
+            return True
+        else:
+            return False
+
+    
+    def isFullyExtended(self) -> bool:
+        self.climberPos = self.climberMotor.getSelectedSensorPosition()
+        self.climberVel = self.climberMotor.getSelectedSensorVelocity()
+
+        if self.climberVel > 100.0 and self.climberPos >= 1000.0:
+            return True
+        else:
+            return False

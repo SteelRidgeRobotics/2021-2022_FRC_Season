@@ -36,7 +36,7 @@ class RobotContainer:
         # The robot's subsystems
         self.drive = Drivetrain()
 
-        self.drive.resetEncoders()
+        
         
         # Autonomous routines
         #self.AUTOCOMMANDHERE = COMMAND()

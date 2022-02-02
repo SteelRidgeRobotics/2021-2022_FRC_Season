@@ -54,6 +54,7 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
 
+        self.resetEncoders()
         
 
     def userDrive(self, leftJoy: float, rightJoy: float) -> None:

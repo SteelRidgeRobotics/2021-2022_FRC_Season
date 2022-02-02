@@ -31,7 +31,10 @@ kP = 0.375
 kD = 11.25
 kI = 0.0
 
+kClimberRate = 10.0
 
 #Physical constants
 kunitsPerRotation = 2048.0
 kwheelCircumference = 1.57 #this is in feet
+
+kClimberHeight = 0.0

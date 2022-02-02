@@ -96,7 +96,9 @@ class Drivetrain(commands2.SubsystemBase):
     def isNotinMotion(self) -> bool:
         self.l_pos = self.frontLeft.getSelectedSensorPosition()
         self.l_vel = self.frontLeft.getSelectedSensorVelocity()
-        if  self.l_vel == 0.0 and  self.l_pos != 0.0:
+        if  self.l_vel == 0.0 and self.l_pos != 0.0:
             return True
         else:
             return False
+
+   
