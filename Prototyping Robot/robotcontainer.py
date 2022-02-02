@@ -19,8 +19,9 @@ from subsystems.climber import Climber
 #hi
 class RobotContainer:
     def __init__(self) -> None:
-        # driver controller
+        # driver controller & functions
         self.driverController = XboxController(constants.kdriverControllerPort)
+        self.functionsController = XboxController(constants.kfunctionsControllerPort)
         
         self.frontLeft = ctre.TalonFX(constants.kfrontLeft)
         self.backLeft = ctre.TalonFX(constants.kbackLeft)
@@ -57,9 +58,16 @@ class RobotContainer:
         
         
     def configureButtonBindings(self):
-       
-        (JoystickButton(self.driverController, XboxController.Button.kB).whenPressed(RestoreClimberToDefault(self.climber)))
-        (JoystickButton(self.driverController, XboxController.Button.kX).whenPressed(FullyExtendClimber(self.climber)))
+        (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(RestoreClimberToDefault(self.climber)))
+        (JoystickButton(self.functionsController, XboxController.Button.kX).whenPressed(FullyExtendClimber(self.climber)))
+        
+        # Functions Controller buttons
+        # Left joystick: Extends/Retracts first climber
+        # Right joystick: Extends/Retracts second climber
+        # POV: Fully Extend/Fully Retract first climber
+        # Y: Fully Extend second climber
+        # A: Fully Retract second climber
+        # B: Launch Cargo
 
 
     def getAutonomousCommand(self) -> commands2.Command:
