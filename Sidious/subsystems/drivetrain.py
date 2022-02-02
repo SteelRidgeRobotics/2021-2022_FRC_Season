@@ -78,10 +78,16 @@ class Drivetrain(commands2.SubsystemBase):
         self.l_pos = self.frontLeft.getSelectedSensorPosition()
         #self.l_error = self.frontLeft.getClosedLoopError()
         #self.l_target = self.frontLeft.getClosedLoopTarget() 
-
+        self.vel_traj = self.frontLeft.getActiveTrajectoryVelocity()
+        """
         if  self.l_pos != 0.0 and self.l_vel == 0.0:
             return True
         
+        else:
+            return False
+        """
+        if self.vel_traj==0.0:
+            return True
         else:
             return False
 
