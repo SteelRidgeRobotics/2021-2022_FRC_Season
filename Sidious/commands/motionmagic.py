@@ -10,7 +10,7 @@ class MotionMagic(commands2.CommandBase):
         super().__init__()
         self.drive = drive
         self.units = units
-        self.drive.resetEncoders()
+        self.drive.initializeMotors()
         
         self.addRequirements([self.drive])
 
@@ -23,8 +23,7 @@ class MotionMagic(commands2.CommandBase):
          wpilib.SmartDashboard.putNumber("Position", self.drive.frontLeft.getSelectedSensorPosition())
 
     def end(self, interrupted: bool) -> None:
-        self.drive.stopMotors()
-        self.drive.resetEncoders()
+        self.drive.initializeMotors()
 
     def isFinished(self) -> bool:
         return self.drive.isMoving()

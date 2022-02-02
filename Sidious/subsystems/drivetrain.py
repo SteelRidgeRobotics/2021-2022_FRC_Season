@@ -52,10 +52,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
-        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
+        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)        
 
-        self.resetEncoders()
-        
 
     def userDrive(self, leftJoy: float, rightJoy: float) -> None:
         
@@ -67,26 +65,15 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
 
-        #self.frontLeft.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
-        #self.frontRight.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
 
     def motionMagic(self, units: float) -> None:
         self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, units)
         self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, units)
 
     def isMoving(self) -> Boolean:
-        self.l_vel = self.frontLeft.getSelectedSensorVelocity()
-        self.l_pos = self.frontLeft.getSelectedSensorPosition()
-        #self.l_error = self.frontLeft.getClosedLoopError()
-        #self.l_target = self.frontLeft.getClosedLoopTarget() 
+
         self.vel_traj = self.frontLeft.getActiveTrajectoryVelocity()
-        """
-        if  self.l_pos != 0.0 and self.l_vel == 0.0:
-            return True
-        
-        else:
-            return False
-        """
+
         if self.vel_traj==0.0:
             return True
         else:
@@ -96,3 +83,7 @@ class Drivetrain(commands2.SubsystemBase):
 
         self.frontLeft.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)
         self.frontRight.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)
+
+    def initializeMotors(self) -> None:
+        self.resetEncoders()
+        self.stopMotors()
