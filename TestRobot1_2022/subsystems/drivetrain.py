@@ -15,6 +15,10 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontRight = ctre.TalonFX(constants.kfrontRight)
                 self.backRight = ctre.TalonFX(constants.kbackRight)
                 
+                #booleans
+                self.singleBumper = True
+
+
                 #set backleft and backright motors to follow front motors
                 self.backLeft.follow(self.frontLeft)
                 self.backRight.follow(self.frontRight)
@@ -80,27 +84,22 @@ class Drivetrain(commands2.SubsystemBase):
                 if leftBumper:
                         #if it is we multiply our motor values by our slow factor constant
                         leftstick *= constants.kslowFactor
+                        if not self.singleBumper:
+                                rightstick *= constants.kslowFactor
                 if rightBumper:
                         rightstick *= constants.kslowFactor
+                        if not self.singleBumper:
+                                leftstick *= constants.kslowFactor
                 
                 #now we set the motors using percentoutput control mode (basically we put in a percentage for the motor to use)
                 self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftstick)
                 self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightstick)
-	    
-        #motionmagic function
-        # def motionMagic(self, pos) -> None:
-        #     self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, pos)
-        #     self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, pos)
-        
-        #check if robot is moving
-        # def notInMotion(self) -> bool:
-        #     return (self.frontLeft.getSelectedSensorVelocity() == 0.0 and 
-        #     self.frontLeft.getSelectedSensorPosition() != 0.0)
+	#change bumpers
+        def changeBumper(self) -> None:
+                self.singleBumper = not self.singleBumper
 
         #stop the motors
-        def stopMotors(self) -> None: #stopmotors sets motors to 0 so we should be getting rid of this left and right at some point
+        def stopMotors(self) -> None:
                 self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
                 self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
 
-                self.frontLeft.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)
-                self.frontRight.setSelectedSensorPosition(0.0, 0, constants.ktimeoutMs)

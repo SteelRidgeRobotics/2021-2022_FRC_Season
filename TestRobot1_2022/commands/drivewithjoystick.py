@@ -19,7 +19,7 @@ class DriveWithJoystick(commands2.CommandBase):
 		#userDrive using our left and right values, plus our bumpers
 		self.drive.userDrive(self.left_axis(), self.right_axis(), self.leftBumper(), self.rightBumper())
 	#stopping the motors
-	def end(self) -> None:
+	def end(self, interrupted: bool) -> None:
 		self.drive.stopMotors()
 	#isfinished function
 	def isFinished(self) -> bool:

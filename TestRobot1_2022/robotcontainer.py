@@ -5,12 +5,10 @@ import ctre
 
 from wpilib import XboxController
 
-# from commands2.button import JoystickButton
+from commands2.button import JoystickButton
 
 from commands.drivewithjoystick import DriveWithJoystick
-# from commands.motionmagic import MotionMagic
-from commands.simpleauto import SimpleAuto
-
+from commands.bumperchange import BumperChange
 from subsystems.drivetrain import Drivetrain
 #robotcontainer class, it basically does all the heavy lifting for us! thanks robotcontainer, very cool!
 class RobotContainer:
@@ -31,8 +29,7 @@ class RobotContainer:
 		#our command chooser + auto commands
 
 		self.chooser = wpilib.SendableChooser()
-		self.simpleAuto = SimpleAuto(self.drive)
-		self.chooser.setDefaultOption(f"Simple Auto ({constants.kSimpleDistance} feet)", self.simpleAuto)
+		# self.chooser.setDefaultOption(f"Simple Auto ({constants.kSimpleDistance} feet)", self.simpleAuto)
 
 
 		#configure button bindings
@@ -46,7 +43,8 @@ class RobotContainer:
 		"""
 		Configuring buttons
 		"""
-			
+		JoystickButton(self.driverController, XboxController.Button.kB).whenPressed(BumperChange(self.drive))
+
 	#get autonomous command returns self.chooser.getSelected(). but what is getSelected()? it basically returns the selected command we have selected. currently it is literally nothing
-	def getAutonomousCommand(self) -> None:
-		return self.chooser.getSelected()
+	# def getAutonomousCommand(self) -> None:
+	# 	return self.chooser.getSelected()
