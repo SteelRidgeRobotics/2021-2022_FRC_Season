@@ -8,7 +8,7 @@ from wpilib import XboxController
 from commands2.button import JoystickButton
 
 from commands.drivewithjoystick import DriveWithJoystick
-from commands.bumperchange import BumperChange
+# from commands.bumperchange import BumperChange
 from subsystems.drivetrain import Drivetrain
 #robotcontainer class, it basically does all the heavy lifting for us! thanks robotcontainer, very cool!
 class RobotContainer:
@@ -43,7 +43,7 @@ class RobotContainer:
 		"""
 		Configuring buttons
 		"""
-		JoystickButton(self.driverController, XboxController.Button.kB).whenPressed(BumperChange(self.drive))
+		#JoystickButton(self.driverController, XboxController.Button.kB).whenPressed(BumperChange(self.drive))
 
 	#get autonomous command returns self.chooser.getSelected(). but what is getSelected()? it basically returns the selected command we have selected. currently it is literally nothing
 	# def getAutonomousCommand(self) -> None:

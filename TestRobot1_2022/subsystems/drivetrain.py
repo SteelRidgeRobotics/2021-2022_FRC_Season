@@ -24,7 +24,7 @@ class Drivetrain(commands2.SubsystemBase):
                 self.backRight.follow(self.frontRight)
                 
                 #set sensor phases
-                self.frontLeft.setSensorPhase(False)
+                self.frontLeft.setSensorPhase(False) # THE CODE WORKS!
                 self.frontRight.setSensorPhase(False)
 		        
                 #set right side to be inverted. this reverses the direction they rotate, so that they go in the same direction as the left side
@@ -40,7 +40,7 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontLeft.configNominalOutputForward(0, constants.ktimeoutMs)
                 self.frontRight.configNominalOutputForward(0, constants.ktimeoutMs)
                 self.frontLeft.configNominalOutputReverse(0, constants.ktimeoutMs)
-                self.frontRight.configNominalOutputReverse(0, constants.ktimeoutMs)
+                self.frontRight.configNominalOutputReverse(0, constants.ktimeoutMs) #more like kjamesisintimeout
 
                 self.frontLeft.configPeakOutputForward(1, constants.ktimeoutMs)
                 self.frontRight.configPeakOutputForward(1, constants.ktimeoutMs)
@@ -61,7 +61,7 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontRight.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs)
                 self.frontRight.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
                 self.frontRight.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
-                self.frontRight.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
+                self.frontRight.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs) # good j o b
 
                 #acc and velocity
                 self.frontLeft.configMotionCruiseVelocity(constants.kMagicVelocity, constants.ktimeoutMs)
@@ -96,7 +96,7 @@ class Drivetrain(commands2.SubsystemBase):
                 self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightstick)
 	#change bumpers
         def changeBumper(self) -> None:
-                self.singleBumper = not self.singleBumper
+                self.singleBumper = not self.singleBumper # this bumper is itselfn't
 
         #stop the motors
         def stopMotors(self) -> None:

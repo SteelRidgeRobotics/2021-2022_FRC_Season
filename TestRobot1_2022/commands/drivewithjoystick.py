@@ -23,4 +23,4 @@ class DriveWithJoystick(commands2.CommandBase):
 		self.drive.stopMotors()
 	#isfinished function
 	def isFinished(self) -> bool:
-		return False
+		return False # du yuu ondasuttando?
