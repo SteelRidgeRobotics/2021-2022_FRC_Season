@@ -30,8 +30,8 @@ class RobotContainer:
         self.frontRight = ctre.TalonFX(constants.kfrontRight)
         self.backRight = ctre.TalonFX(constants.kbackRight)
 
-        self.frontClimber = ctre.TalonFX(constants.kfrontClimber)
-        self.backClimber = ctre.TalonFX(constants.kbackClimber)
+        self.verticalClimber = ctre.TalonFX(constants.kverticalClimber)
+        self.tiltedClimber = ctre.TalonFX(constants.ktiltedClimber)
         
         # The robot's subsystems
         self.drive = Drivetrain()
