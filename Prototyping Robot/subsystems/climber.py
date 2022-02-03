@@ -114,8 +114,8 @@ class Climber(commands2.SubsystemBase):
         
     def useShortClimberPercent(self, sPercentage: float) -> None:
         self.percentage = sPercentage
-        self.climberMotorShort.set(ctre.TalonFXControlMode.PercentOutput, self.percent)
+        self.climberMotorShort.set(ctre.TalonFXControlMode.PercentOutput, self.percentage)
         
     def useTiltedClimberPercent(self, tPercentage: float) -> None:
         self.percentage = tPercentage
-        self.climberMotorTilted.set(ctre.TalonFXControlMode.PercentOutput, self.percent)
+        self.climberMotorTilted.set(ctre.TalonFXControlMode.PercentOutput, self.percentage)
