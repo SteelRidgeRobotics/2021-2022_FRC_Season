@@ -14,9 +14,14 @@ class UseClimberJoysticks(commands2.CommandBase):
     
   def execute(self) -> None:
     # if wanting to retract short climber
-    if self.leftJoy < 0:
-      # 
-      if
+    if self.leftJoy <= 0:
+      # if short climber is not fully retracted
+      if not self.climber.isShortClimberFullyRetracted():
+        self.climber.useShortClimberPercent(self.leftJoy*self.percent)
     else:
-    self.climber.useShortClimberPercent(self.leftJoy*self.percent)
-    self.climber.useTiltedClimberPercent(self.rightJoy*self.percent)
+      self.climber.useShortClimberPercent(0)
+
+    # if wanting to retract short climber
+    if self.rightJoy <= 0:
+      if not self.climber.isTiltedClimberFullyRetracted():
+        self.climber.useTiltedClimberPercent(self.rightJoy*self.percent)
