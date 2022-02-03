@@ -18,11 +18,17 @@ class FullyExtendClimber(commands2.CommandBase):
         wpilib.SmartDashboard.putNumber("   Climber Position - ", (self.climber.climberMotorTilted.getSelectedSensorPosition()))
         wpilib.SmartDashboard.putNumber("   Climber Velocity - ", (self.climber.climberMotorTilted.getSelectedSensorVelocity()))
         
-
-        if self.climber.climberMotor.getSelectedSensorVelocity() < 100:
-            self.climber.useClimber(-constants.kClimberRate)
-        else:
-            self.climber.useClimber(0)
+        if self.climberMotor == 1:
+            if self.climber.climberMotorShort.getSelectedSensorVelocity() < 100:
+                self.climber.useShortClimber(-constants.kClimberRate)
+            else:
+                self.climber.useShortClimber(0)
+                
+         if self.climberMotor == 2:
+            if self.climber.climberMotorTilted.getSelectedSensorVelocity() < 100:
+                self.climber.useTiltedClimber(-constants.kClimberRate)
+            else:
+                self.climber.useTiltedClimber(0)
 
     def end(self, interrupted: bool) -> None:
         self.climber.useClimber(0)
