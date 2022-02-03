@@ -4,16 +4,19 @@ from subsystems.climber import Climber
 import constants
 
 class FullyExtendClimber(commands2.CommandBase):
-    def __init__(self, climber: Climber):
+    def __init__(self, climber: Climber, climberMotor: int):
         super().__init__()
 
         self.climber = climber
+        self.climberMotor = climberMotor
 
         self.addRequirements([self.climber])
 
     def execute(self) -> None:
-        wpilib.SmartDashboard.putNumber("   Climber Position - ", (self.climber.climberMotor.getSelectedSensorPosition()))
-        wpilib.SmartDashboard.putNumber("   Climber Velocity - ", (self.climber.climberMotor.getSelectedSensorVelocity()))
+        wpilib.SmartDashboard.putNumber("   Climber Position - ", (self.climber.climberMotorShort.getSelectedSensorPosition()))
+        wpilib.SmartDashboard.putNumber("   Climber Velocity - ", (self.climber.climberMotorShort.getSelectedSensorVelocity()))
+        wpilib.SmartDashboard.putNumber("   Climber Position - ", (self.climber.climberMotorTilted.getSelectedSensorPosition()))
+        wpilib.SmartDashboard.putNumber("   Climber Velocity - ", (self.climber.climberMotorTilted.getSelectedSensorVelocity()))
         
 
         if self.climber.climberMotor.getSelectedSensorVelocity() < 100:
