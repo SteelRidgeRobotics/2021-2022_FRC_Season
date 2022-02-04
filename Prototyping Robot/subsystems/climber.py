@@ -32,15 +32,15 @@ class Climber(commands2.SubsystemBase):
         self.climberMotorTilted.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
         
 
-        self.climberMotorShort.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs) 
-        self.climberMotorShort.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
-        self.climberMotorShort.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
-        self.climberMotorShort.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
+        self.climberMotorShort.config_kP(constants.kSlotIdx, constants.kclimberP, constants.ktimeoutMs) 
+        self.climberMotorShort.config_kI(constants.kSlotIdx, constants.kclimberI, constants.ktimeoutMs)
+        self.climberMotorShort.config_kD(constants.kSlotIdx, constants.kclimberD, constants.ktimeoutMs)
+        self.climberMotorShort.config_kF(constants.kSlotIdx, constants.kclimberF, constants.ktimeoutMs)
         
-        self.climberMotorTilted.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs) 
-        self.climberMotorTilted.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
-        self.climberMotorTilted.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
-        self.climberMotorTilted.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
+        self.climberMotorTilted.config_kP(constants.kSlotIdx, constants.kclimberP, constants.ktimeoutMs) 
+        self.climberMotorTilted.config_kI(constants.kSlotIdx, constants.kclimberI, constants.ktimeoutMs)
+        self.climberMotorTilted.config_kD(constants.kSlotIdx, constants.kclimberD, constants.ktimeoutMs)
+        self.climberMotorTilted.config_kF(constants.kSlotIdx, constants.kclimberF, constants.ktimeoutMs)
         
 
         self.climberMotorShort.configMotionCruiseVelocity(constants.kmotorCruiseVelocity, constants.ktimeoutMs)

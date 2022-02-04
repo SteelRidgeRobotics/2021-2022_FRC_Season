@@ -11,32 +11,18 @@ class ClimbByJoystick(commands2.CommandBase):
         self.climber = climber
         self.leftJoy = leftJoy
         self.rightJoy = rightJoy
-        self.percent = 0.75
+        self.percent = 0.4
+
+        self.addRequirements([self.climber])
 
     def execute(self) -> None:
-        # if wanting to retract short climber and fully retracted
-        if self.leftJoy < 0 and not self.climber.isShortClimberFullyRetracted():
-          # climb
-            self.climber.useShortClimberPercent(self.leftJoy*self.percent)
-        # if wanting to extend short climber not fully extended
-        elif self.leftJoy > 0 and not self.climber.isShortClimberFullyExtended():
-          # climb
-            self.climber.useShortClimberPercent(self.leftJoy*self.percent)
-        else:
-          # don't climb
-            self.climber.useShortClimberPercent(0)
-
-        # if wanting to retract tilted climber and fully retracted
-        if self.rightJoy < 0 and not self.climber.isTiltedClimberFullyRetracted():
-          # climb
-            self.climber.useTiltedClimberPercent(self.leftJoy*self.percent)
-        # if wanting to extend tilted climber not fully extended
-        elif self.rightJoy > 0 and not self.climber.isTiltedClimberFullyExtended():
-          # climb
-            self.climber.useTiltedClimberPercent(self.leftJoy*self.percent)
-        else:
-          # don't climb
-            self.climber.useTiltedClimberPercent(0)
+        wpilib.SmartDashboard.putNumber("   Climber Position - ", (self.climber.climberMotorShort.getSelectedSensorPosition()))
+        wpilib.SmartDashboard.putNumber("   Climber Velocity - ", (self.climber.climberMotorShort.getSelectedSensorVelocity()))
+        wpilib.SmartDashboard.putNumber("   Climber Position - ", (self.climber.climberMotorTilted.getSelectedSensorPosition()))
+        wpilib.SmartDashboard.putNumber("   Climber Velocity - ", (self.climber.climberMotorTilted.getSelectedSensorVelocity()))
+      
+        self.climber.useShortClimberPercent(-self.leftJoy()*self.percent)
+        self.climber.useTiltedClimberPercent(-self.rightJoy()*self.percent)
 
     def end(self, interrupted: bool) -> None:
         self.climber.useShortClimberPercent(0)

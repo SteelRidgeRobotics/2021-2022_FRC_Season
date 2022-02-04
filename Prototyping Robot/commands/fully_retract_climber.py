@@ -20,13 +20,13 @@ class FullyRetractClimber(commands2.CommandBase):
         
         if self.climberMotor == 1:
             if self.climber.climberMotorShort.getSelectedSensorVelocity() < 100:
-                self.climber.useShortClimber(constants.kClimberRate)
+                self.climber.useShortClimber(-constants.kClimberRate)
             else:
                 self.climber.useShortClimber(0)
                 
         if self.climberMotor == 2:
             if self.climber.climberMotorTilted.getSelectedSensorVelocity() < 100:
-                self.climber.useTiltedClimber(constants.kClimberRate)
+                self.climber.useTiltedClimber(-constants.kClimberRate)
             else:
                 self.climber.useTiltedClimber(0)
 
