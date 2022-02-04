@@ -19,21 +19,25 @@ class FullyExtendClimber(commands2.CommandBase):
         wpilib.SmartDashboard.putNumber("   Climber Velocity - ", (self.climber.climberMotorTilted.getSelectedSensorVelocity()))
         
         if self.climberMotor == 1:
-            if self.climber.climberMotorShort.getSelectedSensorVelocity() < 100:
+            if self.climber.climberMotorShort.getSelectedSensorVelocity() < 100: # this number may change but this is an estimate of the velocity of the falcon 500 when the climber is fully retracted
                 self.climber.useShortClimber(-constants.kClimberRate)
             else:
                 self.climber.useShortClimber(0)
                 
-         if self.climberMotor == 2:
+        if self.climberMotor == 2:
             if self.climber.climberMotorTilted.getSelectedSensorVelocity() < 100:
                 self.climber.useTiltedClimber(-constants.kClimberRate)
             else:
                 self.climber.useTiltedClimber(0)
 
     def end(self, interrupted: bool) -> None:
-        self.climber.useClimber(0)
+        self.climber.useShortClimber(0)
+        self.climber.useTiltedClimber(0)
        
         
     
     def isFinished(self) -> bool:
-        return self.climber.isFullyExtended() # this number may change but this is an estimate of the velocity of the falcon 500 when the climber is fully retracted
+        if self.climberMotor == 1:
+            return self.climber.isShortClimberFullyExtended()
+        else:
+            return self.climber.isTiltedClimberFullyExtended()

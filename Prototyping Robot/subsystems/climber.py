@@ -62,8 +62,10 @@ class Climber(commands2.SubsystemBase):
 
     def useShortClimber(self, positionChange) -> None:
         self.positionChange = positionChange
-        self.climberMotorShort.set(ctre.TalonFXControlMode.MotionMagic, self.positionChange + self.climberMotor.getSelectedSensorPosition())
-        
+        self.climberMotorShort.set(ctre.TalonFXControlMode.MotionMagic, self.positionChange + self.climberMotorShort.getSelectedSensorPosition())
+    def useTiltedClimber(self, positionChange) -> None:
+        self.positionChange = positionChange
+        self.climberMotorTilted.set(ctre.TalonFXControlMode.MotionMagic, self.positionChange + self.climberMotorTilted.getSelectedSensorPosition())
     def zeroSensor(self, climber: int) -> None:
         self.climber = climber
         if self.climber == 1:

@@ -3,7 +3,7 @@ import commands2
 from subsystems.climber import Climber
 import constants
 
-class RestoreClimberToDefault(commands2.CommandBase):
+class FullyRetractClimber(commands2.CommandBase):
     def __init__(self, climber: Climber, climberMotor: int):
         super().__init__()
 
@@ -24,14 +24,18 @@ class RestoreClimberToDefault(commands2.CommandBase):
             else:
                 self.climber.useShortClimber(0)
                 
-         if self.climberMotor == 2:
+        if self.climberMotor == 2:
             if self.climber.climberMotorTilted.getSelectedSensorVelocity() < 100:
                 self.climber.useTiltedClimber(constants.kClimberRate)
             else:
                 self.climber.useTiltedClimber(0)
 
     def end(self, interrupted: bool) -> None:
-        self.climber.useClimber(0)
+        self.climber.useShortClimber(0)
+        self.climber.useTiltedClimber(0)
        
     def isFinished(self) -> bool:
-        return self.climber.isFullyRetracted() # this number may change but this is an estimate of the velocity of the falcon 500 when the climber is fully retracted
+        if self.climberMotor == 1:
+            return self.climber.isShortClimberFullyRetracted()
+        else:
+            return self.climber.isTiltedClimberFullyRetracted() # this number may change but this is an estimate of the velocity of the falcon 500 when the climber is fully retracted

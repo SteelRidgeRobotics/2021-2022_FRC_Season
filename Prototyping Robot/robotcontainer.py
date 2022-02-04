@@ -8,7 +8,7 @@ from commands2.button import JoystickButton
 
 from commands.drive_by_joystick import DriveByJoystick
 from commands.motion_magic import MotionMagic
-from commands.restore_climber_to_default import RestoreClimberToDefault
+from commands.fully_retract_climber import FullyRetractClimber
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.climber import Climber
@@ -58,8 +58,8 @@ class RobotContainer:
         
         
     def configureButtonBindings(self):
-        (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(RestoreClimberToDefault(self.climber)))
-        (JoystickButton(self.functionsController, XboxController.Button.kX).whenPressed(FullyExtendClimber(self.climber)))
+        (JoystickButton(self.functionsController, XboxController.Button.kA).whenPressed(FullyRetractClimber(self.climber, 2)))
+        (JoystickButton(self.functionsController, XboxController.Button.kY).whenPressed(FullyExtendClimber(self.climber, 2)))
         
         # Functions Controller buttons
         # Left joystick: Extends/Retracts first climber
