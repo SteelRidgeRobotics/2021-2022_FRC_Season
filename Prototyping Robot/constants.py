@@ -28,11 +28,17 @@ kmotorCruiseVelocity = 15000 #please change this
 kmotorAcceleration = 6000 #this too
 
 kF = 0.0509563647
-kP = 0.375
-kD = 11.25
+kP = 0.4
+#11.25
+kD = 0.0
 kI = 0.0
 
 kClimberRate = 10.0
+# climber PID
+kclimberF = 0.025
+kclimberP = 0.0
+kclimberD = 0.0
+kclimberI = 0.0
 
 #Physical constants
 kunitsPerRotation = 2048.0

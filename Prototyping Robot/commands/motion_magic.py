@@ -9,6 +9,7 @@ class MotionMagic(commands2.CommandBase):
 
         self.drive = drive
         self.distance = distance
+        self.drive.frontLeft.clearMotionProfileTrajectories()
         #note: this targetpos is really more distance from the robot
         self.pos = constants.kunitsPerRotation * (self.distance / constants.kwheelCircumference) # about 5 rotations for 8 feet
 
