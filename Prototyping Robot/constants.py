@@ -44,8 +44,12 @@ kclimberI = 0.0
 # pneumatics
 ksolenoidModuleType = wpilib.PneumaticsModuleType.CTREPCM
 ksolenoidModule = 0
-kintakeSolenoid1Port = 0
-kintakeSolenoid2Port = 1
+
+# intake ports
+kintakeSolenoidLeftPort = 0
+kintakeSolenoidRightPort = 1
+
+# launcher ports
 
 #Physical constants
 kunitsPerRotation = 2048.0
