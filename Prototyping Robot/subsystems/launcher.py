@@ -8,8 +8,8 @@ class Launcher(commands2.SubsystemBase):
     # initialize solenoids
         self.launcherSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.klauncherSolenoidPort)
 
-    def launch(self):
+    def launch(self) -> None:
         self.launcherSolenoid.set(True)
 
-    def goDown(self):
+    def goDown(self) -> None:
         self.launcherSolenoid.set(False)
