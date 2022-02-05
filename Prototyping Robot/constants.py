@@ -49,7 +49,8 @@ ksolenoidModule = 0
 kintakeSolenoidLeftPort = 0
 kintakeSolenoidRightPort = 1
 
-# launcher ports
+# launcher port
+klauncherSolenoidPort = 2
 
 #Physical constants
 kunitsPerRotation = 2048.0
