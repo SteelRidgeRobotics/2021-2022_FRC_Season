@@ -1,4 +1,5 @@
 import math
+import wpilib
 
 #Controller ports
 kdriverControllerPort = 0
@@ -39,6 +40,12 @@ kclimberF = 0.025
 kclimberP = 0.0
 kclimberD = 0.0
 kclimberI = 0.0
+
+# pneumatics
+ksolenoidModuleType = wpilib.PneumaticsModuleType.CTREPCM
+ksolenoidModule = 0
+kintakeSolenoid1Port = 0
+kintakeSolenoid2Port = 1
 
 #Physical constants
 kunitsPerRotation = 2048.0
