@@ -79,6 +79,10 @@ class RobotContainer:
         # Y: Fully Extend second climber ####DONE
         # A: Fully Retract second climber ####DONE
         # B: Launch Cargo
+        
+        # Remainding Driver Controller buttons
+        # Start: Move intake in/out
+        # POV: Use to rotate motors in one direction or the other
 
 
     def getAutonomousCommand(self) -> commands2.Command:
