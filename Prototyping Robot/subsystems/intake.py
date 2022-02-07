@@ -22,8 +22,6 @@ class Intake(commands2.SubsystemBase):
         
         
     # use percent output control mode for operating the intake
+    # method to spin the rollers on intake
     def spinIntake(self, percentage: float) -> None:
         self.intakeMotor.set(ctre.TalonFXControlMode.PercentOutput, percentage)
-    
-    
-    # method to spin the rollers on intake
