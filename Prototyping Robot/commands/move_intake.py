@@ -19,8 +19,8 @@ class MoveIntake(commands2.CommandBase):
             self.intake.pullIntakeIn()
             self.done = True
       
-    def end(self) -> None:
-        """Some code here, if needed"""
+    #def end(self) -> None:
+    #    self.done = True # The defining the end seems to be unnecessary
       
     def isFinished(self) -> bool:
         return self.done
