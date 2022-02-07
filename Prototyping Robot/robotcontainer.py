@@ -1,20 +1,25 @@
 from hal import JoystickPOVs
 import wpilib
-import commands2
-from commands.fully_extend_climber import FullyExtendClimber
 import constants
 import ctre
 from wpilib import XboxController
+
+import commands2
 from commands2.button import JoystickButton
 from commands2.button import POVButton
 
+
 from commands.drive_by_joystick import DriveByJoystick
 from commands.motion_magic import MotionMagic
+
 from commands.fully_retract_climber import FullyRetractClimber
+from commands.fully_extend_climber import FullyExtendClimber
 from commands.climb_by_joystick import ClimbByJoystick
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.climber import Climber
+from subsystems.intake import Intake
+from subsystems.launcher import Launcher
 
 
 
@@ -65,7 +70,7 @@ class RobotContainer:
         (JoystickButton(self.functionsController, XboxController.Button.kY).whenPressed(FullyExtendClimber(self.climber, 2)))
         #(JoystickButton(self.functionsController, XboxController.getPOV(0))).whenPressed(FullyExtendClimber(self.climber, 1)))
         #(JoystickButton(self.functionsController, XboxController.getPOV(180)).whenPressed(FullyRetractClimber(self.climber, 1)))
-        (POVButton(self.functionsController, 0, 0).whenPressed(FullyExtendClimber(self.climber, 1))) # if this doesn't work we may want to make a command to use the POV
+        (POVButton(self.functionsController, 0, 0).whenPressed(FullyExtendClimber(self.climber, 1))) # if this doesn't work, we may want to make a command to use the POV
         (POVButton(self.functionsController, 180, 0).whenPressed(FullyRetractClimber(self.climber, 1)))
         # Functions Controller buttons 
         # Left joystick: Extends/Retracts first climber ####DONE
