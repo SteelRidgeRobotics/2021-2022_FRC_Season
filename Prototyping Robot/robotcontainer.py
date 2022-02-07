@@ -65,7 +65,7 @@ class RobotContainer:
         (JoystickButton(self.functionsController, XboxController.Button.kY).whenPressed(FullyExtendClimber(self.climber, 2)))
         #(JoystickButton(self.functionsController, XboxController.getPOV(0))).whenPressed(FullyExtendClimber(self.climber, 1)))
         #(JoystickButton(self.functionsController, XboxController.getPOV(180)).whenPressed(FullyRetractClimber(self.climber, 1)))
-        (POVButton(self.functionsController, 0, 0).whenPressed(FullyExtendClimber(self.climber, 2)))
+        (POVButton(self.functionsController, 0, 0).whenPressed(FullyExtendClimber(self.climber, 2))) # if this doesn't work we may want to make a command to use the POV
         (POVButton(self.functionsController, 180, 0).whenPressed(FullyRetractClimber(self.climber, 2)))
         # Functions Controller buttons 
         # Left joystick: Extends/Retracts first climber ####DONE
