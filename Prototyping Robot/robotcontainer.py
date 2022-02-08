@@ -89,7 +89,7 @@ class RobotContainer:
         # POV: Fully Extend/Fully Retract first climber ####DONE but may not be needed
         # Y: Fully Extend second climber ####DONE
         # A: Fully Retract second climber ####DONE
-        # B: Launch Cargo
+        # B: Launch Cargo ####DONE
         
         (JoystickButton(self.driverController, XboxController.Button.kStart).whenPressed(self.intake, not self.intakeOut))
         
