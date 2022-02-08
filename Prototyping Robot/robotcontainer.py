@@ -20,6 +20,7 @@ from commands.launch_cargo import LaunchCargo
 
 from commands.move_intake import MoveIntake
 from commands.spin_intake_with_pov import SpinIntakeWithPOV
+from commands.launch_cargo import LaunchCargo
 
 
 from subsystems.drivetrain import Drivetrain
@@ -80,6 +81,8 @@ class RobotContainer:
         #(JoystickButton(self.functionsController, XboxController.getPOV(180)).whenPressed(FullyRetractClimber(self.climber, 1)))
         (POVButton(self.functionsController, 0, 0).whenPressed(FullyExtendClimber(self.climber, 1))) # if this doesn't work, we may want to make a command to use the POV
         (POVButton(self.functionsController, 180, 0).whenPressed(FullyRetractClimber(self.climber, 1)))
+        
+        (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
         # Functions Controller buttons 
         # Left joystick: Extends/Retracts first climber ####DONE
         # Right joystick: Extends/Retracts second climber ####DONE
@@ -91,8 +94,8 @@ class RobotContainer:
         (JoystickButton(self.driverController, XboxController.Button.kStart).whenPressed(self.intake, not self.intakeOut))
         
         # Remainding Driver Controller buttons
-        # Start: Move intake in/out
-        # POV: Use to rotate motors in one direction or the other
+        # Start: Move intake in/out ####DONE
+        # POV: Use to rotate motors in one direction or the other ####DONE
 
 
     def getAutonomousCommand(self) -> commands2.Command:
