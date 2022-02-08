@@ -38,6 +38,8 @@ class RobotContainer:
         self.backLeft = ctre.TalonFX(constants.kbackLeft)
         self.frontRight = ctre.TalonFX(constants.kfrontRight)
         self.backRight = ctre.TalonFX(constants.kbackRight)
+        
+        self.intakeOut = True
 
 
         self.timer = wpilib.Timer
@@ -46,6 +48,8 @@ class RobotContainer:
         #subsystems
         self.drive = Drivetrain()
         self.climber = Climber()
+        self.launcher = Launcher()
+        self.intake = Intake()
         
         # chooser
         self.chooser = wpilib.SendableChooser()
@@ -66,7 +70,7 @@ class RobotContainer:
         
         self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), lambda: self.driverController.getRightBumper(), lambda: self.driverController.getLeftBumper()))
         self.climber.setDefaultCommand(ClimbByJoystick(self.climber, lambda: -self.functionsController.getLeftY(), lambda: -self.functionsController.getRightY()))
-        self.intake.setDefaultCommand()
+        self.intake.setDefaultCommand(SpinIntakeWithPOV(self.intake, lambda: self.driverController.getPOV()))
         
         
     def configureButtonBindings(self):
@@ -83,6 +87,8 @@ class RobotContainer:
         # Y: Fully Extend second climber ####DONE
         # A: Fully Retract second climber ####DONE
         # B: Launch Cargo
+        
+        (JoystickButton(self.driverController, XboxController.Button.kStart).whenPressed(self.intake, not self.intakeOut))
         
         # Remainding Driver Controller buttons
         # Start: Move intake in/out
