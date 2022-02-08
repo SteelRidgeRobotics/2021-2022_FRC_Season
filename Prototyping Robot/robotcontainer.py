@@ -16,15 +16,18 @@ from commands.fully_retract_climber import FullyRetractClimber
 from commands.fully_extend_climber import FullyExtendClimber
 from commands.climb_by_joystick import ClimbByJoystick
 
+from commands.launch_cargo import LaunchCargo
+
+from commands.move_intake import MoveIntake
+from commands.spin_intake_with_pov import SpinIntakeWithPOV
+
+
 from subsystems.drivetrain import Drivetrain
 from subsystems.climber import Climber
 from subsystems.intake import Intake
 from subsystems.launcher import Launcher
 
 
-
-
-#hi
 class RobotContainer:
     def __init__(self) -> None:
         # driver controller & functions
@@ -63,6 +66,7 @@ class RobotContainer:
         
         self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), lambda: self.driverController.getRightBumper(), lambda: self.driverController.getLeftBumper()))
         self.climber.setDefaultCommand(ClimbByJoystick(self.climber, lambda: -self.functionsController.getLeftY(), lambda: -self.functionsController.getRightY()))
+        self.intake.setDefaultCommand()
         
         
     def configureButtonBindings(self):
@@ -75,7 +79,7 @@ class RobotContainer:
         # Functions Controller buttons 
         # Left joystick: Extends/Retracts first climber ####DONE
         # Right joystick: Extends/Retracts second climber ####DONE
-        # POV: Fully Extend/Fully Retract first climber
+        # POV: Fully Extend/Fully Retract first climber ####DONE but may not be needed
         # Y: Fully Extend second climber ####DONE
         # A: Fully Retract second climber ####DONE
         # B: Launch Cargo
