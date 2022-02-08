@@ -14,7 +14,7 @@ class LaunchCargo(commands2.CommandBase):
         self.addRequirements([self.launcher])
         
         if self.launcher.isUp():
-                self.launcher.goDown()
+            self.launcher.goDown()
     
     def execute(self) -> None:
         self.launcher.launch()
