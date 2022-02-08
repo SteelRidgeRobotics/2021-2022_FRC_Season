@@ -97,9 +97,8 @@ class Drivetrain(commands2.SubsystemBase):
         #self.l_pos = self.frontLeft.getSelectedSensorPosition()
         #self.l_vel = self.frontLeft.getSelectedSensorVelocity()
         self.vel_traj = self.frontLeft.getActiveTrajectoryVelocity()
-        if  self.vel_traj == 0.0:
-            return True
-        else:
-            return False
-
-   
+        return self.vel_traj == 0.0
+        # if self.vel_traj == 0.0:
+        #     return True
+        # else:
+        #     return False

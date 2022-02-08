@@ -5,7 +5,7 @@ import ctre
 class Intake(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
-    # initialize motors & solenoids
+        # initialize motors & solenoids
         self.leftSolenoid = wpilib.Solenoid(constants.ksolenoidModuleType, constants.ksolenoidModuleType, constants.kintakeSolenoidLeftPort)
         self.rightSolenoid = wpilib.Solenoid(constants.ksolenoidModuleType, constants.ksolenoidModuleType, constants.kintakeSolenoidRightPort)
         self.intakeMotor = ctre.TalonFX(constants.kintake)
