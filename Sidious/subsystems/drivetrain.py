@@ -30,11 +30,11 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
         self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
 
-        self.frontLeft.config_kF(0, kF, ktimeoutMs) 
-        self.frontRight.config_kF(0, kF, ktimeoutMs)
+        #self.frontLeft.config_kF(0, kF, ktimeoutMs) 
+        #self.frontRight.config_kF(0, kF, ktimeoutMs)
 
-        self.frontLeft.config_kP(0, kP, ktimeoutMs) 
-        self.frontRight.config_kP(0, kP, ktimeoutMs)
+        #self.frontLeft.config_kP(0, kP, ktimeoutMs) 
+        #self.frontRight.config_kP(0, kP, ktimeoutMs)
 
         self.frontLeft.configMotionCruiseVelocity(kcruiseVel, ktimeoutMs)
         self.frontRight.configMotionCruiseVelocity(kcruiseVel, ktimeoutMs)
