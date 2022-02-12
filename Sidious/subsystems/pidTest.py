@@ -1,6 +1,4 @@
-from posixpath import basename
 import string
-from xml.etree.ElementTree import fromstringlist
 from xmlrpc.client import Boolean
 import commands2
 import ctre

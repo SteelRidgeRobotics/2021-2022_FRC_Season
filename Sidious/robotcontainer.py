@@ -2,12 +2,14 @@ from hal import JoystickButtons
 import wpilib
 import commands2
 from commands2.button import JoystickButton
+from commands.getPIDValues import GetPIDValues
 import constants
 import ctre
 from wpilib import XboxController
 from commands.drivewithjoystick import DrivewithJoystick
 from commands.motionmagic import MotionMagic
 from subsystems.drivetrain import Drivetrain
+from subsystems.pidTest import PidTest
 
 
 
@@ -36,21 +38,22 @@ class RobotContainer:
         # The robot's subsystems
         self.drive = Drivetrain()
 
-        
+        self.pid = PidTest()
+
+                
         
         # Autonomous routines
-        #self.AUTOCOMMANDHERE = COMMAND()
-
+        self.getAutonomousCommand(GetPIDValues())
 
         # Chooser
         self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
-        #self.chooser.setDefaultOption("Simple Auto", self.simpleAuto)
+        self.chooser.setDefaultOption("Auto", self.pid)
         #self.chooser.addOption("Complex Auto", self.complexAuto)
 
         # Put the chooser on the dashboard
-        #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
+        wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
 
         self.configureButtonBindings()
