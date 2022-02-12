@@ -40,20 +40,22 @@ class RobotContainer:
 
         self.pid = PidTest()
 
+        #self.simpleAuto = GetPIDValues
+
                 
         
         # Autonomous routines
-        self.getAutonomousCommand(GetPIDValues())
+        
 
         # Chooser
-        self.chooser = wpilib.SendableChooser()
+        #self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
-        self.chooser.setDefaultOption("Auto", self.pid)
+        #self.chooser.setDefaultOption("Auto", self.simpleAuto)
         #self.chooser.addOption("Complex Auto", self.complexAuto)
 
         # Put the chooser on the dashboard
-        wpilib.SmartDashboard.putData("Autonomous", self.chooser)
+        #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
 
         self.configureButtonBindings()
@@ -69,6 +71,7 @@ class RobotContainer:
         """
         (JoystickButton(self.driverController, XboxController.Button.kLeftBumper).whenPressed(DrivewithJoystick(self.drive, lambda: -0.5*self.driverController.getLeftY(), lambda: -0.5*self.driverController.getRightY())).whenReleased(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())))
         (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(MotionMagic(self.drive, constants.kUnits)))
+        (JoystickButton(self.driverController, XboxController.Button.kRightBumper).whenPressed(GetPIDValues(self.pid)))
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()

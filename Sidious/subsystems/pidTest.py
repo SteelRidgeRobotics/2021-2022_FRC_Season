@@ -36,7 +36,7 @@ class PidTest(commands2.SubsystemBase):
     
         self.putToSmartDashboard()
 
-        self.flush()
+        #self.flush()
 
     def putToSmartDashboard(self) -> None:
         
@@ -50,9 +50,9 @@ class PidTest(commands2.SubsystemBase):
 
     def flush(self) -> None:
 
-        self.baseName = string
+        #self.baseName = string
 
-        baseName = "LMotor" + self.frontLeft.getDeviceID() + "" + "RMotor" + self.frontRight.getDeviceID() + ""
+        #baseName = "LMotor" + string(self.frontLeft.getDeviceID()) + "" + "RMotor" + string(self.frontRight.getDeviceID()) + ""
 
         self.frontLeft.config_kF(0, SmartDashboard.getNumber("kF", 0), ktimeoutMs) 
         self.frontRight.config_kF(0, SmartDashboard.getNumber("kF", 0), ktimeoutMs)
@@ -73,25 +73,25 @@ class PidTest(commands2.SubsystemBase):
 
     def putMotorValuesToSmartDashboard(self) -> None:
         
-        self.baseName = string
+        #self.baseName = string
 
-        baseName = "LMotor" + self.frontLeft.getDeviceID() + "" + "RMotor" + self.frontRight.getDeviceID() + ""
+        #baseName = "LMotor" + string(self.frontLeft.getDeviceID()) + "" + "RMotor" + string(self.frontRight.getDeviceID()) + ""
     
-        SmartDashboard.putNumber(baseName + "Ltarget", self.frontLeft.getClosedLoopTarget())
-        SmartDashboard.putNumber(baseName + "Rtarget", self.frontRight.getClosedLoopTarget())
+        SmartDashboard.putNumber("Ltarget", self.frontLeft.getClosedLoopTarget())
+        SmartDashboard.putNumber("Rtarget", self.frontRight.getClosedLoopTarget())
 
-        SmartDashboard.putNumber(baseName + "LVelocity", self.frontLeft.getSelectedSensorVelocity())
-        SmartDashboard.putNumber(baseName + "RVelocity", self.frontRight.getSelectedSensorVelocity())
+        SmartDashboard.putNumber("LVelocity", self.frontLeft.getSelectedSensorVelocity())
+        SmartDashboard.putNumber("RVelocity", self.frontRight.getSelectedSensorVelocity())
 
-        SmartDashboard.putNumber(baseName + "LError", self.frontLeft.getClosedLoopError())
-        SmartDashboard.putNumber(baseName + "RError", self.frontRight.getClosedLoopError())
+        SmartDashboard.putNumber("LError", self.frontLeft.getClosedLoopError())
+        SmartDashboard.putNumber("RError", self.frontRight.getClosedLoopError())
 
     def periodic(self) -> None:
-        if SmartDashboard.getBoolean("Flush", False):
+        if SmartDashboard.getBoolean("Flush", True):
             self.flush()
         
         self.putMotorValuesToSmartDashboard()
 
-        return super().periodic()
+        #return super().periodic()
 
 
