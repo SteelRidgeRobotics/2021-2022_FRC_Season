@@ -71,7 +71,7 @@ class RobotContainer:
         
         self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), lambda: self.driverController.getRightBumper(), lambda: self.driverController.getLeftBumper()))
         self.climber.setDefaultCommand(ClimbByJoystick(self.climber, lambda: -self.functionsController.getLeftY(), lambda: -self.functionsController.getRightY()))
-        self.intake.setDefaultCommand(SpinIntakeWithPOV(self.intake, lambda: self.driverController.getPOV()))
+        #self.intake.setDefaultCommand(SpinIntakeWithPOV(self.intake, lambda: self.driverController.getPOV()))
         
         
     def configureButtonBindings(self):
@@ -82,7 +82,8 @@ class RobotContainer:
         (POVButton(self.functionsController, 0, 0).whenPressed(FullyExtendClimber(self.climber, 1))) # if this doesn't work, we may want to make a command to use the POV
         (POVButton(self.functionsController, 180, 0).whenPressed(FullyRetractClimber(self.climber, 1)))
         
-        (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
+        #(JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
+
         # Functions Controller buttons 
         # Left joystick: Extends/Retracts first climber ####DONE
         # Right joystick: Extends/Retracts second climber ####DONE
@@ -91,7 +92,7 @@ class RobotContainer:
         # A: Fully Retract second climber ####DONE
         # B: Launch Cargo ####DONE
         
-        (JoystickButton(self.driverController, XboxController.Button.kStart).whenPressed(self.intake, not self.intakeOut))
+        #(JoystickButton(self.driverController, XboxController.Button.kStart).whenPressed(self.intake, not self.intakeOut))
         
         # Remainding Driver Controller buttons
         # Start: Move intake in/out ####DONE
