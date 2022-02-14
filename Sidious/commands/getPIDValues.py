@@ -11,7 +11,7 @@ class GetPIDValues(commands2.CommandBase):
 
     def execute(self) -> None:
         self.pid.periodic()
-        self.pid.putMotorValuesToSmartDashboard()
-        self.pid.putToSmartDashboard()
+        #self.pid.putMotorValuesToSmartDashboard()
+        #self.pid.putToSmartDashboard()
         #self.pid.flush()
         

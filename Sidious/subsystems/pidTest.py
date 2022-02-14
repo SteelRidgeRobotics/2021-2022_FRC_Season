@@ -1,7 +1,12 @@
+from os import system
 import string
+from sys import stdout
+from tkinter.tix import StdButtonBox
 from xmlrpc.client import Boolean
 import commands2
 import ctre
+from filelock import sys
+from py import std
 from constants import *
 from wpilib import SmartDashboard
 
@@ -28,17 +33,30 @@ class PidTest(commands2.SubsystemBase):
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
         self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
 
-        self.frontLeft.configFactoryDefault()
-        self.frontRight.configFactoryDefault()
 
-        self.frontLeft.setSelectedSensorPosition(0.0)
-        self.frontRight.setSelectedSensorPosition(0.0)
+        self.motors = [self.frontLeft, self.frontRight]
+
+        self.motor = [ctre.TalonFX, ctre.TalonFX]
+
+        for self.motor in self.motors:
+            self.motor.configFactoryDefault()
+            self.motor.setSelectedSensorPosition(0.0)
     
         self.putToSmartDashboard()
 
-        #self.flush()
+        self.flush()
 
     def putToSmartDashboard(self) -> None:
+
+        self.motors = [self.frontLeft, self.frontRight]
+
+        self.motor = [ctre.TalonFX, ctre.TalonFX]
+
+        for self.motor in self.motors:
+             
+            self.motorName = "Motor " + str(self.motor.getDeviceID()) + " "
+
+            SmartDashboard.putBoolean(self.motorName + "inverted", False)
         
      
         SmartDashboard.putBoolean("Flush", False)
@@ -50,44 +68,40 @@ class PidTest(commands2.SubsystemBase):
 
     def flush(self) -> None:
 
-        #self.baseName = string
+        self.motors = [self.frontLeft, self.frontRight]
 
-        #baseName = "LMotor" + string(self.frontLeft.getDeviceID()) + "" + "RMotor" + string(self.frontRight.getDeviceID()) + ""
+        self.motor = [ctre.TalonFX, ctre.TalonFX]
 
-        self.frontLeft.config_kF(0, SmartDashboard.getNumber("kF", 0), ktimeoutMs) 
-        self.frontRight.config_kF(0, SmartDashboard.getNumber("kF", 0), ktimeoutMs)
+        for self.motor in self.motors:
 
-        self.frontLeft.config_kP(0, SmartDashboard.getNumber("kP", 0), ktimeoutMs) 
-        self.frontRight.config_kP(0, SmartDashboard.getNumber("kP", 0), ktimeoutMs)
+            self.motorName = "Motor " + str(self.motor.getDeviceID()) + " "
 
-        self.frontLeft.config_kI(0, SmartDashboard.getNumber("kI", 0), ktimeoutMs) 
-        self.frontRight.config_kI(0, SmartDashboard.getNumber("kI", 0), ktimeoutMs)
+            self.motor.config_kF(0, SmartDashboard.getNumber("kF", 0), ktimeoutMs)
+            self.motor.config_kP(0, SmartDashboard.getNumber("kP", 0), ktimeoutMs)
+            self.motor.config_kI(0, SmartDashboard.getNumber("kI", 0), ktimeoutMs)
+            self.motor.config_kD(0, SmartDashboard.getNumber("kD", 0), ktimeoutMs)
+            self.motor.set(ctre.ControlMode.Velocity, SmartDashboard.getNumber("Setpoint", 0))
 
-        self.frontLeft.config_kD(0, SmartDashboard.getNumber("kD", 0), ktimeoutMs) 
-        self.frontRight.config_kD(0, SmartDashboard.getNumber("kD", 0), ktimeoutMs)
-
-        self.frontLeft.set(ctre.ControlMode.Velocity, SmartDashboard.getNumber("Setpoint", 0))
-        self.frontRight.set(ctre.ControlMode.Velocity, SmartDashboard.getNumber("Setpoint", 0))
+            print("Updated " + str(self.motor.getDeviceID()))
 
         SmartDashboard.putBoolean("Flush", False)
 
     def putMotorValuesToSmartDashboard(self) -> None:
         
-        #self.baseName = string
+        self.motors = [self.frontLeft, self.frontRight]
 
-        #baseName = "LMotor" + string(self.frontLeft.getDeviceID()) + "" + "RMotor" + string(self.frontRight.getDeviceID()) + ""
-    
-        SmartDashboard.putNumber("Ltarget", self.frontLeft.getClosedLoopTarget())
-        SmartDashboard.putNumber("Rtarget", self.frontRight.getClosedLoopTarget())
+        self.motor = [ctre.TalonFX, ctre.TalonFX]
 
-        SmartDashboard.putNumber("LVelocity", self.frontLeft.getSelectedSensorVelocity())
-        SmartDashboard.putNumber("RVelocity", self.frontRight.getSelectedSensorVelocity())
+        for self.motor in self.motors:
+            
+            self.motorName = "Motor " + str(self.motor.getDeviceID()) + " "
 
-        SmartDashboard.putNumber("LError", self.frontLeft.getClosedLoopError())
-        SmartDashboard.putNumber("RError", self.frontRight.getClosedLoopError())
+            SmartDashboard.putNumber(self.motorName + "target", self.motor.getClosedLoopTarget())
+            SmartDashboard.putNumber(self.motorName + "velocity", self.motor.getSelectedSensorVelocity())
+            SmartDashboard.putNumber(self.motorName + "error", self.motor.getClosedLoopError())
 
     def periodic(self) -> None:
-        if SmartDashboard.getBoolean("Flush", True):
+        if SmartDashboard.getBoolean("Flush", False):
             self.flush()
         
         self.putMotorValuesToSmartDashboard()

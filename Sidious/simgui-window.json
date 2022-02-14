@@ -2,38 +2,58 @@
   "MainWindow": {
     "GLOBAL": {
       "height": "900",
-      "maximized": "0",
+      "maximized": "1",
       "style": "0",
       "userScale": "2",
       "width": "1600",
-      "xpos": "176",
-      "ypos": "73"
+      "xpos": "0",
+      "ypos": "29"
     }
   },
   "Window": {
+    "###/FMSInfo": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "202,194"
+    },
+    "###/LiveWindow/Ungrouped/Scheduler": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "400,200"
+    },
+    "###/LiveWindow/Ungrouped/class frc2::SubsystemBase": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "325,98"
+    },
     "###FMS": {
       "Collapsed": "0",
       "Pos": "6,675",
       "Size": "281,190"
     },
     "###Joysticks": {
-      "Collapsed": "0",
-      "Pos": "312,581",
-      "Size": "976,278"
+      "Collapsed": "1",
+      "Pos": "297,22",
+      "Size": "436,173"
     },
     "###NetworkTables": {
       "Collapsed": "0",
-      "Pos": "312,346",
-      "Size": "937,231"
+      "Pos": "358,49",
+      "Size": "1535,935"
     },
     "###Other Devices": {
       "Collapsed": "0",
       "Pos": "1281,25",
       "Size": "312,868"
     },
+    "###RoboRIO": {
+      "Collapsed": "0",
+      "Pos": "132,21",
+      "Size": "141,164"
+    },
     "###System Joysticks": {
       "Collapsed": "0",
-      "Pos": "6,437",
+      "Pos": "11,391",
       "Size": "232,254"
     },
     "###Timing": {

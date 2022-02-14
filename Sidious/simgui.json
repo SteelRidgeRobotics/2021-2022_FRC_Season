@@ -1,4 +1,11 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "window": {
+        "visible": false
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -8,6 +15,20 @@
     }
   },
   "NetworkTables": {
+    "LiveWindow": {
+      ".status": {
+        "open": true
+      },
+      "Ungrouped": {
+        "Scheduler": {
+          "open": true
+        },
+        "class frc2::SubsystemBase": {
+          "open": true
+        },
+        "open": true
+      }
+    },
     "SmartDashboard": {
       "open": true
     }
