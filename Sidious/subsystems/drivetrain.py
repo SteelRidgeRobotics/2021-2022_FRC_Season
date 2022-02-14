@@ -23,18 +23,18 @@ class Drivetrain(commands2.SubsystemBase):
         
 
         #invert motors on right side
-        #self.frontRight.setInverted(ctre.TalonFXInvertType.Clockwise)
-        #self.backRight.setInverted(ctre.TalonFXInvertType.Clockwise)
+        self.frontRight.setInverted(ctre.TalonFXInvertType.Clockwise)
+        self.backRight.setInverted(ctre.TalonFXInvertType.Clockwise)
 
         #configure encoders
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
         self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
 
-        #self.frontLeft.config_kF(0, kF, ktimeoutMs) 
-        #self.frontRight.config_kF(0, kF, ktimeoutMs)
+        self.frontLeft.config_kF(0, kF, ktimeoutMs) 
+        self.frontRight.config_kF(0, kF, ktimeoutMs)
 
-        #self.frontLeft.config_kP(0, kP, ktimeoutMs) 
-        #self.frontRight.config_kP(0, kP, ktimeoutMs)
+        self.frontLeft.config_kP(0, kP, ktimeoutMs) 
+        self.frontRight.config_kP(0, kP, ktimeoutMs)
 
         self.frontLeft.configMotionCruiseVelocity(kcruiseVel, ktimeoutMs)
         self.frontRight.configMotionCruiseVelocity(kcruiseVel, ktimeoutMs)
@@ -43,10 +43,10 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.configMotionAcceleration(kcruiseAccel, ktimeoutMs)
         
         #set motors to brake mode
-        #self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
-        #self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
-        #self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
-        #self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)        
+        self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
+        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
+        self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
+        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)        
 
 
     def userDrive(self, leftJoy: float, rightJoy: float) -> None:
@@ -66,9 +66,11 @@ class Drivetrain(commands2.SubsystemBase):
 
     def isMoving(self) -> Boolean:
 
-        self.vel_traj = self.frontLeft.getActiveTrajectoryVelocity()
+        self.l_vel_traj = self.frontLeft.getActiveTrajectoryVelocity()
+        self.r_vel_traj = self.frontRight.getActiveTrajectoryVelocity()
 
-        if self.vel_traj==0.0:
+
+        if self.l_vel_traj==0.0 and self.r_vel_traj==0.0:
             return True
         else:
             return False

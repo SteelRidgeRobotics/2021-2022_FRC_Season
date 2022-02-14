@@ -20,8 +20,8 @@ krightIntake = 7
 
 #Encoders
 ktimeoutMs = 10
-kF = 0.06 #Feed forward
-kP = 0.1 #Proportional
+kF = 0.0455 #Feed forward
+kP = 0.2 #Proportional
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
 kcruiseAccel = 10567.0 #Cruise Acceleration same as velocity
 kUnits = 204800.0 #10 rotations of encoders

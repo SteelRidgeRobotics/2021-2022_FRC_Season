@@ -1,15 +1,12 @@
-from hal import JoystickButtons
 import wpilib
 import commands2
 from commands2.button import JoystickButton
-from commands.getPIDValues import GetPIDValues
 import constants
 import ctre
 from wpilib import XboxController
 from commands.drivewithjoystick import DrivewithJoystick
 from commands.motionmagic import MotionMagic
 from subsystems.drivetrain import Drivetrain
-from subsystems.pidTest import PidTest
 
 
 
@@ -38,30 +35,21 @@ class RobotContainer:
         # The robot's subsystems
         self.drive = Drivetrain()
 
-        self.pid = PidTest()
-
-        self.simpleAuto = GetPIDValues
-
-                
-        
-        # Autonomous routines
-        
-
         # Chooser
-        self.chooser = wpilib.SendableChooser()
+        #self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
-        self.chooser.setDefaultOption("Auto", self.simpleAuto)
+        #self.chooser.setDefaultOption("Auto", self.simpleAuto)
         #self.chooser.addOption("Complex Auto", self.complexAuto)
 
         # Put the chooser on the dashboard
-        wpilib.SmartDashboard.putData("Autonomous", self.chooser)
+        #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
 
         self.configureButtonBindings()
 
         # set up default drive command
-        #self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())) 
+        self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())) 
 
     def configureButtonBindings(self):
         """
@@ -71,7 +59,6 @@ class RobotContainer:
         """
         (JoystickButton(self.driverController, XboxController.Button.kLeftBumper).whenPressed(DrivewithJoystick(self.drive, lambda: -0.5*self.driverController.getLeftY(), lambda: -0.5*self.driverController.getRightY())).whenReleased(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())))
         (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(MotionMagic(self.drive, constants.kUnits)))
-        (JoystickButton(self.driverController, XboxController.Button.kRightBumper).whenPressed(GetPIDValues(self.pid)))
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()

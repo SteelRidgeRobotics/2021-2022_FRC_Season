@@ -19,18 +19,18 @@ class Climber(commands2.SubsystemBase):
         #reverse sensors-This shouldn't be necessary with TalonFX as sensors are integrated
         
         #invert motors
-        #self.frontClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
-        #self.backClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
+        self.frontClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
+        self.backClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
 
         #configure encoders
-        #self.frontClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
-        #self.backClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.frontClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.backClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
 
-        #self.frontClimber.config_kF(0, constants.kF, constants.ktimeoutMs) 
-        #self.backClimber.config_kF(0, constants.kF, constants.ktimeoutMs)
+        self.frontClimber.config_kF(0, constants.kF, constants.ktimeoutMs) 
+        self.backClimber.config_kF(0, constants.kF, constants.ktimeoutMs)
 
-        #self.frontClimber.config_kP(0, constants.kP, constants.ktimeoutMs) 
-        #self.backClimber.config_kP(0, constants.kP, constants.ktimeoutMs)
+        self.frontClimber.config_kP(0, constants.kP, constants.ktimeoutMs) 
+        self.backClimber.config_kP(0, constants.kP, constants.ktimeoutMs)
      
         #set motors to brake mode
         self.verticalClimber.setNeutralMode(ctre.NeutralMode.Brake)
