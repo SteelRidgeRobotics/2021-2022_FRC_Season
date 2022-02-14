@@ -9,8 +9,8 @@ class GetPIDValues(commands2.CommandBase):
         
         self.addRequirements([self.pid])
 
-    def execute(self) -> None:
-        self.pid.periodic()
+    #def execute(self) -> None:
+        #self.pid.periodic()
         #self.pid.putMotorValuesToSmartDashboard()
         #self.pid.putToSmartDashboard()
         #self.pid.flush()

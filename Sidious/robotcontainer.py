@@ -40,7 +40,7 @@ class RobotContainer:
 
         self.pid = PidTest()
 
-        #self.simpleAuto = GetPIDValues
+        self.simpleAuto = GetPIDValues
 
                 
         
@@ -48,20 +48,20 @@ class RobotContainer:
         
 
         # Chooser
-        #self.chooser = wpilib.SendableChooser()
+        self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
-        #self.chooser.setDefaultOption("Auto", self.simpleAuto)
+        self.chooser.setDefaultOption("Auto", self.simpleAuto)
         #self.chooser.addOption("Complex Auto", self.complexAuto)
 
         # Put the chooser on the dashboard
-        #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
+        wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
 
         self.configureButtonBindings()
 
         # set up default drive command
-        self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())) 
+        #self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())) 
 
     def configureButtonBindings(self):
         """

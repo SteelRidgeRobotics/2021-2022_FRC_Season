@@ -23,8 +23,8 @@ class Drivetrain(commands2.SubsystemBase):
         
 
         #invert motors on right side
-        self.frontRight.setInverted(ctre.TalonFXInvertType.Clockwise)
-        self.backRight.setInverted(ctre.TalonFXInvertType.Clockwise)
+        #self.frontRight.setInverted(ctre.TalonFXInvertType.Clockwise)
+        #self.backRight.setInverted(ctre.TalonFXInvertType.Clockwise)
 
         #configure encoders
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
@@ -43,10 +43,10 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.configMotionAcceleration(kcruiseAccel, ktimeoutMs)
         
         #set motors to brake mode
-        self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
-        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
-        self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
-        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)        
+        #self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
+        #self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
+        #self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
+        #self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)        
 
 
     def userDrive(self, leftJoy: float, rightJoy: float) -> None:

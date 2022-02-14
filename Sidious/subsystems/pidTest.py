@@ -1,12 +1,6 @@
-from os import system
-import string
-from sys import stdout
-from tkinter.tix import StdButtonBox
 from xmlrpc.client import Boolean
 import commands2
 import ctre
-from filelock import sys
-from py import std
 from constants import *
 from wpilib import SmartDashboard
 
@@ -106,6 +100,5 @@ class PidTest(commands2.SubsystemBase):
         
         self.putMotorValuesToSmartDashboard()
 
-        #return super().periodic()
 
 
