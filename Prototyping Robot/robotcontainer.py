@@ -92,7 +92,7 @@ class RobotContainer:
         # A: Fully Retract second climber ####DONE
         # B: Launch Cargo ####DONE
         
-        #(JoystickButton(self.driverController, XboxController.Button.kStart).whenPressed(self.intake, not self.intakeOut))
+        #(JoystickButton(self.driverController, XboxController.Button.kStart).whenPressed(self.intake, self.intake.isIntakeOut))
         
         # Remainding Driver Controller buttons
         # Start: Move intake in/out ####DONE
