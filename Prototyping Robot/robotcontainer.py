@@ -69,7 +69,11 @@ class RobotContainer:
                 
         self.configureButtonBindings()  
         
-        self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY(), lambda: self.driverController.getRightBumper(), lambda: self.driverController.getLeftBumper()))
+        #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX()
+        self.leftDriveOutput = -self.driveController.getLeftY() + self.driveController.getRightX()
+        self.rightDriveOutput = -self.driveController.getLeftY() - self.driveController.getRightX()
+        
+        self.drive.setDefaultCommand(DriveByJoystick(self.drive, lambda: self.leftDriveOutput, lambda: self.rightDriveOutput, lambda: self.driverController.getRightBumper(), lambda: self.driverController.getLeftBumper()))
         self.climber.setDefaultCommand(ClimbByJoystick(self.climber, lambda: -self.functionsController.getLeftY(), lambda: -self.functionsController.getRightY()))
         #self.intake.setDefaultCommand(SpinIntakeWithPOV(self.intake, lambda: self.driverController.getPOV()))
         
