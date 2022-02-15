@@ -1,6 +1,11 @@
 from xmlrpc.client import Boolean
 import commands2
 import ctre
+import conversions
+from wpilib import ADXRS450_Gyro
+from wpilib.kinematics import DifferentialDriveOdometry, DifferentialDriveWheelSpeeds, DifferentialDriveKinematics
+from wpilib.geometry import Pose2d, Rotation2d
+from wpilib import SmartDashboard
 from constants import *
 
 
@@ -9,6 +14,53 @@ class Drivetrain(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
 
+        self.setupMotors()
+        self.initializeMotors()
+
+        self.gyro = ADXRS450_Gyro()
+
+        self.odometry = DifferentialDriveOdometry(self.gyro.getRotation2d())
+
+        self.drive_kinematics = DifferentialDriveKinematics(ktrackWidth)
+
+    def zeroHeading(self) -> None:
+        self.gyro.reset()
+
+   
+    def getHeading(self):
+        """Return the current heading of the robot."""
+        return self.gyro.getRotation2d()
+    
+    def getTurnRate(self) -> float:
+
+        return self.gyro.getRate()
+
+    
+    def getPose(self) :
+        
+        return self.odometry.getPose()
+
+    def resetOdometry(self, pose) -> None:
+        
+        self.resetEncoders()
+
+        self.odometry.resetPosition(pose, self.gyro.getRotation2d())
+
+    def getWheelSpeeds(self):
+        return DifferentialDriveWheelSpeeds(conversions.Conversions.convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, self.frontLeft.getSelectedSensorVelocity(),kwheelDiameter, False, kticksPerRev), conversions.Conversions.convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, self.frontRight.getSelectedSensorVelocity(),kwheelDiameter, False, kticksPerRev))
+
+    def periodic(self) -> None:
+        
+        self.left_Distance = conversions.Conversions.convertTalonEncoderTicksToMeters(self, self.frontLeft.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
+        self.right_Distance = conversions.Conversions.convertTalonEncoderTicksToMeters(self, self.frontRight.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
+        
+        SmartDashboard.putNumber("Current Compass", self.gyro.getAngle())
+        self.odometry.update(self.gyro.getRotation2d(), self.left_Distance, self.right_Distance)
+
+
+
+    def setupMotors(self) -> None:
+        """Setup all motor aspects."""
         #initalize motors
         self.frontLeft = ctre.TalonFX(kfrontLeft)
         self.backLeft = ctre.TalonFX(kbackLeft)
@@ -21,7 +73,6 @@ class Drivetrain(commands2.SubsystemBase):
 
         #reverse sensors-This shouldn't be necessary with TalonFX as sensors are integrated
         
-
         #invert motors on right side
         self.frontRight.setInverted(ctre.TalonFXInvertType.Clockwise)
         self.backRight.setInverted(ctre.TalonFXInvertType.Clockwise)
@@ -46,8 +97,7 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
-        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)        
-
+        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
 
     def userDrive(self, leftJoy: float, rightJoy: float) -> None:
         
@@ -79,6 +129,10 @@ class Drivetrain(commands2.SubsystemBase):
 
         self.frontLeft.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
         self.frontRight.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
+
+    def getAverageEncoderDistance(self) -> float:
+
+        return (self.frontLeft.getSelectedSensorPosition() + self.frontRight.getSelectedSensorPosition())/2.0
 
     def initializeMotors(self) -> None:
         self.resetEncoders()
