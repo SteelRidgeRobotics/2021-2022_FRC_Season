@@ -33,18 +33,23 @@
     },
     "###Joysticks": {
       "Collapsed": "1",
-      "Pos": "297,22",
+      "Pos": "128,40",
       "Size": "436,64"
     },
     "###NetworkTables": {
       "Collapsed": "0",
-      "Pos": "358,49",
+      "Pos": "350,57",
       "Size": "1535,935"
     },
     "###Other Devices": {
       "Collapsed": "0",
       "Pos": "1281,25",
       "Size": "312,868"
+    },
+    "###Plot <0>": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "700,400"
     },
     "###RoboRIO": {
       "Collapsed": "0",
@@ -68,7 +73,7 @@
     },
     "Robot State": {
       "Collapsed": "0",
-      "Pos": "5,20",
+      "Pos": "4,25",
       "Size": "109,114"
     }
   }

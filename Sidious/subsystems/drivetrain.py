@@ -8,7 +8,6 @@ from wpilib.geometry import Pose2d, Rotation2d
 from wpilib import SmartDashboard
 from constants import *
 
-
 class Drivetrain(commands2.SubsystemBase):
 
     def __init__(self) -> None:
@@ -56,8 +55,6 @@ class Drivetrain(commands2.SubsystemBase):
         
         SmartDashboard.putNumber("Current Compass", self.gyro.getAngle())
         self.odometry.update(self.gyro.getRotation2d(), self.left_Distance, self.right_Distance)
-
-
 
     def setupMotors(self) -> None:
         """Setup all motor aspects."""
@@ -113,6 +110,24 @@ class Drivetrain(commands2.SubsystemBase):
     def motionMagic(self, units: float) -> None:
         self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, units)
         self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, units)
+
+    def tankDriveVolts(self, leftVolts: float, rightVolts: float) -> None:
+        print(str(leftVolts) + ","+ str(rightVolts))
+        self.frontLeft.set(ctre.ControlMode.Current, leftVolts)
+        self.frontRight.set(ctre.ControlMode.Current, rightVolts)
+    
+    def tankDriveVelocity(self, leftVel: float, rightVel: float) -> None:
+        print(str(leftVel) + "," + str(rightVel))
+        self.frontLeftNativeVelocity = conversions.Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, leftVel, kwheelDiameter, False, kticksPerRev)
+        self.frontRightNativeVelocity = conversions.Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, rightVel, kwheelDiameter, False, kticksPerRev)
+
+        self.frontLeft.set(ctre.ControlMode.Velocity, self.frontLeftNativeVelocity)
+        self.frontRight.set(ctre.ControlMode.Velocity, self.frontRightNativeVelocity)
+
+        SmartDashboard.putNumber("LeftIntendedVelocity", self.frontLeftNativeVelocity)
+        SmartDashboard.putNumber("LeftIntendedvsActual", self.frontLeftNativeVelocity-self.frontLeft.getSelectedSensorVelocity())
+
+
 
     def isMoving(self) -> Boolean:
 

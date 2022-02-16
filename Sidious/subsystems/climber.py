@@ -1,7 +1,6 @@
 import commands2
 import ctre
-import constants
-
+from constants import *
 
 
 class Climber(commands2.SubsystemBase):
@@ -10,8 +9,8 @@ class Climber(commands2.SubsystemBase):
         super().__init__()
         
         #initalize motors
-        self.verticalClimber = ctre.TalonFX(constants.kverticalClimber)
-        self.tiltedClimber = ctre.TalonFX(constants.ktiltedClimber)
+        self.verticalClimber = ctre.TalonFX(kverticalClimber)
+        self.tiltedClimber = ctre.TalonFX(ktiltedClimber)
 
         #set followers
         
@@ -19,18 +18,18 @@ class Climber(commands2.SubsystemBase):
         #reverse sensors-This shouldn't be necessary with TalonFX as sensors are integrated
         
         #invert motors
-        self.frontClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
-        self.backClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
+        self.verticalClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
+        self.tiltedClimber.setInverted(ctre.TalonFXInvertType.Clockwise)
 
         #configure encoders
-        self.frontClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
-        self.backClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.verticalClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
+        self.tiltedClimber.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
 
-        self.frontClimber.config_kF(0, constants.kF, constants.ktimeoutMs) 
-        self.backClimber.config_kF(0, constants.kF, constants.ktimeoutMs)
+        self.verticalClimber.config_kF(0, kF, ktimeoutMs) 
+        self.tiltedClimber.config_kF(0, kF, ktimeoutMs)
 
-        self.frontClimber.config_kP(0, constants.kP, constants.ktimeoutMs) 
-        self.backClimber.config_kP(0, constants.kP, constants.ktimeoutMs)
+        self.verticalClimber.config_kP(0, kP, ktimeoutMs) 
+        self.tiltedClimber.config_kP(0, kP, ktimeoutMs)
      
         #set motors to brake mode
         self.verticalClimber.setNeutralMode(ctre.NeutralMode.Brake)
