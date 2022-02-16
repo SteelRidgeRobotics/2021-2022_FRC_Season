@@ -1,9 +1,13 @@
+import typing
 import commands2
 import wpilib
 from robotcontainer import RobotContainer
 
 
 class MyRobot(commands2.TimedCommandRobot):
+
+    autonomousCommand: typing.Optional[commands2.Command] = None
+
     def robotInit(self) -> None:
         """
         This function is run when the robot is first started up and should be used for any
@@ -16,6 +20,8 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def disabledInit(self) -> None:
         """This function is called once each time the robot enters Disabled mode."""
+        if self.autonomousCommand:
+            self.autonomousCommand.cancel()
 
     def disabledPeriodic(self) -> None:
         """This function is called periodically when disabled"""
@@ -25,8 +31,8 @@ class MyRobot(commands2.TimedCommandRobot):
         
         self.autonomousCommand = self.container.getAutonomousCommand()
 
-        #if self.autonomousCommand:
-            #self.autonomousCommand.schedule()
+        if self.autonomousCommand:
+            self.autonomousCommand.schedule()
 
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""
@@ -39,8 +45,8 @@ class MyRobot(commands2.TimedCommandRobot):
         this line or comment it out.
         """
 
-        #if self.autonomousCommand:
-            #self.autonomousCommand.cancel()
+        if self.autonomousCommand:
+            self.autonomousCommand.cancel()
 
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""

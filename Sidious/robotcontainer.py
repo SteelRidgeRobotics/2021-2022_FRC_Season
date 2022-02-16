@@ -69,25 +69,55 @@ class RobotContainer:
     def getAutonomousCommand(self) -> commands2.Command:
 
         start = Pose2d(0,0, Rotation2d(0))
-        waypoints = [Translation2d(1,0.5), Translation2d(5,1), Translation2d(7,0), Translation2d(6,0)]
-        end = Pose2d(6, 3, Rotation2d(-90))
+        waypoints = [Translation2d(1,1), Translation2d(2,-1)]
+        end = Pose2d(3, 0, Rotation2d(0))
         
         print("Creating Auto Command")
 
-        autoVoltageConstraint = DifferentialDriveVoltageConstraint(SimpleMotorFeedforwardMeters(kS, kA), kdriveKinematics, 10)
+        autoVoltageConstraint = DifferentialDriveVoltageConstraint(SimpleMotorFeedforwardMeters(kS, kA), kdriveKinematics, maxVoltage = 10)
 
         config = TrajectoryConfig(kmaxVelocity, kmaxAccel)
-        config.addConstraint(autoVoltageConstraint)
         config.setKinematics(kdriveKinematics)
+        config.addConstraint(autoVoltageConstraint)
 
-        trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
+        self.trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
 
         print("Generated Trajectory")
 
         #ramseteCommand = RamseteCommand(trajectory, self.drive.getPose(), CustomRamseteControllerAbstraction(kramsete_B, kramsete_Zeta), kdriveKinematics, self.drive.tankDriveVelocity(5.0, 5.0), [self.drive])
 
-        ramseteCommand = RamseteCommand(trajectory, self.drive.getPose(), RamseteController(kramsete_B, kramsete_Zeta), SimpleMotorFeedforwardMeters(kS, kV, kA), kdriveKinematics, self.drive.getWheelSpeeds, PIDController(kP, 0.0, 0.0), PIDController(kP, 0.0, 0.0), self.drive.tankDriveVolts, [self.drive])
+        #ramseteCommand = RamseteCommand(self.trajectory, self.drive.getPose(), RamseteController(kramsete_B, kramsete_Zeta), SimpleMotorFeedforwardMeters(kS, kV, kA), kdriveKinematics, self.drive.getWheelSpeeds, PIDController(kP, 0.0, 0.0), PIDController(kP, 0.0, 0.0), self.drive.tankDriveVolts, [self.drive])
+
+        ramseteCommand = RamseteCommand(
+            # The trajectory to follow.
+            self.trajectory,
+            # A reference to a method that will return our position.
+            self.drive.getPose,
+            # Our RAMSETE controller.
+            CustomRamseteControllerAbstraction(kramsete_B, kramsete_Zeta),
+            # A feedforward object for the robot.
+            SimpleMotorFeedforwardMeters(
+                kS,
+                kV,
+                kA,
+            ),
+            # Our drive kinematics.
+            kdriveKinematics,
+            # A reference to a method which will return a DifferentialDriveWheelSpeeds object.
+            self.drive.getWheelSpeeds,
+            # The turn controller for the left side of the drivetrain.
+            PIDController(kP, 0, 0),
+            # The turn controller for the right side of the drivetrain.
+            PIDController(kP, 0, 0),
+            # A reference to a method which will set a specified
+            # voltage to each motor. The command will pass the two parameters.
+            self.drive.tankDriveVolts,
+            # The subsystems the command should require.
+            [self.drive],
+        )
 
         print("Finished Creating Auto Command")
+
+        self.drive.resetOdometry(self.trajectory.initialPose())
 
         return ramseteCommand.andThen(lambda: self.drive.tankDriveVolts(0.0,0.0))

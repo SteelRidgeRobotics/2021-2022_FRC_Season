@@ -1,7 +1,7 @@
 from xmlrpc.client import Boolean
 import commands2
 import ctre
-import conversions
+from conversions import Conversions
 from wpilib import ADXRS450_Gyro
 from wpilib.kinematics import DifferentialDriveOdometry, DifferentialDriveWheelSpeeds, DifferentialDriveKinematics
 from wpilib.geometry import Pose2d, Rotation2d
@@ -20,7 +20,13 @@ class Drivetrain(commands2.SubsystemBase):
 
         self.odometry = DifferentialDriveOdometry(self.gyro.getRotation2d())
 
-        self.drive_kinematics = DifferentialDriveKinematics(ktrackWidth)
+    def periodic(self) -> None:
+        
+        self.left_Distance = Conversions.convertTalonEncoderTicksToMeters(self, self.frontLeft.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
+        self.right_Distance = Conversions.convertTalonEncoderTicksToMeters(self, self.frontRight.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
+        
+        SmartDashboard.putNumber("Current Compass", self.gyro.getAngle())
+        self.odometry.update(self.gyro.getRotation2d(), self.left_Distance, self.right_Distance)
 
     def zeroHeading(self) -> None:
         self.gyro.reset()
@@ -28,6 +34,7 @@ class Drivetrain(commands2.SubsystemBase):
    
     def getHeading(self):
         """Return the current heading of the robot."""
+
         return self.gyro.getRotation2d()
     
     def getTurnRate(self) -> float:
@@ -46,15 +53,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.odometry.resetPosition(pose, self.gyro.getRotation2d())
 
     def getWheelSpeeds(self):
-        return DifferentialDriveWheelSpeeds(conversions.Conversions.convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, self.frontLeft.getSelectedSensorVelocity(),kwheelDiameter, False, kticksPerRev), conversions.Conversions.convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, self.frontRight.getSelectedSensorVelocity(),kwheelDiameter, False, kticksPerRev))
 
-    def periodic(self) -> None:
-        
-        self.left_Distance = conversions.Conversions.convertTalonEncoderTicksToMeters(self, self.frontLeft.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
-        self.right_Distance = conversions.Conversions.convertTalonEncoderTicksToMeters(self, self.frontRight.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
-        
-        SmartDashboard.putNumber("Current Compass", self.gyro.getAngle())
-        self.odometry.update(self.gyro.getRotation2d(), self.left_Distance, self.right_Distance)
+        return DifferentialDriveWheelSpeeds(Conversions.convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, self.frontLeft.getSelectedSensorVelocity(),kwheelDiameter, False, kticksPerRev), Conversions.convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, self.frontRight.getSelectedSensorVelocity(),kwheelDiameter, False, kticksPerRev))
 
     def setupMotors(self) -> None:
         """Setup all motor aspects."""
@@ -118,8 +118,8 @@ class Drivetrain(commands2.SubsystemBase):
     
     def tankDriveVelocity(self, leftVel: float, rightVel: float) -> None:
         print(str(leftVel) + "," + str(rightVel))
-        self.frontLeftNativeVelocity = conversions.Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, leftVel, kwheelDiameter, False, kticksPerRev)
-        self.frontRightNativeVelocity = conversions.Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, rightVel, kwheelDiameter, False, kticksPerRev)
+        self.frontLeftNativeVelocity = Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, leftVel, kwheelDiameter, False, kticksPerRev)
+        self.frontRightNativeVelocity = Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, rightVel, kwheelDiameter, False, kticksPerRev)
 
         self.frontLeft.set(ctre.ControlMode.Velocity, self.frontLeftNativeVelocity)
         self.frontRight.set(ctre.ControlMode.Velocity, self.frontRightNativeVelocity)
