@@ -32,7 +32,8 @@ class MotionMagic(commands2.CommandBase):
          wpilib.SmartDashboard.putNumber("r_Error", self.drive.frontRight.getClosedLoopError())
 
     def end(self, interrupted: bool) -> None:
-        self.drive.initializeMotors()
+        self.drive.stopMotors()
+        self.drive.resetEncoders()
 
     def isFinished(self) -> bool:
         return self.drive.isMoving()

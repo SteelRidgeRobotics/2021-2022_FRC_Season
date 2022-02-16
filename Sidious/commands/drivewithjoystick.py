@@ -18,6 +18,7 @@ class DrivewithJoystick(commands2.CommandBase):
 
     def end(self, interrupted: bool) -> None:
         self.drive.stopMotors()
+        self.drive.resetEncoders()
 
     def isFinished(self) -> bool:
         return False
