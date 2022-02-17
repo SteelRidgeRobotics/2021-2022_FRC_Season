@@ -4,7 +4,7 @@ import math
 class Conversions:
     """Convert units for autonomous routines."""
      
-    def convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, talonVelocity: float, wheelDiameter: float, usingMetric: bool, ticksPerRevolution: float) -> float:
+    def convertTalonSRXNativeUnitsToWPILibTrajectoryUnits(self, talonVelocity: float, wheelDiameter: float, usingMetric: bool, ticksPerRevolution: int) -> float:
         """Convert the values from native Talon units (ticks/100ms) to WPITrajectory Units (m/s)"""
         
         result = talonVelocity
@@ -12,7 +12,7 @@ class Conversions:
         #Convert from ticks/100ms to ticks/s
         result = result*10.0
 
-        circumference = 0.0
+        circumference = 0
 
         if usingMetric:
             circumference = math.pi * wheelDiameter
@@ -27,12 +27,12 @@ class Conversions:
 
         return result
     
-    def convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, metersPerSecond: float, wheelDiameter: float, givenMetric: bool, ticksPerRevolution: float) -> float:
+    def convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, metersPerSecond: float, wheelDiameter: float, givenMetric: bool, ticksPerRevolution: int) -> float:
         """Convert the values from WPITrajectory Units (m/s) to native Talon units (ticks/100ms)"""
         
         result = metersPerSecond
 
-        circumference = 0.0
+        circumference = 0
 
         if givenMetric:
             circumference = math.pi*wheelDiameter
@@ -53,7 +53,7 @@ class Conversions:
 
         result = ticks
 
-        circumference = 0.0
+        circumference = 0
 
         if givenMetric:
             circumference = math.pi*diameter
@@ -74,6 +74,6 @@ class Conversions:
 
     def convertMetersToFeet(self, value: float) -> float:
         """Converts meters to feet."""
-        return value/0.3048
+        return value*1/0.3048
     
 

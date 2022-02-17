@@ -21,11 +21,13 @@ krightIntake = 7
 #Encoders
 ktimeoutMs = 10
 kF = 0.0455 #Feed forward
-kP = 0.2 #Proportional
+kP = 0.01 #Proportional
+kI = 0.0 #Integral
+kD = 0.0 #Derivative
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
 kcruiseAccel = 10567.0 #Cruise Acceleration same as velocity
-kUnits = 204800.0 #10 rotations of encoders
-kticksPerRev = 1.0
+kUnits = 204800.0 #10 rotations of encoders for motion magic testing
+kticksPerRev = 8192
 
 #Physical constants
 ktrackWidth = 1.5082966671798224 #trackwidth from robot characteristics NEED TO GET THIS
@@ -37,7 +39,7 @@ kV=0.694
 kA=0.993
 kdriveKinematics = DifferentialDriveKinematics(ktrackWidth)
 kmaxVelocity = 7.0
-kmaxAccel = 0.25
-kmaxJerk = 0.25
+kmaxAccel = 5.0
+kmaxJerk = 2.5
 kramsete_B = 2.0
 kramsete_Zeta = 0.7

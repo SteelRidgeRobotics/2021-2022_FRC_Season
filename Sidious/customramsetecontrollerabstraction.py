@@ -1,8 +1,8 @@
 from conversions import Conversions
 from wpimath.controller import RamseteController
-from wpilib.geometry import Pose2d
-from wpilib.kinematics import ChassisSpeeds
-from wpilib.trajectory import Trajectory
+from wpimath.geometry import Pose2d
+from wpimath.kinematics import ChassisSpeeds
+from wpimath.trajectory import Trajectory
 import wpilib
 from constants import *
 import math

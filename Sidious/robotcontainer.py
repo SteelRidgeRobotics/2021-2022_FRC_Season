@@ -41,6 +41,9 @@ class RobotContainer:
         # The robot's subsystems
         self.drive = Drivetrain()
 
+        #self.drive.resetMotors()
+        self.drive.resetEncoders()
+
         # Chooser
         #self.chooser = wpilib.SendableChooser()
 
@@ -54,9 +57,13 @@ class RobotContainer:
 
         self.configureButtonBindings()
 
-        # set up default drive command
-        self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())) 
+        # set up default drive command --> This has been moved to robot.py for teleop periodic.
+        #self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY())) 
 
+    def setDefaultCommand(self) -> None:
+        """This is here to change the initialize of our default command to Telelop-periodic."""
+        self.drive.setDefaultCommand(DrivewithJoystick(self.drive, lambda: -self.driverController.getLeftY(), lambda: -self.driverController.getRightY()))
+    
     def configureButtonBindings(self):
         """
         Use this method to define your button->command mappings. Buttons can be created by
@@ -69,8 +76,8 @@ class RobotContainer:
     def getAutonomousCommand(self) -> commands2.Command:
 
         start = Pose2d(0,0, Rotation2d(0))
-        waypoints = [Translation2d(1,1), Translation2d(2,-1)]
-        end = Pose2d(3, 0, Rotation2d(0))
+        waypoints = [Translation2d(2,0), Translation2d(5,0)]
+        end = Pose2d(6, 0, Rotation2d.fromDegrees(-90))
         
         print("Creating Auto Command")
 
@@ -96,22 +103,22 @@ class RobotContainer:
             # Our RAMSETE controller.
             CustomRamseteControllerAbstraction(kramsete_B, kramsete_Zeta),
             # A feedforward object for the robot.
-            SimpleMotorFeedforwardMeters(
-                kS,
-                kV,
-                kA,
-            ),
+            #SimpleMotorFeedforwardMeters(
+            #    kS,
+            #    kV,
+            #    kA,
+            #),
             # Our drive kinematics.
             kdriveKinematics,
             # A reference to a method which will return a DifferentialDriveWheelSpeeds object.
-            self.drive.getWheelSpeeds,
+            #self.drive.getWheelSpeeds,
             # The turn controller for the left side of the drivetrain.
-            PIDController(kP, 0, 0),
+            #PIDController(kP, 0, 0),
             # The turn controller for the right side of the drivetrain.
-            PIDController(kP, 0, 0),
+            #PIDController(kP, 0, 0),
             # A reference to a method which will set a specified
             # voltage to each motor. The command will pass the two parameters.
-            self.drive.tankDriveVolts,
+            self.drive.tankDriveVelocity,
             # The subsystems the command should require.
             [self.drive],
         )
