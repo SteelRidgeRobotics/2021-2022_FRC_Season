@@ -15,6 +15,8 @@ class MotionMagic(commands2.CommandBase):
 
     def execute(self) -> None:
          self.drive.motionMagic(self.units)
+
+         
          wpilib.SmartDashboard.putBoolean("isMoving", self.drive.isMoving())
 
          #Left Values
@@ -34,6 +36,7 @@ class MotionMagic(commands2.CommandBase):
     def end(self, interrupted: bool) -> None:
         self.drive.stopMotors()
         self.drive.resetEncoders()
+        self.drive.clearTalonTrajectories()
 
     def isFinished(self) -> bool:
         return self.drive.isMoving()

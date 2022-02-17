@@ -41,6 +41,9 @@ class RobotContainer:
         # The robot's subsystems
         self.drive = Drivetrain()
 
+        #self.drive.resetMotors()
+        self.drive.resetEncoders()
+
         # Chooser
         #self.chooser = wpilib.SendableChooser()
 
@@ -73,8 +76,8 @@ class RobotContainer:
     def getAutonomousCommand(self) -> commands2.Command:
 
         start = Pose2d(0,0, Rotation2d(0))
-        waypoints = [Translation2d(1,0.5), Translation2d(5,1), Translation2d(7,0), Translation2d(6,0)]
-        end = Pose2d(6, 3, Rotation2d.fromDegrees(-90))
+        waypoints = [Translation2d(2,0), Translation2d(5,0)]
+        end = Pose2d(6, 0, Rotation2d.fromDegrees(-90))
         
         print("Creating Auto Command")
 

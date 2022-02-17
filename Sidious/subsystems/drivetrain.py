@@ -93,6 +93,10 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
         self.frontRight.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
 
+    def clearTalonTrajectories(self) -> None:
+        self.frontLeft.clearMotionProfileTrajectories()
+        self.frontRight.clearMotionProfileTrajectories()
+
     def getAverageEncoderDistance(self) -> float:
         """Returns the average position of left & right encoders."""
 
