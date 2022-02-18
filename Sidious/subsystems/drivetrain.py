@@ -37,6 +37,8 @@ class Drivetrain(commands2.SubsystemBase):
         self.odometry.update(Rotation2d.fromDegrees(self.getHeading()), self.left_Distance, self.right_Distance)
         SmartDashboard.putNumber("Left Sensor Velocity", self.frontLeft.getSelectedSensorVelocity())
         SmartDashboard.putNumber("Right Sensor Velocity", self.frontRight.getSelectedSensorVelocity())
+        SmartDashboard.putNumber("Left Distance", self.left_Distance)
+        SmartDashboard.putNumber("Right Disance", self.right_Distance)
        
     
     """Methods for motors & encoders"""
@@ -131,14 +133,14 @@ class Drivetrain(commands2.SubsystemBase):
         """Method to drive robot using talons in velocity control mode. Must feed wpilib trajectory units."""
 
         print(str(leftVel) + "," + str(rightVel))
-        self.frontLeftNativeVelocity = Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, leftVel, kwheelDiameter, False, kticksPerRev)
-        self.frontRightNativeVelocity = Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, rightVel, kwheelDiameter, False, kticksPerRev)
+        frontLeftNativeVelocity = Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, leftVel, kwheelDiameter, False, kticksPerRev)
+        frontRightNativeVelocity = Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(self, rightVel, kwheelDiameter, False, kticksPerRev)
 
-        self.frontLeft.set(ctre.ControlMode.Velocity, self.frontLeftNativeVelocity)
-        self.frontRight.set(ctre.ControlMode.Velocity, self.frontRightNativeVelocity)
+        self.frontLeft.set(ctre.ControlMode.Velocity, frontLeftNativeVelocity)
+        self.frontRight.set(ctre.ControlMode.Velocity, frontRightNativeVelocity)
 
-        SmartDashboard.putNumber("LeftIntendedVelocity", self.frontLeftNativeVelocity)
-        SmartDashboard.putNumber("LeftIntendedvsActual", self.frontLeftNativeVelocity-self.frontLeft.getSelectedSensorVelocity())
+        SmartDashboard.putNumber("LeftIntendedVelocity", frontLeftNativeVelocity)
+        SmartDashboard.putNumber("LeftIntendedvsActual", frontLeftNativeVelocity-self.frontLeft.getSelectedSensorVelocity())
 
     def isMoving(self) -> Boolean:
         """A method to determine whether the robot has finished an active trajectory. Returns a boolean."""

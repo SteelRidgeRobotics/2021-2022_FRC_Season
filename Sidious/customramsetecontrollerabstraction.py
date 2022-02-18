@@ -21,26 +21,24 @@ class CustomRamseteControllerAbstraction(RamseteController):
         self.m_b = b
         self.m_zeta = zeta
 
-    #def CustomRamseteControllerAbstraction(self) -> None:
-        #super(2.0, 0.7)
-        #self.m_b = 2.0
-        #self.m_zeta = 0.7
+    def CustomRamseteControllerAbstraction(self) -> None:
+        super(2.0, 0.7)
+        self.m_b = 2.0
+        self.m_zeta = 0.7
 
     def sinc(self, x: float) -> float:
-        if math.fabs(x) < 0.0:
+        if math.fabs(x) < 1e-9:
             return 1.0-1.0/6.0*x*x
         
         else:
-            return math.sin(x)/x
-
-      
+            return math.sin(x)/x   
 
     def calculate(self, currentPose: Pose2d, poseRef: Pose2d, linearVelocityRefMeters: float, angularVelocityRefRadiansPerSecond: float) -> ChassisSpeeds:
             
         m_poseError = poseRef.relativeTo(currentPose)
-        eX = self.m_poseError.translation().X()
-        eY = self.m_poseError.translation().Y()
-        eTheta = self.m_poseError.rotation().radians()
+        eX = m_poseError.translation().X()
+        eY = m_poseError.translation().Y()
+        eTheta = m_poseError.rotation().radians()
         vRef = linearVelocityRefMeters
         omegaRef = angularVelocityRefRadiansPerSecond
 

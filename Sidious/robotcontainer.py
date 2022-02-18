@@ -75,9 +75,10 @@ class RobotContainer:
 
     def getAutonomousCommand(self) -> commands2.Command:
 
-        start = Pose2d(0,0, Rotation2d(0))
-        waypoints = [Translation2d(2,0), Translation2d(5,0)]
-        end = Pose2d(6, 0, Rotation2d.fromDegrees(-90))
+        start = Pose2d(0,0.5, Rotation2d(0))
+        waypoints = [Translation2d(2,0.5), Translation2d(3, 1), Translation2d(4, 1.5), Translation2d(5, 1)]
+        end = Pose2d(6, 0.5, Rotation2d.fromDegrees(0))
+        alternate = [Pose2d(0,0, Rotation2d(0)), Pose2d(2, 1, Rotation2d.fromDegrees(-45)), Pose2d(4, 2, Rotation2d.fromDegrees(-90)), Pose2d(6, 1, Rotation2d.fromDegrees(45))]
         
         print("Creating Auto Command")
 
@@ -89,15 +90,14 @@ class RobotContainer:
 
         self.trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
 
+        self.alternateTrajectory = TrajectoryGenerator.generateTrajectory(alternate, config)
+
         print("Generated Trajectory")
-
-        #ramseteCommand = RamseteCommand(trajectory, self.drive.getPose(), CustomRamseteControllerAbstraction(kramsete_B, kramsete_Zeta), kdriveKinematics, self.drive.tankDriveVelocity(5.0, 5.0), [self.drive])
-
-        #ramseteCommand = RamseteCommand(self.trajectory, self.drive.getPose(), RamseteController(kramsete_B, kramsete_Zeta), SimpleMotorFeedforwardMeters(kS, kV, kA), kdriveKinematics, self.drive.getWheelSpeeds, PIDController(kP, 0.0, 0.0), PIDController(kP, 0.0, 0.0), self.drive.tankDriveVolts, [self.drive])
 
         ramseteCommand = RamseteCommand(
             # The trajectory to follow.
             self.trajectory,
+            #self.alternateTrajectory,
             # A reference to a method that will return our position.
             self.drive.getPose,
             # Our RAMSETE controller.
@@ -126,5 +126,6 @@ class RobotContainer:
         print("Finished Creating Auto Command")
 
         self.drive.resetOdometry(self.trajectory.initialPose())
+        #self.drive.resetOdometry(self.alternateTrajectory.initialPose())
 
         return ramseteCommand.andThen(lambda: self.drive.tankDriveVolts(0.0,0.0))
