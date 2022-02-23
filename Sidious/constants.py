@@ -20,8 +20,8 @@ krightIntake = 7
 
 #Encoders
 ktimeoutMs = 10
-kF = 0.05 #Feed forward
-kP = 0.075 #Proportional
+kF = 0.0455 #Feed forward
+kP = 0.01 #Proportional
 kI = 0.0 #Integral
 kD = 0.0 #Derivative
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
@@ -39,7 +39,7 @@ kS=0.55843
 kV=2.395
 kA=0.18422
 kdriveKinematics = DifferentialDriveKinematics(ktrackWidth)
-kmaxVelocity = 6.0
+kmaxVelocity = 5.0
 kmaxAccel = 2.5
 kmaxJerk = 1.0
 kramsete_B = 2.0
