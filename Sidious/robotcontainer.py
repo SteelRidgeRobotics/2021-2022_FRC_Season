@@ -97,7 +97,7 @@ class RobotContainer:
 
         backwardsTrajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config2)
 
-        finalTrajectory = trajectory+backwardsTrajectory
+        finalTrajectory = trajectory + backwardsTrajectory
 
         alternateTrajectory = TrajectoryGenerator.generateTrajectory(alternate, config)
 
@@ -105,7 +105,7 @@ class RobotContainer:
 
         ramseteCommand = RamseteCommand(
             # The trajectory to follow.
-            finalTrajectory,
+            trajectory,
             #self.alternateTrajectory,
             # A reference to a method that will return our position.
             self.drive.getPose,
