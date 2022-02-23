@@ -88,21 +88,24 @@ class RobotContainer:
         config.setKinematics(kdriveKinematics)
         config.addConstraint(autoVoltageConstraint)
 
-        #config2 = TrajectoryConfig(kmaxVelocity, kmaxAccel)
-        #config2.setKinematics(kdriveKinematics)
-        #config2.addConstraint(autoVoltageConstraint)
-        #config2.isReversed(True)
+        config2 = TrajectoryConfig(kmaxVelocity, kmaxAccel)
+        config2.setKinematics(kdriveKinematics)
+        config2.addConstraint(autoVoltageConstraint)
+        config2.setReversed(True)
 
-        self.trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
-        #self.backwardsTrajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config2)
+        trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
 
-        self.alternateTrajectory = TrajectoryGenerator.generateTrajectory(alternate, config)
+        backwardsTrajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config2)
+
+        finalTrajectory = trajectory+backwardsTrajectory
+
+        alternateTrajectory = TrajectoryGenerator.generateTrajectory(alternate, config)
 
         print("Generated Trajectory")
 
         ramseteCommand = RamseteCommand(
             # The trajectory to follow.
-            self.trajectory,
+            finalTrajectory,
             #self.alternateTrajectory,
             # A reference to a method that will return our position.
             self.drive.getPose,
@@ -131,7 +134,7 @@ class RobotContainer:
 
         print("Finished Creating Auto Command")
 
-        self.drive.resetOdometry(self.trajectory.initialPose())
+        self.drive.resetOdometry(trajectory.initialPose())
         #self.drive.resetOdometry(self.alternateTrajectory.initialPose())
 
         return ramseteCommand.andThen(lambda: self.drive.tankDriveVolts(0.0,0.0))
