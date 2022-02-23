@@ -88,7 +88,13 @@ class RobotContainer:
         config.setKinematics(kdriveKinematics)
         config.addConstraint(autoVoltageConstraint)
 
+        config2 = TrajectoryConfig(kmaxVelocity, kmaxAccel)
+        config2.setKinematics(kdriveKinematics)
+        config2.addConstraint(autoVoltageConstraint)
+        config2.isReversed(True)
+
         self.trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
+        self.backwardsTrajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config2)
 
         self.alternateTrajectory = TrajectoryGenerator.generateTrajectory(alternate, config)
 

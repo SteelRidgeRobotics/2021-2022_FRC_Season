@@ -27,12 +27,13 @@ kD = 0.0 #Derivative
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
 kcruiseAccel = 10567.0 #Cruise Acceleration same as velocity
 kUnits = 204800.0 #10 rotations of encoders for motion magic testing
-kticksPerRev = 8192*2
+kticksPerRev = 2048
 
 #Physical constants
 ktrackWidth = 0.99761 #trackwidth from robot characteristics NEED TO GET THIS
 kwheelbaseWidth = 0.4572 #meters
 kwheelDiameter = 0.5 #ft
+kgearRatio = 10.71
 
 kS=0.55843
 kV=2.395

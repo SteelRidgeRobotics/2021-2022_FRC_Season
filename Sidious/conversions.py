@@ -1,4 +1,5 @@
 import math
+from constants import *
 
 
 class Conversions:
@@ -21,7 +22,7 @@ class Conversions:
             diameterInMeters = wheelDiameter * 0.3048
             circumference = math.pi*diameterInMeters
         
-        metersPerTick = circumference/ticksPerRevolution
+        metersPerTick = circumference/(ticksPerRevolution*kgearRatio)
 
         result = result*metersPerTick
 
@@ -41,7 +42,7 @@ class Conversions:
             diameterInMeters = wheelDiameter * 0.3048
             circumference = math.pi*diameterInMeters
         
-        ticksPerMeter = ticksPerRevolution/circumference
+        ticksPerMeter = (ticksPerRevolution*kgearRatio)/circumference
 
         result = result*ticksPerMeter
 
@@ -49,7 +50,7 @@ class Conversions:
 
         return result
 
-    def convertTalonEncoderTicksToMeters(self, ticks: int, diameter: float, ticksPerRevolution: float, givenMetric: bool) -> float:
+    def convertTalonEncoderTicksToMeters(self, ticks: int, diameter: float, ticksPerRevolution: int, givenMetric: bool) -> float:
 
         result = ticks
 
@@ -62,7 +63,7 @@ class Conversions:
             diameterInMeters = diameter*0.3048
             circumference = math.pi*diameterInMeters
         
-        metersPerTick = circumference/ticksPerRevolution
+        metersPerTick = circumference/(ticksPerRevolution*kgearRatio)
 
         result = result*metersPerTick
 
