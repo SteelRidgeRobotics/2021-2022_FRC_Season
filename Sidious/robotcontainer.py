@@ -1,3 +1,4 @@
+import wpilib
 import commands2
 from commands2.button import JoystickButton
 import ctre
@@ -11,6 +12,7 @@ from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
 from commands2 import RamseteCommand
 from commands.drivewithjoystick import DrivewithJoystick
 from commands.motionmagic import MotionMagic
+from commands.autoPath import AutoPath
 from subsystems.drivetrain import Drivetrain
 
 
@@ -44,15 +46,18 @@ class RobotContainer:
         #self.drive.resetMotors()
         self.drive.resetEncoders()
 
+        #autocommands
+        self.autoPath = AutoPath()
+
         # Chooser
-        #self.chooser = wpilib.SendableChooser()
+        self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
-        #self.chooser.setDefaultOption("Auto", self.simpleAuto)
+        self.chooser.setDefaultOption("Auto", self.autoPath)
         #self.chooser.addOption("Complex Auto", self.complexAuto)
 
         # Put the chooser on the dashboard
-        #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
+        wpilib.SmartDashboard.putData("Autonomous", self.chooser)
 
 
         self.configureButtonBindings()
@@ -138,3 +143,6 @@ class RobotContainer:
         #self.drive.resetOdometry(self.alternateTrajectory.initialPose())
 
         return ramseteCommand.andThen(lambda: self.drive.tankDriveVolts(0.0,0.0))
+
+    def setAutoCommand(self) -> commands2.Command:
+        return self.chooser.getSelected()
