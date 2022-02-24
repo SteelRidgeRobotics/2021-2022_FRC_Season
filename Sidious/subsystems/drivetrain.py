@@ -95,6 +95,14 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
         self.frontRight.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
 
+    def stopandReset(self) -> None:
+        """Resets entire drivetrain."""
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontLeft.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
+        self.frontRight.setSelectedSensorPosition(0.0, 0, ktimeoutMs)
+        self.gyro.reset()
+
     def clearTalonTrajectories(self) -> None:
         self.frontLeft.clearMotionProfileTrajectories()
         self.frontRight.clearMotionProfileTrajectories()

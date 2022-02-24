@@ -12,13 +12,17 @@ from subsystems.drivetrain import Drivetrain
 class SetPathToDrive:
     def __init__(self) -> None:
         
-        #self.drive = Drivetrain()
-
+        self.drive = Drivetrain()
         self.drive.resetEncoders()
+        self.drive.stopandReset()
 
     def goPathA(self, isReverse: bool) -> commands2.Command:
 
         self.drive = Drivetrain()
+        self.drive.resetEncoders()
+        self.drive.stopandReset()
+
+        print("Creating Trajectory A")
 
         autoVoltageConstraint = DifferentialDriveVoltageConstraint(SimpleMotorFeedforwardMeters(kS, kA), kdriveKinematics, maxVoltage = 10)
 
@@ -32,6 +36,8 @@ class SetPathToDrive:
         end = Pose2d(6, 0.5, Rotation2d.fromDegrees(0))
 
         trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
+
+        print("Generated Trajectory A")
 
         ramseteCommand = RamseteCommand(
             # The trajectory to follow.
@@ -51,7 +57,7 @@ class SetPathToDrive:
             [self.drive],
         )
 
-        print("Finished Creating Auto Command")
+        print("Finished Trajectory A")
 
         self.drive.resetOdometry(trajectory.initialPose())
         
@@ -61,6 +67,10 @@ class SetPathToDrive:
     def goPathB(self, isReverse: bool) -> commands2.Command:
 
         self.drive = Drivetrain()
+        self.drive.resetEncoders()
+        self.drive.stopandReset()
+
+        print("Creating Trajectory B")
 
         autoVoltageConstraint = DifferentialDriveVoltageConstraint(SimpleMotorFeedforwardMeters(kS, kA), kdriveKinematics, maxVoltage = 10)
 
@@ -74,6 +84,8 @@ class SetPathToDrive:
         end = Pose2d(6, 0.5, Rotation2d.fromDegrees(0))
 
         trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config)
+
+        print("Generated Trajectory B")
 
         ramseteCommand = RamseteCommand(
             # The trajectory to follow.
@@ -93,7 +105,7 @@ class SetPathToDrive:
             [self.drive],
         )
 
-        print("Finished Creating Auto Command")
+        print("Finished Trajectory B")
 
         self.drive.resetOdometry(trajectory.initialPose())
         

@@ -45,6 +45,7 @@ class RobotContainer:
 
         #self.drive.resetMotors()
         self.drive.resetEncoders()
+        self.drive.stopandReset()
 
         #autocommands
         self.autoPath = AutoPath()
