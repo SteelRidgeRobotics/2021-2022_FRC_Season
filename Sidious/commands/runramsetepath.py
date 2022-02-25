@@ -17,10 +17,10 @@ class RunRamsetePath(commands2.CommandBase):
         self.drive = drive
         self.drive.resetEncoders()
         self.drive.stopandReset()
-        self.m_start = start
-        self.m_waypoints = waypoints
-        self.m_end = end
-        self.m_isReversed = isReversed
+        m_start = start
+        m_waypoints = waypoints
+        m_end = end
+        m_isReversed = isReversed
 
         print("Creating Trajectory A")
 
@@ -29,13 +29,13 @@ class RunRamsetePath(commands2.CommandBase):
         config = TrajectoryConfig(kmaxVelocity, kmaxAccel)
         config.setKinematics(kdriveKinematics)
         config.addConstraint(autoVoltageConstraint)
-        config.setReversed(self.m_isReversed)
+        config.setReversed(m_isReversed)
 
         #m_start = Pose2d(0,0.5, Rotation2d(0))
         #waypoints = [Translation2d(2,0.5), Translation2d(3, 1), Translation2d(4, 1.5), Translation2d(5, 1)]
         #end = Pose2d(6, 0.5, Rotation2d.fromDegrees(0))
 
-        self.trajectory = TrajectoryGenerator.generateTrajectory(self.m_start, self.m_waypoints, self.m_end, config)
+        self.trajectory = TrajectoryGenerator.generateTrajectory(m_start, m_waypoints, m_end, config)
 
         print("Generated Trajectory A")
 
@@ -64,8 +64,13 @@ class RunRamsetePath(commands2.CommandBase):
 
         self.addRequirements([self.drive])
 
+        self.ramseteCommand
+
+        #self.ramseteCommand.andThen(lambda: self.drive.tankDriveVolts(0.0, 0.0))
+
     def execute(self) -> None:
         self.ramseteCommand.execute()
+        #self.ramseteCommand
 
     def end(self, interrupted: bool) -> None:
         self.ramseteCommand.end(interrupted)

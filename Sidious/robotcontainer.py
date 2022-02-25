@@ -12,9 +12,9 @@ from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
 from commands2 import RamseteCommand
 from commands.drivewithjoystick import DrivewithJoystick
 from commands.motionmagic import MotionMagic
-from commands.autopath import AutoPath
 from commands.runramsetepath import RunRamsetePath
 from commands.multiplepaths import MultiplePaths
+from commands.autopath import AutoPath
 from subsystems.drivetrain import Drivetrain
 
 
@@ -58,9 +58,9 @@ class RobotContainer:
         self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
-        self.chooser.setDefaultOption("Auto", self.autoPath3)
-        self.chooser.addOption("Another Auto", self.autoPath)
-        self.chooser.addOption("Multiple Auto", self.autoPath2)
+        self.chooser.setDefaultOption("Multiple Paths", self.autoPath3)
+        self.chooser.addOption("Original Auto", self.autoPath)
+        self.chooser.addOption("Auto 2", self.autoPath2)
         #self.chooser.addOption("Complex Auto", self.complexAuto)
 
         # Put the chooser on the dashboard

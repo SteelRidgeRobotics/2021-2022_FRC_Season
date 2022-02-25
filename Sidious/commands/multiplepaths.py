@@ -1,5 +1,4 @@
 import commands2
-from subsystems.drivetrain import Drivetrain
 from commands.runramsetepath import RunRamsetePath
 from wpimath.geometry import Pose2d, Translation2d, Rotation2d
 
