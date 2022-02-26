@@ -12,9 +12,7 @@ from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
 from commands2 import RamseteCommand
 from commands.drivewithjoystick import DrivewithJoystick
 from commands.motionmagic import MotionMagic
-from commands.runramsetepath import RunRamsetePath
 from commands.multiplepaths import MultiplePaths
-from commands.autopath import AutoPath
 from subsystems.drivetrain import Drivetrain
 
 
@@ -50,17 +48,14 @@ class RobotContainer:
         self.drive.stopandReset()
 
         #autocommands
-        self.autoPath = AutoPath()
-        self.autoPath2 = RunRamsetePath(self, Pose2d(0,0.5, Rotation2d(0)), [Translation2d(2,0.5), Translation2d(3, 1), Translation2d(4, 1.5), Translation2d(5, 1)], Pose2d(6, 0.5, Rotation2d.fromDegrees(0)), False)
-        self.autoPath3 = MultiplePaths()
+        self.autoPath = MultiplePaths(self.drive)
 
         # Chooser
         self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
-        self.chooser.setDefaultOption("Multiple Paths", self.autoPath3)
-        self.chooser.addOption("Original Auto", self.autoPath)
-        self.chooser.addOption("Auto 2", self.autoPath2)
+        self.chooser.setDefaultOption("Multiple Paths", self.autoPath)
+        #self.chooser.addOption("Original Auto", self.autoPath)
         #self.chooser.addOption("Complex Auto", self.complexAuto)
 
         # Put the chooser on the dashboard
@@ -90,7 +85,6 @@ class RobotContainer:
         start = Pose2d(0,0.5, Rotation2d(0))
         waypoints = [Translation2d(2,0.5), Translation2d(3, 1), Translation2d(4, 1.5), Translation2d(5, 1)]
         end = Pose2d(6, 0.5, Rotation2d.fromDegrees(0))
-        alternate = [Pose2d(0,0, Rotation2d(0)), Pose2d(2, 1, Rotation2d.fromDegrees(-45)), Pose2d(4, 2, Rotation2d.fromDegrees(-90)), Pose2d(6, 1, Rotation2d.fromDegrees(45))]
         
         print("Creating Auto Command")
 
@@ -111,7 +105,7 @@ class RobotContainer:
 
         finalTrajectory = trajectory + backwardsTrajectory
 
-        alternateTrajectory = TrajectoryGenerator.generateTrajectory(alternate, config)
+        
 
         print("Generated Trajectory")
 
@@ -147,7 +141,7 @@ class RobotContainer:
         print("Finished Creating Auto Command")
 
         self.drive.resetOdometry(trajectory.initialPose())
-        #self.drive.resetOdometry(self.alternateTrajectory.initialPose())
+        
 
         return ramseteCommand.andThen(lambda: self.drive.tankDriveVolts(0.0,0.0))
 
