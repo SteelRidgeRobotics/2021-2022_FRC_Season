@@ -24,16 +24,22 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight = ctre.TalonFX(kfrontRight)
         self.backRight = ctre.TalonFX(kbackRight)
 
+        #initialize the gyro
         self.gyro = ADXRS450_Gyro()
 
+        #Set up the gyro's heading.
         self.odometry = DifferentialDriveOdometry(Rotation2d.fromDegrees(self.getHeading()))
 
+        #See methods below that setup motors, etc.
         self.setUpMotors()
         self.resetMotors()
         self.configMotors()
         self.gyro.reset()
 
+    
+    
     def periodic(self) -> None:
+        """A periodic method to update the gyro."""
         
         self.left_Distance = Conversions.convertTalonEncoderTicksToMeters(self, self.frontLeft.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
         self.right_Distance = Conversions.convertTalonEncoderTicksToMeters(self, self.frontRight.getSelectedSensorPosition(), kwheelDiameter, kticksPerRev, False)
@@ -47,6 +53,7 @@ class Drivetrain(commands2.SubsystemBase):
        
     
     """Methods for motors & encoders"""
+
     def resetMotors(self)-> None:
         """Reset the motor configurations to factory default."""
         self.frontLeft.configFactoryDefault()
@@ -109,6 +116,7 @@ class Drivetrain(commands2.SubsystemBase):
         self.gyro.reset()
 
     def clearTalonTrajectories(self) -> None:
+        """Clears any trajectories that are on the talons."""
         self.frontLeft.clearMotionProfileTrajectories()
         self.frontRight.clearMotionProfileTrajectories()
 
@@ -118,15 +126,20 @@ class Drivetrain(commands2.SubsystemBase):
         return (self.frontLeft.getSelectedSensorPosition() + self.frontRight.getSelectedSensorPosition())/2.0
     
     def createTrajectoryCommand(self, trajectory: Trajectory, initPose: bool) -> commands2.Command:
+        """Creates a command for path planning. You feed the command a trajectory and whether the
+        reset the initial pose."""
+
+        # Reset the encoders before running.
         self.resetEncoders()
 
+        # Member variables for the trajectory and initial pose
         m_trajectory = trajectory
         m_initPose = initPose
         
+        # The ramsete command.
         ramseteCommand = RamseteCommand(
             # The trajectory to follow.
             m_trajectory,
-            
             # A reference to a method that will return our position.
             self.getPose,
             # Our RAMSETE controller.
@@ -136,14 +149,16 @@ class Drivetrain(commands2.SubsystemBase):
             # A reference to a method which will set a specified
             # velocity to each motor. The command will pass the two parameters.
             self.tankDriveVelocity,
-            # The subsystems the command should require.
+            # The subsystems the command should require (this drivetrain)
             [self],
         )
 
+        # If needed, reset the pose and then run the command.
         if m_initPose:
             m_reset = InstantCommand(lambda: self.resetOdometry(trajectory.initialPose()))
             return m_reset.andThen(ramseteCommand.andThen(lambda: self.tankDriveVolts(0.0,0.0)))
         
+        # Run the command if the pose doesn't need to be reset.
         else:
             return ramseteCommand.andThen(lambda: self.tankDriveVolts(0.0,0.0))
     

@@ -1,4 +1,3 @@
-import math
 from wpimath.kinematics import DifferentialDriveKinematics
 
 
@@ -35,12 +34,15 @@ kwheelbaseWidth = 0.4572 #meters
 kwheelDiameter = 0.5 #ft
 kgearRatio = 10.71
 
+#From robot characteristic tool (sysid). Find on google classroom document.
 kS=0.55843
 kV=2.395
 kA=0.18422
+
 kdriveKinematics = DifferentialDriveKinematics(ktrackWidth)
+
 kmaxVelocity = 3.0
 kmaxAccel = 1.5
 kmaxJerk = 0.75
-kramsete_B = 2.0
-kramsete_Zeta = 0.7
+kramsete_B = 2.0 #this always stays this.
+kramsete_Zeta = 0.7 #this always stays this.

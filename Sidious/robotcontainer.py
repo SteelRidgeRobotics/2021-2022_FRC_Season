@@ -4,12 +4,6 @@ from commands2.button import JoystickButton
 import ctre
 from constants import *
 from wpilib import XboxController
-from customramsetecontrollerabstraction import CustomRamseteControllerAbstraction
-from wpimath.controller import RamseteController, PIDController, SimpleMotorFeedforwardMeters
-from wpimath.geometry import Pose2d, Rotation2d, Translation2d
-from wpimath.trajectory import Trajectory, TrajectoryConfig, TrajectoryGenerator
-from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
-from commands2 import RamseteCommand
 from commands.drivewithjoystick import DrivewithJoystick
 from commands.motionmagic import MotionMagic
 from commands.multiplepaths import MultiplePaths
@@ -43,12 +37,13 @@ class RobotContainer:
         # The robot's subsystems
         self.drive = Drivetrain()
 
-        #self.drive.resetMotors()
+        
         self.drive.resetEncoders()
         self.drive.stopandReset()
 
-        #autocommands
-        self.autoPath = MultiplePaths(self.drive)
+        # Autonomous commands. 
+        # We can add as many as we need.
+        self.autoPath = MultiplePaths(self.drive) #This runs the multiple paths and requires the drivetrain subsystem.
 
         # Chooser
         self.chooser = wpilib.SendableChooser()
