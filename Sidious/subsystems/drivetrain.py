@@ -4,14 +4,13 @@ import ctre
 from conversions import Conversions
 from wpilib import ADXRS450_Gyro
 from wpimath.kinematics import DifferentialDriveOdometry, DifferentialDriveWheelSpeeds
-from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
-from wpimath.controller import RamseteController, SimpleMotorFeedforwardMeters
 from wpimath.geometry import Pose2d, Rotation2d
-from wpimath.trajectory import Trajectory, TrajectoryConfig
+from wpimath.trajectory import Trajectory
 from wpilib import SmartDashboard
 from constants import *
 from commands2 import RamseteCommand
 from commands2 import InstantCommand
+from customramsetecontrollerabstraction import CustomRamseteControllerAbstraction
 
 
 class Drivetrain(commands2.SubsystemBase):
@@ -131,7 +130,7 @@ class Drivetrain(commands2.SubsystemBase):
             # A reference to a method that will return our position.
             self.getPose,
             # Our RAMSETE controller.
-            RamseteController(kramsete_B, kramsete_Zeta),
+            CustomRamseteControllerAbstraction(kramsete_B, kramsete_Zeta),
             # Our drive kinematics.
             kdriveKinematics,
             # A reference to a method which will set a specified
@@ -147,20 +146,6 @@ class Drivetrain(commands2.SubsystemBase):
         
         else:
             return ramseteCommand.andThen(lambda: self.tankDriveVolts(0.0,0.0))
-
-    def generateConfig(self, isReversed: bool) -> TrajectoryConfig:
-
-        m_isReversed = isReversed
-
-        autoVoltageConstraint = DifferentialDriveVoltageConstraint(SimpleMotorFeedforwardMeters(kS, kA), kdriveKinematics, maxVoltage = 10)
-
-        config = TrajectoryConfig(kmaxVelocity, kmaxAccel)
-        config.setKinematics(kdriveKinematics)
-        config.addConstraint(autoVoltageConstraint)
-        config.setReversed(m_isReversed)
-
-        return config
-
     
     def userDrive(self, leftJoy: float, rightJoy: float) -> None:
         """Method to drive robot using left and right joysticks."""

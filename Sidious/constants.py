@@ -26,7 +26,7 @@ kI = 0.0 #Integral
 kD = 0.0 #Derivative
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
 kcruiseAccel = 10567.0 #Cruise Acceleration same as velocity
-kUnits = 204800.0 #10 rotations of encoders for motion magic testing
+kUnits = 204800.0 #10 rotations of encoders for motion magic testing 
 kticksPerRev = 2048
 
 #Physical constants
