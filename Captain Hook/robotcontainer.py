@@ -11,15 +11,14 @@ from commands2.button import JoystickButton
 
 from commands.climb_by_joystick import ClimbByJoystick
 
-from commands.drivetrain import Drivetrain
-from commands.climber import Climber
+from subsystems.climber import Climber
 
 #hi
 class RobotContainer:
     def __init__(self) -> None:
         # driver controller
         self.driverController = XboxController(constants.kdriverControllerPort)
-        self.
+        self.functionsController = XboxController(constants.kfunctionsControllerPort)
         
         self.frontLeft = ctre.TalonFX(constants.kfrontLeft)
         self.backLeft = ctre.TalonFX(constants.kbackLeft)
@@ -57,5 +56,5 @@ class RobotContainer:
         
     #def configureButtonBindings(self):
 
-    def getAutonomousCommand(self) -> commands2.Command:
-        return self.chooser.getSelected()
+#    def getAutonomousCommand(self) -> commands2.Command:
+#        return self.chooser.getSelected()
