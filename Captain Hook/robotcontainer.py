@@ -45,7 +45,7 @@ class RobotContainer:
 
         #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
                 
-    #    self.configureButtonBindings() 
+        self.configureButtonBindings() 
         
         # SINGLE JOYSTICK
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX()
@@ -57,8 +57,8 @@ class RobotContainer:
         # climbing
         self.climber.setDefaultCommand(ClimbByJoystick(self.climber, lambda: -self.functionsController.getLeftY(), lambda: -self.functionsController.getRightY()))
         
-    #def configureButtonBindings(self):
-    #    (JoystickButton(self.functionsController, XboxController.Button.kA).whenPressed(LaunchCargo(self.launcher)))
+    def configureButtonBindings(self):
+        (JoystickButton(self.functionsController, XboxController.Button.kA).whenPressed(LaunchCargo(self.launcher)))
 
 #    def getAutonomousCommand(self) -> commands2.Command:
 #        return self.chooser.getSelected()
