@@ -2,7 +2,7 @@ import commands2
 from subsystems.intake import Intake
 
 class SpinIntakeBottom(commands2.CommandBase):
-    def __init__(self, intake: Intake, percent: float):
+    def __init__(self, intake: Intake):
         super().__init__()
         
         self.intake = intake
