@@ -34,6 +34,7 @@ class DriveByJoystick(commands2.CommandBase):
             self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         
         #self.drive.userDrive(self.left_axis(), self.right_axis())
+        
         wpilib.SmartDashboard.putNumber('   leftJoy - ', self.left_axis())
         wpilib.SmartDashboard.putNumber('   rightJoy - ', self.right_axis())
         wpilib.SmartDashboard.putNumber("  Left Velocity - ", self.drive.frontLeft.getSelectedSensorVelocity())

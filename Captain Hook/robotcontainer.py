@@ -10,8 +10,10 @@ from subsystems.drivetrain import Drivetrain
 from commands2.button import JoystickButton
 
 from commands.climb_by_joystick import ClimbByJoystick
+from commands.launch_cargo import LaunchCargo
 
 from subsystems.climber import Climber
+from subsystems.launcher import Launcher
 
 #hi
 class RobotContainer:
@@ -32,6 +34,7 @@ class RobotContainer:
         #subsystems
         self.drive = Drivetrain()
         self.climber = Climber()
+        self.launcher = Launcher()
         
         # chooser
         #self.chooser = wpilib.SendableChooser()
@@ -42,7 +45,7 @@ class RobotContainer:
 
         #wpilib.SmartDashboard.putData("Autonomous", self.chooser)
                 
-        #self.configureButtonBindings() 
+    #    self.configureButtonBindings() 
         
         # SINGLE JOYSTICK
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX()
@@ -55,6 +58,7 @@ class RobotContainer:
         self.climber.setDefaultCommand(ClimbByJoystick(self.climber, lambda: -self.functionsController.getLeftY(), lambda: -self.functionsController.getRightY()))
         
     #def configureButtonBindings(self):
+    #    (JoystickButton(self.functionsController, XboxController.Button.kA).whenPressed(LaunchCargo(self.launcher)))
 
 #    def getAutonomousCommand(self) -> commands2.Command:
 #        return self.chooser.getSelected()

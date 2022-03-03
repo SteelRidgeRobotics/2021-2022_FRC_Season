@@ -1,4 +1,5 @@
 import math
+import wpilib
 
 #Controller ports
 kdriverControllerPort = 0
@@ -31,3 +32,14 @@ kF = 0.0509563647
 kP = 0.375
 kD = 11.25
 kI = 0.0
+
+# pneumatics
+ksolenoidModuleType = wpilib.PneumaticsModuleType.CTREPCM
+ksolenoidModule = 0
+
+# intake ports
+kintakeSolenoidLeftPort = 0
+kintakeSolenoidRightPort = 1
+
+# launcher port
+klauncherSolenoidPort = 2
