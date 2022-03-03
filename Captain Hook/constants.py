@@ -14,6 +14,9 @@ kbackRight = 3
 kclimber1 = 4
 kclimber2 = 5
 
+kintakeBottom = 6
+kintakeTop = 7
+
 #Encoders
 ktimeoutMs = 10
 
