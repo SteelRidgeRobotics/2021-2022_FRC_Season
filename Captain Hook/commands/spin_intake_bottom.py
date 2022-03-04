@@ -3,16 +3,16 @@ import wpilib
 from subsystems.intake import Intake
 
 class SpinIntakeBottom(commands2.CommandBase):
-    def __init__(self, intake: Intake):
+    def __init__(self, intake: Intake, percent: float):
         super().__init__()
         
         self.intake = intake
+        self.percent = percent
         self.isDone = False
         self.addRequirements([self.intake])
     
     def execute(self) -> None:
-        self.intake.spinIntakeBottom(1.0)
-        wpilib.SmartDashboard.putNumber('   INTAKE BOTTOM - ', 1)
+        self.intake.spinIntakeBottom(self.percent)
         # may need to add some sort of wait here
 
     def end(self, interrupted: bool) -> None:
