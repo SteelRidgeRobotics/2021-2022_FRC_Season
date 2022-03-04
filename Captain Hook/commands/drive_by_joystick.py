@@ -1,16 +1,22 @@
+#import stuff
 import typing
 import commands2
 from subsystems.drivetrain import Drivetrain
 import wpilib 
 
+#create class inheriting from commandbase. inheritance means we can get attributes and functions of a class, and use them in a new class.
+#ex: a great dane could inherit from the dog class, which inherits from the mammal class, etc.
 class DriveByJoystick(commands2.CommandBase):
     """
     This allows us to drive the robot with an xbox controller
     """
+    #init function
     def __init__(self, drive: Drivetrain, left_axis: typing.Callable[[], float], right_axis: typing.Callable[[], float], bumperRight: typing.Callable[[], bool], bumperLeft: typing.Callable[[], bool]) -> None:
     #def __init__(self, drive: Drivetrain, left_axis, right_axis) -> None:
+        #initiate from the parent class, super() refers to commands2.CommandBase
         super().__init__()
         
+        #our drivetrain, left joystick value, right joystick value, bumper values, and the percentage (how much we multiply value by)
         self.drive = drive
         self.left_axis = left_axis
         self.right_axis = right_axis
@@ -18,8 +24,10 @@ class DriveByJoystick(commands2.CommandBase):
         self.bumperLeft = bumperLeft
         self.percent = 1.0
 
+        #this command requires the drivetrain class
         self.addRequirements([self.drive])
         
+        #slow factor (why do we have this i have no idea)
         self.slowFactor = 0.5
   
     def execute(self) -> None:
@@ -28,9 +36,12 @@ class DriveByJoystick(commands2.CommandBase):
         # when the one of the bumpers is pressed, halve the speed
         if self.bumperRight() or self.bumperLeft():
             self.percent = 0.5
+            #drive using the userdrive function with the joystick values times the percentage chosen
             self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
+        #otherwise drive normally
         else:
             self.percent = 1.0
+            #drive function
             self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         
         #self.drive.userDrive(self.left_axis(), self.right_axis())

@@ -64,9 +64,9 @@ class RobotContainer:
     def configureButtonBindings(self):
         (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
 
-        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 1.0)))
+        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 0.2)))
         (JoystickButton(self.driverController, XboxController.Button.kY).whenReleased(CatchCargo(self.intake)))
-        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -1.0)))
+        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -0.2)))
         (JoystickButton(self.driverController, XboxController.Button.kA).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
 
         (JoystickButton(self.functionsController, XboxController.Button.kY).whenHeld(SpinIntakeTop(self.intake, 1.0)))

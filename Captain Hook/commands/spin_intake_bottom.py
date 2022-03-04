@@ -7,8 +7,8 @@ class SpinIntakeBottom(commands2.CommandBase):
         super().__init__()
         
         self.intake = intake
-        self.percent = percent
         self.isDone = False
+        self.percent = percent
         self.addRequirements([self.intake])
     
     def execute(self) -> None:

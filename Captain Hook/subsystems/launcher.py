@@ -7,11 +7,12 @@ class Launcher(commands2.SubsystemBase):
         super().__init__()
         # initialize solenoids
         self.launcherSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.klauncherSolenoidPort)
+        self.launcherSolenoidIn = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.klauncherSolenoidPortIn)
         self.is_up = False
 
     def togglePosition(self) -> None:
         if self.is_up:
-            self.launcherSolenoid.set(False)
+            self.launcherSolenoidIn.set(True)
         else:
             self.launcherSolenoid.set(True)
         self.is_up = True

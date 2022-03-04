@@ -16,10 +16,10 @@ class Intake(commands2.SubsystemBase):
     def toggleIntakePosition(self) -> None:
         if self.isIntakeDown:
             self.leftSolenoid.set(True)
-            self.rightSolenoid.set(True)
+            self.rightSolenoid.set(False)
         else:
             self.leftSolenoid.set(False)
-            self.rightSolenoid.set(False)
+            self.rightSolenoid.set(True)
         
         self.isIntakeDown = not self.isIntakeDown
 

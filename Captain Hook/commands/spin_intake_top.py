@@ -15,10 +15,9 @@ class SpinIntakeTop(commands2.CommandBase):
         wpilib.SmartDashboard.putNumber('   top intake wheel - ', self.percent)
         self.intake.spinIntakeTop(self.percent)
         # may need to add some sort of wait here
-        self.isDone = True 
 
     def end(self, interrupted: bool) -> None:
-        self.intake.spinIntakeTop(0.0)
+        self.isDone = True
         wpilib.SmartDashboard.putNumber('   top intake wheel - ', self.percent)
       
     def isFinished(self) -> bool:
