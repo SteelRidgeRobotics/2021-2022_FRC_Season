@@ -1,4 +1,3 @@
-import wpilib
 import typing
 import commands2
 from subsystems.climber import Climber

@@ -15,7 +15,7 @@ class SpinIntakeBottom(commands2.CommandBase):
         wpilib.SmartDashboard.putNumber('   INTAKE BOTTOM - ', 1)
         # may need to add some sort of wait here
 
-    def end(self) -> None:
+    def end(self, interrupted: bool) -> None:
         self.intake.spinIntakeBottom(0.0)
         self.isDone = True       
     
