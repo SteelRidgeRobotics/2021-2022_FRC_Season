@@ -8,8 +8,8 @@ class Intake(commands2.SubsystemBase):
         # initialize motors & solenoids
         self.leftSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidLeftPort)
         self.rightSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidRightPort)
-        self.intakeBottom = ctre.TalonFX(constants.kintakeBottom);
-        self.intakeTop = ctre.TalonFX(constants.kintakeTop);
+        self.intakeBottom = ctre.TalonFX(constants.kintakeBottom)
+        self.intakeTop = ctre.TalonFX(constants.kintakeTop)
 
         self.isIntakeDown = False
 

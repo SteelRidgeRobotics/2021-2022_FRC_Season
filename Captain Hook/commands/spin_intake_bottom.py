@@ -12,12 +12,13 @@ class SpinIntakeBottom(commands2.CommandBase):
         self.addRequirements([self.intake])
     
     def execute(self) -> None:
+        wpilib.SmartDashboard.putNumber('   bottom intake wheel - ', self.percent)
         self.intake.spinIntakeBottom(self.percent)
         # may need to add some sort of wait here
 
     def end(self, interrupted: bool) -> None:
-        self.intake.spinIntakeBottom(0.0)
         self.isDone = True       
+        wpilib.SmartDashboard.putNumber('   bottom intake wheel - ', self.percent)
     
     def isFinished(self) -> bool:
         return self.isDone
