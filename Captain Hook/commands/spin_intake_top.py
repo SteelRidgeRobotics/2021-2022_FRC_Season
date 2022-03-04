@@ -15,7 +15,7 @@ class SpinIntakeTop(commands2.CommandBase):
         # may need to add some sort of wait here
         self.isDone = True 
 
-    def end(self) -> None:
+    def end(self, interrupted: bool) -> None:
         self.intake.spinIntakeTop(0.0)
       
     def isFinished(self) -> bool:
