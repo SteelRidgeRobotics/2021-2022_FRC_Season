@@ -7,15 +7,16 @@ class SpinIntakeTop(commands2.CommandBase):
         
         self.intake = intake
         self.isDone = False
+        self.percent = percent
         self.addRequirements([self.intake])
     
     def execute(self) -> None:
-        self.intake.spinIntakeTop(0.4)
+        self.intake.spinIntakeTop(self.percent)
         # may need to add some sort of wait here
+        self.isDone = True 
 
     def end(self) -> None:
         self.intake.spinIntakeTop(0.0)
-        self.isDone = True       
-    
+      
     def isFinished(self) -> bool:
         return self.isDone

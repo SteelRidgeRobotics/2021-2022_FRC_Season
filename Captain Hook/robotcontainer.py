@@ -60,7 +60,9 @@ class RobotContainer:
         
     def configureButtonBindings(self):
         (JoystickButton(self.functionsController, XboxController.Button.kA).whenPressed(LaunchCargo(self.launcher)))
-        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake)))
+        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 1.0)))
+        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -1.0)))
+
         #(JoystickButton(self.driverController))
 #    def getAutonomousCommand(self) -> commands2.Command:
 #        return self.chooser.getSelected()
