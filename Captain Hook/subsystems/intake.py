@@ -3,13 +3,13 @@ import commands2
 import constants
 import ctre
 class Intake(commands2.SubsystemBase):
-    def __init(self) -> None:
+    def __init__(self) -> None:
         super().__init__()
         # initialize motors & solenoids
         self.leftSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidLeftPort)
         self.rightSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidRightPort)
-        self.intakeBottom = ctre.TalonFX(constants.kintakeBottom)
-        self.intakeTop = ctre.TalonFX(constants.kintakeTop)
+        self.intakeBottom = ctre.TalonFX(constants.kintakeBottom);
+        self.intakeTop = ctre.TalonFX(constants.kintakeTop);
 
         self.isIntakeDown = False
 
@@ -26,8 +26,8 @@ class Intake(commands2.SubsystemBase):
     def spinIntakeBottom(self, percentage: float) -> None:
         self.intakeBottom.set(ctre.TalonFXControlMode.PercentOutput, percentage)
 
-    def spinIntakeTop(self, percentage: float) -> None:
-        self.intakeTop.set(ctre.TalonFXControlMode.PercentOutput, percentage)
+    def spinIntakeTop(self, percentage1: float) -> None:
+        self.intakeTop.set(ctre.TalonFXControlMode.PercentOutput, percentage1)
 
     def isIntakeOut(self) -> bool:
         return self.isIntakeDown

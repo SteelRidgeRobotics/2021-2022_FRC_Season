@@ -1,6 +1,5 @@
 import wpilib
 import commands2
-from commands.spin_intake_bottom import SpinIntakeBottom
 import constants
 import ctre
 from wpilib import XboxController
@@ -12,6 +11,8 @@ from commands2.button import JoystickButton
 
 from commands.climb_by_joystick import ClimbByJoystick
 from commands.launch_cargo import LaunchCargo
+from commands.spin_intake_bottom import SpinIntakeBottom
+from commands.spin_intake_top import SpinIntakeTop
 
 from subsystems.climber import Climber
 from subsystems.launcher import Launcher
@@ -61,6 +62,7 @@ class RobotContainer:
     def configureButtonBindings(self):
         (JoystickButton(self.functionsController, XboxController.Button.kA).whenPressed(LaunchCargo(self.launcher)))
         (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake)))
-        (JoystickButton(self.driverController))
+        (JoystickButton(self.functionsController, XboxController.Button.kY).whenHeld(SpinIntakeTop(self.intake)))
+        
 #    def getAutonomousCommand(self) -> commands2.Command:
 #        return self.chooser.getSelected()
