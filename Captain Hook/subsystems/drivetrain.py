@@ -1,6 +1,5 @@
 import commands2
 import ctre
-from hal import CAN_OpenStreamSession
 import constants
 
 class Drivetrain(commands2.SubsystemBase):
