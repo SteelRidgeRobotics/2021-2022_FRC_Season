@@ -10,7 +10,7 @@ class MyRobot(commands2.TimedCommandRobot):
         #init the drive train (This is done in the robotcontainer)
         #self.drivetrain = Drivetrain(self) 
         self.container = RobotContainer()
-        #self.autonomousCommand = self.container.getAutonomousCommand()
+        self.autonomousCommand = self.container.getAutonomousCommand()
         
     def disabledInit(self) -> None:
         """This function is called once each time the robot enters Disabled mode."""
@@ -21,10 +21,10 @@ class MyRobot(commands2.TimedCommandRobot):
     def autonomousInit(self) -> None:
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
         
-        #self.autonomousCommand = self.container.getAutonomousCommand()
+        self.autonomousCommand = self.container.getAutonomousCommand()
 
-        #if self.autonomousCommand:
-        #    self.autonomousCommand.schedule()
+        if self.autonomousCommand:
+            self.autonomousCommand.schedule()
         
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""
@@ -37,8 +37,8 @@ class MyRobot(commands2.TimedCommandRobot):
         this line or comment it out.
         """
 
-        #if self.autonomousCommand:
-        #    self.autonomousCommand.cancel()
+        if self.autonomousCommand:
+            self.autonomousCommand.cancel()
       
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""
