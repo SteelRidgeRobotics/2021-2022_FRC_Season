@@ -1,6 +1,17 @@
 import commands2
 import ctre
 import constants
+from xmlrpc.client import Boolean
+from conversions import Conversions
+from wpilib import ADXRS450_Gyro
+from wpimath.kinematics import DifferentialDriveOdometry, DifferentialDriveWheelSpeeds
+from wpimath.geometry import Pose2d, Rotation2d
+from wpimath.trajectory import Trajectory
+from wpilib import SmartDashboard
+import constants
+from commands2 import RamseteCommand
+from commands2 import InstantCommand
+from customramsetecontrollerabstraction import CustomRamseteControllerAbstraction
 
 class Drivetrain(commands2.SubsystemBase):
     def __init__(self) -> None:
@@ -11,6 +22,11 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft = ctre.TalonFX(constants.kbackLeft)
         self.frontRight = ctre.TalonFX(constants.kfrontRight)
         self.backRight = ctre.TalonFX(constants.kbackRight)
+        
+        #initialize gyro
+        self.gryro = ADXRS450_Gyro
+        
+        self.odometry = DifferentiaDriveOdometry(Rotation2d.fromDegress(self.getHeading))
 
         #set followers
         self.backLeft.follow(self.frontLeft)
