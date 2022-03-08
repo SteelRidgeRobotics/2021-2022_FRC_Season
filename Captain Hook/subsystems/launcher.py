@@ -13,15 +13,9 @@ class Launcher(commands2.SubsystemBase):
         if self.is_up:
             self.launcherSolenoid.set(wpilib.DoubleSolenoid.Value.kReverse)
         else:
-<<<<<<< Updated upstream
-            self.launcherSolenoid.set(True)
-        self.is_up = True
-
-=======
             self.launcherSolenoid.set(wpilib.DoubleSolenoid.Value.kForward)
         self.is_up = not self.is_up
     
->>>>>>> Stashed changes
     def isUp(self) -> bool:
         return self.is_up
         
