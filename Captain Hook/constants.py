@@ -41,7 +41,7 @@ ksolenoidModuleType = wpilib.PneumaticsModuleType.CTREPCM
 ksolenoidModule = 0
 
 # intake ports
-kintakeSolenoid = (4, 5)
+kintakeSolenoidPorts = (4, 5)
 
 # launcher port
-klauncherSolenoid = (6, 7)
+klauncherSolenoidPorts = (6, 7)

@@ -6,22 +6,19 @@ class Intake(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
         # initialize motors & solenoids
-        self.leftSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidLeftPort)
-        self.rightSolenoid = wpilib.Solenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidRightPort)
+        self.intakeSolenoid = wpilib.DoubleSolenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, *constants.kintakeSolenoidPorts)
         self.intakeBottom = ctre.TalonFX(constants.kintakeBottom)
         self.intakeTop = ctre.TalonFX(constants.kintakeTop)
 
-        self.isIntakeDown = False
+        self.isIntakeUp = False
 
     def toggleIntakePosition(self) -> None:
-        if self.isIntakeDown:
-            self.leftSolenoid.set(True)
-            self.rightSolenoid.set(False)
+        if self.isIntakeUp:
+            self.intakeSolenoid.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
-            self.leftSolenoid.set(False)
-            self.rightSolenoid.set(True)
+            self.intakeSolenoid.set(wpilib.DoubleSolenoid.Value.kReverse)
         
-        self.isIntakeDown = not self.isIntakeDown
+        self.isIntakeUp = not self.isIntakeUp
 
     def spinIntakeBottom(self, percentage: float) -> None:
         self.intakeBottom.set(ctre.TalonFXControlMode.PercentOutput, percentage)
@@ -30,4 +27,4 @@ class Intake(commands2.SubsystemBase):
         self.intakeTop.set(ctre.TalonFXControlMode.PercentOutput, percentage1)
 
     def isIntakeOut(self) -> bool:
-        return self.isIntakeDown
+        return self.isIntakeUp
