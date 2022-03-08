@@ -6,7 +6,7 @@ class Intake(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
         # initialize motors & solenoids
-        self.intakeSolenoid = wpilib.DoubleSolenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, *constants.kintakeSolenoidPorts)
+        self.intakeSolenoid = wpilib.DoubleSolenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidIn, constants.kintakeSolenoidOut)
         self.intakeBottom = ctre.TalonSRX(constants.kintakeBottom)
         self.intakeTop = ctre.TalonSRX(constants.kintakeTop)
 
