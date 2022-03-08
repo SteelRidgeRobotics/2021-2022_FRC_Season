@@ -52,12 +52,12 @@ ksolenoidModuleType = wpilib.PneumaticsModuleType.CTREPCM
 ksolenoidModule = 0
 
 # intake ports
-kintakeSolenoidIn = 4
-kintakeSolenoidOut = 5
+kintakeSolenoidIn = 5
+kintakeSolenoidOut = 4
 
 # launcher port
-klauncherSolenoidIn = 6
-klauncherSolenoidOut = 7
+klauncherSolenoidIn = 7
+klauncherSolenoidOut = 6
 
 kgearRatio = 10.71
 kwheelDiameter = 0.5
