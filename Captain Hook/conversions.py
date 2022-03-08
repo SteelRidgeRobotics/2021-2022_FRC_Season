@@ -2,7 +2,7 @@ import math
 import constants
 
 class Conversions:
-    def convertTalonUnitsToTrajectoryUnits(self, talonVelocity: float, wheelDiameter: float, usingMetric: bool, ticksPerRevolutiom: int) -> float:
+    def convertTalonUnitsToTrajectoryUnits(self, talonVelocity: float, wheelDiameter: float, usingMetric: bool, ticksPerRevolution: int) -> float:
         # Convert values like the title of the method suggests
         
         result = talonVelocity
@@ -17,7 +17,7 @@ class Conversions:
             diameterInMeters = wheelDiameter * 0.3048
             circumference = math.pi * diameterInMeters
             
-        metersPerTick = circumference/(ticksPerRevelution*constants.kgearRatio)
+        metersPerTick = circumference/(ticksPerRevolution*constants.kgearRatio)
         
         result *= metersPerTick
         
@@ -42,7 +42,7 @@ class Conversions:
         
         return result
     
-    def convertTalonEncoderTicksToMeters(self, ticks: int, diameter: float, ticksPerRevolution: int, givenMetric: bool) -> bool:
+    def convertTalonEncoderTicksToMeters(self, ticks: int, wheelDiameter: float, ticksPerRevolution: int, givenMetric: bool) -> bool:
         result = ticks
         
         circumference = 0

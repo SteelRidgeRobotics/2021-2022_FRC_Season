@@ -50,7 +50,7 @@ class RobotContainer:
 
         wpilib.SmartDashboard.putData("Autonomous", self.chooser)
                 
-        #self.configureButtonBindings() 
+        self.configureButtonBindings() 
         
         # SINGLE JOYSTICK
         #self.drive.userDrive(self.driveController.getY()*-1 + self.driveController.getX(), self.driveController.getY()*-1 - self.driveController.getX()
@@ -62,22 +62,22 @@ class RobotContainer:
         # climbing
         self.climber.setDefaultCommand(ClimbByJoystick(self.climber, lambda: -self.functionsController.getLeftY(), lambda: -self.functionsController.getRightY()))
         
-    #def configureButtonBindings(self):
-        """
+    def configureButtonBindings(self):
+        
         (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
 
-        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 0.2)))
+        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 1.0)))
         (JoystickButton(self.driverController, XboxController.Button.kY).whenReleased(CatchCargo(self.intake)))
-        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -0.2)))
+        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -1.0)))
         (JoystickButton(self.driverController, XboxController.Button.kA).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
 
-        (oystickButton(self.functionsController, XboxController.Button.kY).whenHeld(SpinIntakeTop(self.intake, 1.0)))
+        (JoystickButton(self.functionsController, XboxController.Button.kY).whenHeld(SpinIntakeTop(self.intake, 1.0)))
         (JoystickButton(self.functionsController, XboxController.Button.kY).whenReleased(SpinIntakeTop(self.intake, 0.0)))
         (JoystickButton(self.functionsController, XboxController.Button.kA).whenHeld(SpinIntakeTop(self.intake, -1.0)))
         (JoystickButton(self.functionsController, XboxController.Button.kA).whenReleased(SpinIntakeTop(self.intake, 0.0)))
 
         (JoystickButton(self.functionsController, XboxController.Button.kX).whenPressed(ToggleIntakePosition(self.intake)))
-        """
+        
 
         #(JoystickButton(self.driverController))
     def getAutonomousCommand(self) -> commands2.Command:

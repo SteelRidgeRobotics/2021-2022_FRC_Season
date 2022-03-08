@@ -58,3 +58,8 @@ kintakeSolenoidOut = 5
 # launcher port
 klauncherSolenoidIn = 6
 klauncherSolenoidOut = 7
+
+kgearRatio = 10.71
+kwheelDiameter = 0.5
+
+kticksPerRev = 2048
