@@ -1,7 +1,7 @@
 import wpilib
 from robotcontainer import RobotContainer
 import commands2
-
+from subsystems.vision import cameraLaunch
 
 class MyRobot(commands2.TimedCommandRobot):
 
@@ -11,7 +11,7 @@ class MyRobot(commands2.TimedCommandRobot):
         #self.drivetrain = Drivetrain(self) 
         self.container = RobotContainer()
         self.autonomousCommand = self.container.getAutonomousCommand()
-        
+        cameraLaunch()
     def disabledInit(self) -> None:
         """This function is called once each time the robot enters Disabled mode."""
        
