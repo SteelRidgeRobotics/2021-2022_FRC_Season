@@ -1,6 +1,6 @@
 import math
 import wpilib
-
+from wpimath.kinematics import DifferentialDriveKinematics
 #Controller ports
 kdriverControllerPort = 0
 kfunctionsControllerPort = 1
@@ -23,6 +23,7 @@ ktimeoutMs = 10
 #Physical constants
 kunitsPerRotation = 2048.0
 kwheelCircumference = 1.57 #this is in feet
+ktrackWidth = 0.99761 #not accurate need to get value
 
 #Motion Magic
 kdistanceToTravel = 8.0
@@ -35,6 +36,16 @@ kF = 0.0509563647
 kP = 0.375
 kD = 11.25
 kI = 0.0
+
+#Robot Characteristics
+kS=0.55843
+kV=2.395
+kA=0.18422
+
+#Trajectory Constants
+kdriveKinematics = DifferentialDriveKinematics(ktrackWidth)
+kmaxVelocity = 3.0
+kmaxAccel = 1.5
 
 # pneumatics
 ksolenoidModuleType = wpilib.PneumaticsModuleType.CTREPCM
