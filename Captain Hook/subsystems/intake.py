@@ -7,8 +7,8 @@ class Intake(commands2.SubsystemBase):
         super().__init__()
         # initialize motors & solenoids
         self.intakeSolenoid = wpilib.DoubleSolenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, *constants.kintakeSolenoidPorts)
-        self.intakeBottom = ctre.TalonFX(constants.kintakeBottom)
-        self.intakeTop = ctre.TalonFX(constants.kintakeTop)
+        self.intakeBottom = ctre.TalonSRX(constants.kintakeBottom)
+        self.intakeTop = ctre.TalonSRX(constants.kintakeTop)
 
         self.isIntakeUp = False
 
@@ -21,10 +21,10 @@ class Intake(commands2.SubsystemBase):
         self.isIntakeUp = not self.isIntakeUp
 
     def spinIntakeBottom(self, percentage: float) -> None:
-        self.intakeBottom.set(ctre.TalonFXControlMode.PercentOutput, percentage)
+        self.intakeBottom.set(ctre.TalonSRXControlMode.PercentOutput, percentage)
 
     def spinIntakeTop(self, percentage1: float) -> None:
-        self.intakeTop.set(ctre.TalonFXControlMode.PercentOutput, percentage1)
+        self.intakeTop.set(ctre.TalonSRXControlMode.PercentOutput, percentage1)
 
     def isIntakeOut(self) -> bool:
         return self.isIntakeUp
