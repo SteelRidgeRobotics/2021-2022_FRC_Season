@@ -17,11 +17,9 @@ class Conversions:
             diameterInMeters = wheelDiameter * 0.3048
             circumference = math.pi * diameterInMeters
             
-        metersPerTick = (ticksPerRevelution*constants.kgearRatio)/circumference
+        metersPerTick = circumference/(ticksPerRevelution*constants.kgearRatio)
         
-        result *= ticksPerMeter
-        
-        result *= 0.1
+        result *= metersPerTick
         
         return result
     def convertTrajectoryUnitsToTalonUnits(self, metersPerSecond: float, wheelDiameter: float, givenMetric: bool, ticksPerRevolution: int) -> float:
@@ -36,8 +34,34 @@ class Conversions:
             diameterInMeters = wheelDiameter * 0.3048
             circumference = math.pi * diameterInMeters
             
-        metersPerTick = circumference/(ticksPerRevolution*constants.kgearRatio)
+        ticksPerMeter = (ticksPerRevolution*constants.kgearRatio)/circumference
         
+        result *= ticksPerMeter
+        
+        result *= 0.1
+        
+        return result
+    
+    def convertTalonEncoderTicksToMeters(self, ticks: int, diameter: float, ticksPerRevolution: int, givenMetric: bool) -> bool:
+        result = ticks
+        
+        circumference = 0
+        
+        if givenMetric:
+            circumference = math.pi * wheelDiameter
+        else:
+            diameterInMeters = wheelDiameter * 0.3048
+            circumference = math.pi * diameterInMeters
+            
+        metersPerTick = circumference/(ticksPerRevolution*constants.kgearRatio)
         result *= metersPerTick
         
         return result
+    
+    def convertFeetToMeters(self, value: float) -> float:
+        return value*0.3048
+    
+    def convertMetersToFeet(self, value: float) -> float:
+        return value*1/0.3048
+        
+           
