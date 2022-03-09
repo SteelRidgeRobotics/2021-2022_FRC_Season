@@ -57,7 +57,7 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
         self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
         self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
-        
+
         #reverse sensors
         self.frontLeft.setSensorPhase(False)
         self.frontRight.setSensorPhase(False)
@@ -108,6 +108,28 @@ class Drivetrain(commands2.SubsystemBase):
 
         self.stopMotors()
 
+    def stopMotors(self):
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+
+    def resetEncoders(self):
+        self.frontLeft.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+        self.frontRight.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+
+    def stopAndReset(self):
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontLeft.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+        self.frontRight.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+        self.gyro.reset()
+    
+    def clearTalonTrajectories(self):
+        self.frontLeft.clearMotionProfileTrajectories()
+        self.frontRight.clearMotionProfileTrajectories()
+    
+    def createTrajectoryCommand(self, trajectory: Trajectory, initPose: bool) -> commands2.Command:
+        self.resetEncoders()
+#######################################################################################################
     def userDrive(self, leftJoy: float, rightJoy: float, percentage: float) -> None:
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy*percentage)
         self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy*percentage)
