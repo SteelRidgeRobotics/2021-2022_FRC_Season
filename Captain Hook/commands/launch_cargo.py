@@ -8,6 +8,6 @@ class LaunchCargo(commands2.SequentialCommandGroup):
         super().__init__()
         self.addCommands(
             ToggleLauncherPosition(launcher),
-            WaitCommand(3), 
+            WaitCommand(1.5), 
             ToggleLauncherPosition(launcher)
             )

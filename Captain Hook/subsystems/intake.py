@@ -10,15 +10,15 @@ class Intake(commands2.SubsystemBase):
         self.intakeBottom = ctre.TalonSRX(constants.kintakeBottom)
         self.intakeTop = ctre.TalonSRX(constants.kintakeTop)
 
-        self.isIntakeUp = False
+        self.isIntakeDown = True
 
     def toggleIntakePosition(self) -> None:
-        if self.isIntakeUp:
+        if self.isIntakeDown:
             self.intakeSolenoid.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
             self.intakeSolenoid.set(wpilib.DoubleSolenoid.Value.kReverse)
         
-        self.isIntakeUp = not self.isIntakeUp
+        self.isIntakeDown = not self.isIntakeDown
 
     def spinIntakeBottom(self, percentage: float) -> None:
         self.intakeBottom.set(ctre.TalonSRXControlMode.PercentOutput, percentage)
@@ -27,4 +27,4 @@ class Intake(commands2.SubsystemBase):
         self.intakeTop.set(ctre.TalonSRXControlMode.PercentOutput, percentage1)
 
     def isIntakeOut(self) -> bool:
-        return self.isIntakeUp
+        return self.isIntakeDown
