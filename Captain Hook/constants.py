@@ -43,6 +43,11 @@ kV=2.395
 kA=0.18422
 
 #Trajectory Constants
+kmaxVelocity = 3.0
+kmaxAccel = 1.5
+kmaxJerk = 0.75
+kramsete_B = 2.0
+kramsete_Zeta = 0.7
 kdriveKinematics = DifferentialDriveKinematics(ktrackWidth)
 kmaxVelocity = 3.0
 kmaxAccel = 1.5

@@ -129,6 +129,44 @@ class Drivetrain(commands2.SubsystemBase):
     
     def createTrajectoryCommand(self, trajectory: Trajectory, initPose: bool) -> commands2.Command:
         self.resetEncoders()
+
+        m_trajectory = trajectory
+        m_initPose = initPose
+
+        ramseteCommand = RamseteCommand(m_trajectory, self.getPose, CustomRamseteControllerAbstraction(constants.kramsete_B, constants.kramsete_Zeta),
+        constants.kdriveKinematics, self.tankDriveVelocity, [self])
+
+        if m_initPose:
+            m_reset = InstantCommand(lambda: self.resetOdometry(trajectory.initialPose()))
+            return m_reset.andThen(ramseteCommand.andThen(lambda: self.tankDriveVolts(0.0,0.0)))
+
+        else:
+             return ramseteCommand.andThen(lambda: self.tankDriveVolts(0.0,0.0))
+
+    def tankDriveVelocity(self, leftVel: float, rightVel: float) -> None:
+        frontLeftNativeVelocity = Conversions.convertTrajectoryUnitsToTalonUnits(self, leftVel, constants.kwheelDiameter, False, constants.kticksPerRev)
+        frontRightNativeVelocity = Conversions.convertTrajectoryUnitsToTalonUnits(self, rightVel, constants.kwheelDiameter, False, constants.kticksPerRev)
+
+        self.frontLeft.set(ctre.ControlMode.Velocity, frontLeftNativeVelocity)
+        self.frontRight.set(ctre.ControlMode.Velocity, frontRightNativeVelocity)
+
+    def tankDriveVolts(self, leftVolts: float, rightVolts: float) -> None:
+        """Method to drive robot using talons in voltage control mode. Must feed voltages from 0-12."""
+
+        print(str(leftVolts) + ","+ str(rightVolts))
+        self.frontLeft.set(ctre.ControlMode.Current, leftVolts)
+        self.frontRight.set(ctre.ControlMode.Current, -rightVolts)
+
+    def resetOdometry(self, pose) -> None:
+        
+        self.resetEncoders()
+
+        self.odometry.resetPosition(pose, Rotation2d.fromDegrees(self.getHeading()))
+
+    def getPose(self) -> Pose2d:
+        return self.odometry.getPose()
+
+    
 #######################################################################################################
     def userDrive(self, leftJoy: float, rightJoy: float, percentage: float) -> None:
         self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy*percentage)
@@ -154,3 +192,22 @@ class Drivetrain(commands2.SubsystemBase):
 
     def getHeading(self):
         return -1*math.remainder(self.gyro.getAngle(), 360)
+
+    def getTurnRate(self) -> float:
+
+        return self.gyro.getRate()
+
+    
+    def getPose(self) -> Pose2d:
+        
+        return self.odometry.getPose()
+
+    def resetOdometry(self, pose) -> None:
+        
+        self.resetEncoders()
+
+        self.odometry.resetPosition(pose, Rotation2d.fromDegrees(self.getHeading()))
+
+    def getWheelSpeeds(self):
+
+        return DifferentialDriveWheelSpeeds(Conversions.convertTrajectoryUnitsToTalonUnits(self, self.frontLeft.getSelectedSensorVelocity(),constants.kwheelDiameter, False, constants.kticksPerRev), Conversions.convertTrajectoryUnitsToTalonUnits(self, self.frontRight.getSelectedSensorVelocity(),constants.kwheelDiameter, False, constants.kticksPerRev))
