@@ -28,44 +28,39 @@ class Drivetrain(commands2.SubsystemBase):
         self.gyro = ADXRS450_Gyro()
         
         self.odometry = DifferentialDriveOdometry(Rotation2d.fromDegrees(self.getHeading()))
-        self.configMotors()
-       
-    def userDrive(self, leftJoy: float, rightJoy: float, percentage: float) -> None:
-        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy*percentage)
-        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy*percentage)
+        self.configMotors1()
+        self.resetMotors()
+        self.configMotors2()
+        self.gyro.reset()
+    
+    def periodic(self):
+        self.leftDistance = Conversions.convertTalonEncoderTicksToMeters(self, self.frontLeft.getSelectedSensorPosition(), constants.kwheelDiameter, constants.kticksPerRev, False)
+        self.rightDistance = Conversions.convertTalonEncoderTicksToMeters(self, self.frontRight.getSelectedSensorPosition(), constants.kwheelDiameter, constants.kticksPerRev, False)
 
-    def magicDrive(self, targetPos: float) -> None:
-        self.targetPos = targetPos
-        self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, self.targetPos)
-        self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, self.targetPos)
+        self.odometry.update(Rotation2d.fromDegrees(self.getHeading()), self.leftDistance, self.rightDistance)
 
-    def stopMotors(self) -> None:
-        self.left = 0.0
-        self.right = 0.0
-        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
-        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
-
-        self.frontLeft.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
-        self.frontRight.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
-
-    def isNotinMotion(self) -> bool:
-        self.vel_traj = self.frontLeft.getActiveTrajectoryVelocity()
-        return self.vel_traj == 0.0
-
-    def getHeading(self):
-        return -1*math.remainder(self.gyro.getAngle(), 360)
-    def configMotors(self) -> None:
+    def resetMotors(self):
+        self.frontLeft.configFactoryDefault()
+        self.frontRight.configFactoryDefault()
+    
+    def configMotors1(self) -> None:
         #set followers
         self.backLeft.follow(self.frontLeft)
         self.backRight.follow(self.frontRight)
 
-        #reverse sensors
-        self.frontLeft.setSensorPhase(False)
-        self.frontRight.setSensorPhase(False)
-
         #invert motors on right side
         self.frontRight.setInverted(True)
         self.backRight.setInverted(True)
+
+        #set motors to brake mode
+        self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
+        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
+        self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
+        self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
+        
+        #reverse sensors
+        self.frontLeft.setSensorPhase(False)
+        self.frontRight.setSensorPhase(False)
 
         #config motors
         self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
@@ -110,9 +105,45 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontLeft.setSelectedSensorPosition(0, constants.kPIDLoopIdx, constants.ktimeoutMs)
         self.frontRight.setSelectedSensorPosition(0, constants.kPIDLoopIdx, constants.ktimeoutMs)
 
+    def configMotors2(self):
+        self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
 
-        #set motors to brake mode
-        self.frontLeft.setNeutralMode(ctre.NeutralMode.Brake)
-        self.backLeft.setNeutralMode(ctre.NeutralMode.Brake)
-        self.frontRight.setNeutralMode(ctre.NeutralMode.Brake)
-        self.backRight.setNeutralMode(ctre.NeutralMode.Brake)
+        self.frontLeft.config_kP(0, constants.kP, constants.ktimeoutMs)
+        self.frontRight.config_kP(0, constants.kP, constants.ktimeoutMs)
+
+        self.frontLeft.config_kI(0, constants.kI, constants.ktimeoutMs)
+        self.frontRight.config_kI(0, constants.kI, constants.ktimeoutMs)
+
+        self.frontLeft.config_kD(0, constants.kD, constants.ktimeoutMs)
+        self.frontRight.config_kD(0, constants.kD, constants.ktimeoutMs)
+
+        self.frontLeft.config_kF(0, constants.kF, constants.ktimeoutMs)
+        self.frontRight.config_kF(0, constants.kF, constants.ktimeoutMs)
+
+        self.stopMotors()
+
+    def userDrive(self, leftJoy: float, rightJoy: float, percentage: float) -> None:
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, leftJoy*percentage)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, rightJoy*percentage)
+
+    def magicDrive(self, targetPos: float) -> None:
+        self.targetPos = targetPos
+        self.frontLeft.set(ctre.TalonFXControlMode.MotionMagic, self.targetPos)
+        self.frontRight.set(ctre.TalonFXControlMode.MotionMagic, self.targetPos)
+
+    def stopMotors(self) -> None:
+        self.left = 0.0
+        self.right = 0.0
+        self.frontLeft.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRight.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+
+        self.frontLeft.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
+        self.frontRight.setSelectedSensorPosition(0, 0, constants.ktimeoutMs)
+
+    def isNotinMotion(self) -> bool:
+        self.vel_traj = self.frontLeft.getActiveTrajectoryVelocity()
+        return self.vel_traj == 0.0
+
+    def getHeading(self):
+        return -1*math.remainder(self.gyro.getAngle(), 360)
