@@ -61,10 +61,6 @@ class Drivetrain(commands2.SubsystemBase):
         #reverse sensors
         self.frontLeft.setSensorPhase(False)
         self.frontRight.setSensorPhase(False)
-
-        #config motors
-        self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
-        self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
         
         #forward and back
         self.frontLeft.configNominalOutputForward(0, constants.ktimeoutMs)
@@ -84,17 +80,6 @@ class Drivetrain(commands2.SubsystemBase):
         self.backLeft.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
         self.backRight.selectProfileSlot(constants.kSlotIdx, constants.kPIDLoopIdx)
 
-        #config Proportional, Integral, Derivative, and Filtered (PIDF)
-        self.frontLeft.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs) #please change these values later (value)
-        self.frontLeft.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
-        self.frontLeft.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
-        self.frontLeft.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
-
-        self.frontRight.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs)
-        self.frontRight.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
-        self.frontRight.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
-        self.frontRight.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)        
-
         #setting our acceleration and velocity (it's like cruise control but better hahaha laugh please laugh)
         self.frontLeft.configMotionCruiseVelocity(constants.kmotorCruiseVelocity, constants.ktimeoutMs)
         self.frontRight.configMotionCruiseVelocity(constants.kmotorCruiseVelocity, constants.ktimeoutMs)
@@ -106,20 +91,20 @@ class Drivetrain(commands2.SubsystemBase):
         self.frontRight.setSelectedSensorPosition(0, constants.kPIDLoopIdx, constants.ktimeoutMs)
 
     def configMotors2(self):
+        #config motors
         self.frontLeft.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
         self.frontRight.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
 
-        self.frontLeft.config_kP(0, constants.kP, constants.ktimeoutMs)
-        self.frontRight.config_kP(0, constants.kP, constants.ktimeoutMs)
+        #config Proportional, Integral, Derivative, and Filtered (PIDF)
+        self.frontLeft.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs)
+        self.frontLeft.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
+        self.frontLeft.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
+        self.frontLeft.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
 
-        self.frontLeft.config_kI(0, constants.kI, constants.ktimeoutMs)
-        self.frontRight.config_kI(0, constants.kI, constants.ktimeoutMs)
-
-        self.frontLeft.config_kD(0, constants.kD, constants.ktimeoutMs)
-        self.frontRight.config_kD(0, constants.kD, constants.ktimeoutMs)
-
-        self.frontLeft.config_kF(0, constants.kF, constants.ktimeoutMs)
-        self.frontRight.config_kF(0, constants.kF, constants.ktimeoutMs)
+        self.frontRight.config_kP(constants.kSlotIdx, constants.kP, constants.ktimeoutMs)
+        self.frontRight.config_kI(constants.kSlotIdx, constants.kI, constants.ktimeoutMs)
+        self.frontRight.config_kD(constants.kSlotIdx, constants.kD, constants.ktimeoutMs)
+        self.frontRight.config_kF(constants.kSlotIdx, constants.kF, constants.ktimeoutMs)
 
         self.stopMotors()
 
