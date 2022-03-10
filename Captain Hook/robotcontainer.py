@@ -16,10 +16,12 @@ from commands.spin_intake_top import SpinIntakeTop
 from commands.catch_cargo import CatchCargo
 from commands.toggle_intake_position import ToggleIntakePosition
 from commands.timed_drive import TimedDrive
+from commands.auto_bluepos2 import AutoBluePos2
 
 from subsystems.climber import Climber
 from subsystems.launcher import Launcher
 from subsystems.intake import Intake
+from path_trajectory import PathTrajectory
 #hi
 class RobotContainer:
     def __init__(self) -> None:
@@ -39,15 +41,18 @@ class RobotContainer:
         #subsystems
         self.drive = Drivetrain()
         self.climber = Climber()
+        
         self.launcher = Launcher()
         self.intake = Intake()
+        self.pathTrajectory = PathTrajectory()
         # chooser
         self.chooser = wpilib.SendableChooser()
         
         # Add commands to autonomous command chooser
         self.timed_drive = TimedDrive(self.drive)
+        self.blue_pos2 = AutoBluePos2(self.intake, self.launcher, self.drivetrain, self.pathTrajectory)
         self.chooser.setDefaultOption("Simple Auto", self.timed_drive)
-
+        self.chooser.addOption("Blue Pos 2", self.blue_pos2)
         wpilib.SmartDashboard.putData("Autonomous", self.chooser)
                 
         self.configureButtonBindings() 
@@ -66,10 +71,10 @@ class RobotContainer:
         
         (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
 
-        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 0.30)))
-        (JoystickButton(self.driverController, XboxController.Button.kY).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
-        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -0.30)))
-        (JoystickButton(self.driverController, XboxController.Button.kA).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
+        (JoystickButton(self.functionsController, XboxController.Button.kLeftBumper).whenHeld(SpinIntakeBottom(self.intake, 0.30)))
+        (JoystickButton(self.functionstroller, XboxController.Button.kLeftBumper).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
+        (JoystickButton(self.functionsController, XboxController.Button.kRightBumper).whenHeld(SpinIntakeBottom(self.intake, -0.30)))
+        (JoystickButton(self.functionsController, XboxController.Button.kRightBumper).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
 
         (JoystickButton(self.functionsController, XboxController.Button.kY).whenHeld(SpinIntakeTop(self.intake, 0.25)))
         (JoystickButton(self.functionsController, XboxController.Button.kY).whenReleased(SpinIntakeTop(self.intake, 0.0)))
