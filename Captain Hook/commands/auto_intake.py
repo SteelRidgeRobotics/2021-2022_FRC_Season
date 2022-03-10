@@ -1,8 +1,8 @@
 from commands2 import WaitCommand
 import commands2
 from subsystems.intake import Intake
-from commands.spin_intake_bottom import SpinIntakeBottom
-from commands.spin_intake_top import SpinIntakeTop
+from commands.timed_intake_bottom import TimedIntakeBottom
+from commands.timed_intake_top import TimedIntakeTop
 from commands.toggle_intake_position import ToggleIntakePosition
 
 class autoIntake(commands2.SequentialCommandGroup):
@@ -11,12 +11,8 @@ class autoIntake(commands2.SequentialCommandGroup):
         self.addCommands(
             ToggleIntakePosition(intake),
             WaitCommand(0.6),
-            SpinIntakeBottom(intake, 1.0),
-            WaitCommand(2),
-            SpinIntakeBottom(intake, 0.0),
-            WaitCommand(0.6),
-            SpinIntakeTop(intake, 1.0),
-            WaitCommand(0.1),
-            SpinIntakeTop(intake, 0.0),
+            TimedIntakeBottom(intake, 1.0, 2.0),
+            #requirements for timed intake top/bottom (intake, percentage for motors to spin, time for them to spin and then stop)
+            TimedIntakeTop(intake, 1.0, 0.1),
             ToggleIntakePosition(intake)
             )
