@@ -6,6 +6,7 @@ from subsystems.intake import Intake
 from path_trajectory import PathTrajectory
 
 from commands.launch_cargo import LaunchCargo
+from commands.auto_intake import AutoIntake
 from subsystems.launcher import Launcher
 
 class CatchCargo(commands2.SequentialCommandGroup):
@@ -19,9 +20,9 @@ class CatchCargo(commands2.SequentialCommandGroup):
             InstantCommand(lambda: drivetrain.resetOdometry(pathTrajectory.trajectoryBlue2p1.initialPose())),
             LaunchCargo(launcher),
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p1, False).withTimeout(50),
-            #auto intake
+            AutoIntake(intake)
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p2, False).withTimeout(50),
-            #auto intake
+            AutoIntake(intake)
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p3, False).withTimeout(50),
             LaunchCargo(launcher),
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p4, False).withTimeout(50)
