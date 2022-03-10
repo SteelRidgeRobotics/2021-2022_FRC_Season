@@ -14,9 +14,9 @@ class autoIntake(commands2.SequentialCommandGroup):
             SpinIntakeBottom(intake, 1.0),
             WaitCommand(0.1),
             SpinIntakeBottom(intake, 0.0),
-            ToggleIntakePosition(intake),
             WaitCommand(0.6),
             SpinIntakeTop(intake, 1.0),
             WaitCommand(0.1),
-            SpinIntakeTop(intake, 0.0)
+            SpinIntakeTop(intake, 0.0),
+            ToggleIntakePosition(intake)
             )
