@@ -11,8 +11,8 @@ class autoIntake(commands2.SequentialCommandGroup):
         self.addCommands(
             ToggleIntakePosition(intake),
             WaitCommand(0.6),
-            TimedIntakeBottom(intake, 1.0, 2.0),
+            TimedIntakeBottom(intake, 0.30, 2.0),
             #requirements for timed intake top/bottom (intake, percentage for motors to spin, time for them to spin and then stop)
-            TimedIntakeTop(intake, 1.0, 0.1),
+            TimedIntakeTop(intake, 0.25, 0.1),
             ToggleIntakePosition(intake)
             )

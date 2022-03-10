@@ -66,14 +66,14 @@ class RobotContainer:
         
         (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
 
-        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 1.0)))
-        (JoystickButton(self.driverController, XboxController.Button.kY).whenReleased(CatchCargo(self.intake)))
-        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -1.0)))
+        (JoystickButton(self.driverController, XboxController.Button.kY).whenHeld(SpinIntakeBottom(self.intake, 0.30)))
+        (JoystickButton(self.driverController, XboxController.Button.kY).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
+        (JoystickButton(self.driverController, XboxController.Button.kA).whenHeld(SpinIntakeBottom(self.intake, -0.30)))
         (JoystickButton(self.driverController, XboxController.Button.kA).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
 
-        (JoystickButton(self.functionsController, XboxController.Button.kY).whenHeld(SpinIntakeTop(self.intake, 1.0)))
+        (JoystickButton(self.functionsController, XboxController.Button.kY).whenHeld(SpinIntakeTop(self.intake, 0.25)))
         (JoystickButton(self.functionsController, XboxController.Button.kY).whenReleased(SpinIntakeTop(self.intake, 0.0)))
-        (JoystickButton(self.functionsController, XboxController.Button.kA).whenHeld(SpinIntakeTop(self.intake, -1.0)))
+        (JoystickButton(self.functionsController, XboxController.Button.kA).whenHeld(SpinIntakeTop(self.intake, -0.25)))
         (JoystickButton(self.functionsController, XboxController.Button.kA).whenReleased(SpinIntakeTop(self.intake, 0.0)))
 
         (JoystickButton(self.functionsController, XboxController.Button.kX).whenPressed(ToggleIntakePosition(self.intake)))
