@@ -12,7 +12,7 @@ class autoIntake(commands2.SequentialCommandGroup):
             ToggleIntakePosition(intake),
             WaitCommand(0.6),
             SpinIntakeBottom(intake, 1.0),
-            WaitCommand(0.1),
+            WaitCommand(2),
             SpinIntakeBottom(intake, 0.0),
             WaitCommand(0.6),
             SpinIntakeTop(intake, 1.0),
