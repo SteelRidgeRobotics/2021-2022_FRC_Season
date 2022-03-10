@@ -9,7 +9,7 @@ from commands.launch_cargo import LaunchCargo
 from commands.auto_intake import AutoIntake
 from subsystems.launcher import Launcher
 
-class CatchCargo(commands2.SequentialCommandGroup):
+class AutoBluePos2(commands2.SequentialCommandGroup):
     #initiate stuff
     def __init__(self, intake: Intake, launcher: Launcher, drivetrain: Drivetrain, pathTrajectory: PathTrajectory) -> None:
         #use the  initiation function of the parent class (sequential command group). super() refers to the class we inherit from
