@@ -16,10 +16,16 @@ class CatchCargo(commands2.SequentialCommandGroup):
         #this just adds all the commands to be done in sequence, you can refer to those files for more information. 
         #this will spin the bottom intake, wait, spin the top intake, wait, and then set both intakes to 0.
         self.addCommands(
-            InstantCommand(lambda: drivetrain.resetOdometry(pathTrajectory.trajectory1p1.initialPose())),
+            InstantCommand(lambda: drivetrain.resetOdometry(pathTrajectory.trajectoryBlue2p1.initialPose())),
             LaunchCargo(launcher),
-            drivetrain.createTrajectoryCommand(pathTrajectory.trajectory1p1, False).withTimeout(50),
+            drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p1, False).withTimeout(50),
+            #auto intake
+            drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p2, False).withTimeout(50),
+            #auto intake
+            drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p3, False).withTimeout(50),
+            LaunchCargo(launcher),
+            drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p4, False).withTimeout(50)
+            #drivetrain.createTrajectoryCommand(pathTrajectory.trajectory1p1, False).withTimeout(50),
             #pick up cargo
-            drivetrain.createTrajectoryCommand(pathTrajectory.trajectory1p2, False).withTimeout(50),
-            LaunchCargo(launcher)
+            #drivetrain.createTrajectoryCommand(pathTrajectory.trajectory1p2, False).withTimeout(50),
             )
