@@ -43,9 +43,9 @@ class PathTrajectory:
         self.trajectory2p2 = TrajectoryGenerator.generateTrajectory(Pose2d(5.80, 2.26, Rotation2d(-155.82)), Pose2d(7.66, 2.63, Rotation2d(-112.25)))
         self.trajectory3p2 = TrajectoryGenerator.generateTrajectory(Pose2d(5.67, 5.85, Rotation2d(-149.68)), Pose2d(6.78, 4.75, Rotation2d(-158.39)))
 
-        self.trajectoryBlue2p1 = TrajectoryGenerator.generateTrajectory(Pose2d(7.48, 2.6, Rotation2d(-161.75)), [Translation2d(6.46, 2.47)], Pose2d(5.78, 2.38, Rotation2d(-173.06)))
-        self.trajectoryBlue2p2 = TrajectoryGenerator.generateTrajectory(Pose2d(5.78, 2.38, Rotation2d(-173.06), [Translation2d(5.41, 0.73)], Pose2d(7.02, 0.61, Rotation2d(-1.16))))
-        self.trajectoryBlue2p3 = TrajectoryGenerator.generateTrajectory(Pose2d(7.02, 0.61, Rotation2d(-1.16)), [Translation2d(8.09, 1.67)], Pose2d(7.49, 2.34, Rotation2d(-112.87)))
-        self.trajectoryBlue2p4 = TrajectoryGenerator.generateTrajectory(Pose2d(7.49, 2.34, Rotation2d(-112.87), [Translation2d(5.41, 1.82), Translation2d(3.42, 2.06)], Pose2d(1.59, 1.70, Rotation2d(-151.65))))
+        self.trajectoryBlue2p1 = TrajectoryGenerator.generateTrajectory(Pose2d(7.48, 2.6, Rotation2d(-161.75)), [Translation2d(6.46, 2.47)], Pose2d(5.78, 2.38, Rotation2d(-173.06)), forwardConfig)
+        self.trajectoryBlue2p2 = TrajectoryGenerator.generateTrajectory(Pose2d(5.78, 2.38, Rotation2d(-173.06), [Translation2d(5.41, 0.73)], Pose2d(7.02, 0.61, Rotation2d(-1.16))), forwardConfig)
+        self.trajectoryBlue2p3 = TrajectoryGenerator.generateTrajectory(Pose2d(7.02, 0.61, Rotation2d(-1.16)), [Translation2d(8.09, 1.67)], Pose2d(7.49, 2.34, Rotation2d(-112.87)), forwardConfig)
+        self.trajectoryBlue2p4 = TrajectoryGenerator.generateTrajectory(Pose2d(7.49, 2.34, Rotation2d(-112.87)), [Translation2d(5.41, 1.82), Translation2d(3.42, 2.06)], Pose2d(1.59, 1.70, Rotation2d(-151.65)), forwardConfig)
 
         
