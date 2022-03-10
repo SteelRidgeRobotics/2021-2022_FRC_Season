@@ -13,15 +13,15 @@ class TimedIntakeBottom(commands2.CommandBase):
         
         self.addRequirements([self.intake])
         
-        def initialize(self) -> None:
-            self.startTime = wpilib.Timer.getFPGATimestamp()
-            self.intake.spinIntakeBottom(0.0)
+    def initialize(self) -> None:
+        self.startTime = wpilib.Timer.getFPGATimestamp()
+        self.intake.spinIntakeBottom(0.0)
             
-        def execute(self) -> None:
-            self.intake.spinIntakeBottom(self.percent)
+    def execute(self) -> None:
+        self.intake.spinIntakeBottom(self.percent)
             
-        def end(self, interrupted: bool) -> None:
-            self.intake.spinIntakeBottom(0.0)
+    def end(self, interrupted: bool) -> None:
+        self.intake.spinIntakeBottom(0.0)
             
         def isFinished(self) -> bool:
             return wpilib.Timer.getFPGATimestamp() - self.startTime >= self.duration
