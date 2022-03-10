@@ -16,7 +16,7 @@ from commands.spin_intake_top import SpinIntakeTop
 from commands.catch_cargo import CatchCargo
 from commands.toggle_intake_position import ToggleIntakePosition
 from commands.timed_drive import TimedDrive
-from commands.auto_bluepos2 import AutoBluePos2
+from commands.auto_blue_pos2 import AutoBluePos2
 
 from subsystems.climber import Climber
 from subsystems.launcher import Launcher
@@ -44,13 +44,13 @@ class RobotContainer:
         
         self.launcher = Launcher()
         self.intake = Intake()
-        self.pathTrajectory = PathTrajectory()
+        self.pathTrajectory = PathTrajectory(self.drive)
         # chooser
         self.chooser = wpilib.SendableChooser()
         
         # Add commands to autonomous command chooser
         self.timed_drive = TimedDrive(self.drive)
-        self.blue_pos2 = AutoBluePos2(self.intake, self.launcher, self.drivetrain, self.pathTrajectory)
+        self.blue_pos2 = AutoBluePos2(self.intake, self.launcher, self.drive, self.pathTrajectory)
         self.chooser.setDefaultOption("Simple Auto", self.timed_drive)
         self.chooser.addOption("Blue Pos 2", self.blue_pos2)
         wpilib.SmartDashboard.putData("Autonomous", self.chooser)
@@ -72,7 +72,7 @@ class RobotContainer:
         (JoystickButton(self.functionsController, XboxController.Button.kB).whenPressed(LaunchCargo(self.launcher)))
 
         (JoystickButton(self.functionsController, XboxController.Button.kLeftBumper).whenHeld(SpinIntakeBottom(self.intake, 0.30)))
-        (JoystickButton(self.functionstroller, XboxController.Button.kLeftBumper).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
+        (JoystickButton(self.functionsController, XboxController.Button.kLeftBumper).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
         (JoystickButton(self.functionsController, XboxController.Button.kRightBumper).whenHeld(SpinIntakeBottom(self.intake, -0.30)))
         (JoystickButton(self.functionsController, XboxController.Button.kRightBumper).whenReleased(SpinIntakeBottom(self.intake, 0.0)))
 

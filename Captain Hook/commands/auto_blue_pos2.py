@@ -20,9 +20,9 @@ class AutoBluePos2(commands2.SequentialCommandGroup):
             InstantCommand(lambda: drivetrain.resetOdometry(pathTrajectory.trajectoryBlue2p1.initialPose())),
             LaunchCargo(launcher),
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p1, False).withTimeout(50),
-            AutoIntake(intake)
+            AutoIntake(intake),
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p2, False).withTimeout(50),
-            AutoIntake(intake)
+            AutoIntake(intake),
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p3, False).withTimeout(50),
             LaunchCargo(launcher),
             drivetrain.createTrajectoryCommand(pathTrajectory.trajectoryBlue2p4, False).withTimeout(50)

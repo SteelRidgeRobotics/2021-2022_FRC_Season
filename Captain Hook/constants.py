@@ -23,7 +23,7 @@ ktimeoutMs = 10
 #Physical constants
 kunitsPerRotation = 2048.0
 kwheelCircumference = 1.57 #this is in feet
-ktrackWidth = 0.99761 #not accurate need to get value
+ktrackWidth = 1.922
 
 #Motion Magic
 kdistanceToTravel = 8.0
@@ -32,15 +32,15 @@ kPIDLoopIdx = 0
 kmotorCruiseVelocity = 15000 #please change this
 kmotorAcceleration = 6000 #this too
 
-kF = 0.0509563647
-kP = 0.375
-kD = 11.25
+kF = 0.0446461004
+kP = 0.024253
+kD = 0.00
 kI = 0.0
 
 #Robot Characteristics
-kS=0.55843
-kV=2.395
-kA=0.18422
+kS=0.58921
+kV=2.3977
+kA=0.084112
 
 #Trajectory Constants
 kmaxVelocity = 3.0
