@@ -126,7 +126,10 @@ class Drivetrain(commands2.SubsystemBase):
     def clearTalonTrajectories(self):
         self.frontLeft.clearMotionProfileTrajectories()
         self.frontRight.clearMotionProfileTrajectories()
-    
+
+    def getAverageEncoderDistance(self) -> float:
+        return (self.frontLeft.getSelectedSensorPosition() + self.frontRight.getSelectedSensorPosition())/2.0
+
     def createTrajectoryCommand(self, trajectory: Trajectory, initPose: bool) -> commands2.Command:
         self.resetEncoders()
 

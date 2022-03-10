@@ -42,24 +42,7 @@ class CustomRamseteControllerAbstraction(RamseteController):
         vRef = linearVelocityRefMeters
         omegaRef = angularVelocityRefRadiansPerSecond
 
-        wpilib.SmartDashboard.putNumber("Current X", currentPose.translation().X())
-        wpilib.SmartDashboard.putNumber("Reference X", poseRef.translation().X())
-
-        wpilib.SmartDashboard.putNumber("eX", eX)
-        wpilib.SmartDashboard.putNumber("eY", eY)
-        wpilib.SmartDashboard.putNumber("eTheta", eTheta)
-        wpilib.SmartDashboard.putNumber("vRef", vRef)
-        wpilib.SmartDashboard.putNumber("omegaRef", omegaRef)
-
         k = 2.0*self.m_zeta*math.sqrt(math.pow(omegaRef, 2)+self.m_b*math.pow(vRef, 2))
-
-        wpilib.SmartDashboard.putNumber("k", k)
-
-        wpilib.SmartDashboard.putNumber("vX [m/s]", vRef * m_poseError.rotation().cos() + k * eX)
-        wpilib.SmartDashboard.putNumber("vY [m/s]", 0.0)
-        wpilib.SmartDashboard.putNumber("vOmega [rad/s]", omegaRef + k * eTheta + self.m_b * vRef * self.sinc(eTheta) * eY)
-
-        wpilib.SmartDashboard.putNumber("vX [t/100ms]", Conversions.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(vRef * m_poseError.rotation().cos() + k * eX, kwheelDiameter, False, kticksPerRev))
 
         return ChassisSpeeds(vRef*m_poseError.rotation().cos()+k*eX, 0.0, omegaRef+k*eTheta+self.m_b*vRef*self.sinc(eTheta)*eY)
 

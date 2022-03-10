@@ -45,7 +45,7 @@ class DriveByJoystick(commands2.CommandBase):
             self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         
         #self.drive.userDrive(self.left_axis(), self.right_axis())
-        
+        """
         wpilib.SmartDashboard.putNumber('   leftJoy - ', self.left_axis())
         wpilib.SmartDashboard.putNumber('   rightJoy - ', self.right_axis())
         wpilib.SmartDashboard.putNumber("  Left Velocity - ", self.drive.frontLeft.getSelectedSensorVelocity())
@@ -53,6 +53,7 @@ class DriveByJoystick(commands2.CommandBase):
         wpilib.SmartDashboard.putBoolean('  Right Bumper Pressed - ', self.bumperRight())
         wpilib.SmartDashboard.putBoolean('  Left Bumper Pressed - ', self.bumperLeft())
         wpilib.SmartDashboard.putNumber('   Speed Percentage - ', self.percent)
+        """
 
     def end(self, interrupted: bool) -> None:
     # 

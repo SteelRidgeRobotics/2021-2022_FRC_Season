@@ -16,13 +16,9 @@ class TimedDrive(commands2.CommandBase):
 
     def execute(self) -> None:
         self.drivetrain.userDrive(-1.0, -1.0, 0.25)
-        wpilib.SmartDashboard.putNumber('   right_auto', -1)
-        wpilib.SmartDashboard.putNumber('   left_auto - ', -1)
     
     def end(self, interrupted: bool) -> None:
         self.drivetrain.stopMotors()
-        wpilib.SmartDashboard.putNumber('   right_auto', 0)
-        wpilib.SmartDashboard.putNumber('   left_auto - ', 0)
 
     def isFinished(self) -> bool:
         return wpilib.Timer.getFPGATimestamp() - self.startTime >= 2.0
