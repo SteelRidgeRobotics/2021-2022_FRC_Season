@@ -22,7 +22,3 @@ class TimedDrive(commands2.CommandBase):
 
     def isFinished(self) -> bool:
         return wpilib.Timer.getFPGATimestamp() - self.startTime >= 2.0
-
-
-
-
