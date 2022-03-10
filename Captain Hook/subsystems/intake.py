@@ -9,6 +9,8 @@ class Intake(commands2.SubsystemBase):
         self.intakeSolenoid = wpilib.DoubleSolenoid(constants.ksolenoidModule, constants.ksolenoidModuleType, constants.kintakeSolenoidIn, constants.kintakeSolenoidOut)
         self.intakeBottom = ctre.TalonFX(constants.kintakeBottom)
         self.intakeTop = ctre.TalonFX(constants.kintakeTop)
+        self.intakeTop.configFactoryDefault()
+        self.intakeBottom.configFactoryDefault()
         self.intakeBottom.setNeutralMode(ctre.NeutralMode.Coast)
         self.intakeTop.setNeutralMode(ctre.NeutralMode.Coast)
 
