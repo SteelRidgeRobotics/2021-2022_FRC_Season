@@ -5,7 +5,7 @@ from commands.timed_intake_bottom import TimedIntakeBottom
 from commands.timed_intake_top import TimedIntakeTop
 from commands.toggle_intake_position import ToggleIntakePosition
 
-class autoIntake(commands2.SequentialCommandGroup):
+class AutoIntake(commands2.SequentialCommandGroup):
     def __init__(self, intake: Intake) -> None:
         super().__init__()
         self.addCommands(
