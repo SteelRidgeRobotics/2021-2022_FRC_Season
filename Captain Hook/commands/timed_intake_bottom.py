@@ -23,5 +23,5 @@ class TimedIntakeBottom(commands2.CommandBase):
     def end(self, interrupted: bool) -> None:
         self.intake.spinIntakeBottom(0.0)
             
-        def isFinished(self) -> bool:
-            return wpilib.Timer.getFPGATimestamp() - self.startTime >= self.duration
+    def isFinished(self) -> bool:
+        return wpilib.Timer.getFPGATimestamp() - self.startTime >= self.duration
