@@ -4,6 +4,7 @@ import constants
 import math
 
 class SwerveWheel():
+    def __init__(self, directionMotor, speedMotor)
     #pid controller
     #direction motor
     #direction sensor
