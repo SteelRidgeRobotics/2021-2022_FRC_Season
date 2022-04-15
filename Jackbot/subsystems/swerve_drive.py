@@ -2,9 +2,13 @@ import commands2
 import ctre
 import constants
 import math
-
+import wpimath.controller.PIDController as PIDController
 class SwerveWheel():
-    def __init__(self, directionMotor, speedMotor)
+    def __init__(self, directionMotor, speedMotor):
+        self.pidController = PIDController
+        
+    def setPID(P, I, D):
+        self.pidController.setPID()
     #pid controller
     #direction motor
     #direction sensor
