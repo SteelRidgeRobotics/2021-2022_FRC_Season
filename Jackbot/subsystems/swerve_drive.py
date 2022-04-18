@@ -3,7 +3,7 @@ import ctre
 import constants
 import math
 import wpimath.controller.PIDController as PIDController
-class SwerveWheel():
+class SwerveWheel:
     def __init__(self, directionMotor: ctre.TalonFX, speedMotor: ctre.TalonFX, P: float, I: float, D: float):
         # we assume that all the motors are the same: Falcon 500s
         self.pidController = PIDController
