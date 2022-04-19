@@ -2,6 +2,7 @@ import commands2
 import ctre
 import constants
 import math
+import conversions
 import wpimath.controller.PIDController as PIDController
 class SwerveWheel:
     def __init__(self, directionMotor: ctre.TalonFX, speedMotor: ctre.TalonFX, P: float, I: float, D: float):
@@ -19,7 +20,7 @@ class SwerveWheel:
         dir = float((b % 360.0) - (a % 360))
         
         if math.abs(dir) > 180.0:
-            #dir = -(numpy.sign(dir) * 360.0) + dir
+            dir = -(consversions.sign(dir) * 360.0) + dir
         return dir
     
     def setDirection(self, setpoint: float):
