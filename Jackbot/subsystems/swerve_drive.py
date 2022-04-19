@@ -20,7 +20,7 @@ class SwerveWheel:
         dir = float((b % 360.0) - (a % 360))
         
         if math.abs(dir) > 180.0:
-            dir = -(consversions.sign(dir) * 360.0) + dir
+            dir = -(conversions.sign(dir) * 360.0) + dir
         return dir
     
     def setDirection(self, setpoint: float):
