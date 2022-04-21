@@ -34,13 +34,16 @@ class SwerveWheel:
         setpointAngleFlipped = closestAngle(currentAngle, setpoint + 180.0)
         if math.abs(setpointAngle) <= math.abs(setpointAngleFlipped):
             # unflip motor & use setpoint
+            self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, currentAngle + setpointAngle) # use motion magic if able
             # gain is positive
+            directionMotor.setInverted(False)
         else:
             # flip motor direction
+            self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, currentAngle + setpointAngleFlipped) # use motion magic if able
             # gain is negative
+            directionMotor.setInverted(True)
             
         # use the fastest way to get to angle wanted
-        self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, currentAngle + closestAngle(currentAngle, setpoint)) # use motion magic if able
         """
         self.pidController.reset()
         self.pidController.setSetpoint(setpoint)
@@ -53,6 +56,7 @@ class SwerveWheel:
         """
     def setSpeed(speed: float) -> None:
         speedMotor.set(ctre.TalonFXControlMode.PercentOutput, speed)
+
 class SwerveDrive(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
