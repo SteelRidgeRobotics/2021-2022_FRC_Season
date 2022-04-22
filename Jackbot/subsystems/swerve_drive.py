@@ -61,7 +61,15 @@ class SwerveDrive(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
         #init motors
+        self.frontLeftDirection = ctre.TalonFX(constants.kleftFrontDirectionID)
+        self.rearLeftDirection = ctre.TalonFX(constants.kleftRearDirectionID)
+        self.frontRightDirection = ctre.TalonFX(constants.krightFrontDirectionID)
+        self.rearRightDirection = ctre.TalonFX(constants.krightRearDirectionID)
         
+        self.frontLeftSpeed = ctre.TalonFX(constants.kleftFrontSpeedID)
+        self.rearLeftSpeed = ctre.TalonFX(constants.kleftRearSpeedID)
+        self.frontRightSpeed = ctre.TalonFX(constants.krightFrontSpeedID)
+        self.rearRightSpeed = ctre.TalonFX(constants.krightRearSpeedID)
         #init encoders
         
         #need to create some way to convert from Talon FX units to degrees
