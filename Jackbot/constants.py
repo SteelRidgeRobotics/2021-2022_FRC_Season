@@ -15,5 +15,6 @@ kleftFrontDirectionID = 4
 kleftRearDirectionID = 5
 krightFrontDirectionID = 6
 krightRearDirectionID = 7
+ktimeoutMs = 10
 
 

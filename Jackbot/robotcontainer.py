@@ -3,10 +3,12 @@ import commands2
 import constants
 import ctre
 from wpilib import XboxController
+import conversions
 
 #import subsystems
-
+from subsystems.swerve_drive import SwerveDrive
 #import commands
+from commands.drive_single_wheel import DriveSingleWheel
 
 class RobotContainer:
     def __init__(self) -> None:
@@ -18,6 +20,7 @@ class RobotContainer:
         self.timer = wpilib.Timer
         
         #init subsystems
+        self.swerveDrive = SwerveDrive
         
         #auto chooser
         #self.chooser = wpilib.SendableChooser()
@@ -32,7 +35,8 @@ class RobotContainer:
         """
         
         self.configureButtonBindings()
-        
+
+        self.swerveDrive.setDefaultCommand(DriveSingleWheel(self.swerveDrive, conversions.convertJoystickInputToDegrees(self.driverController.getLeftX(), self.driverController.getLeftY()), self.driverController.getRightY))
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
     """    

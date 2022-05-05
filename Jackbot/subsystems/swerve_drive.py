@@ -19,7 +19,7 @@ class SwerveWheel:
         # this converts to angles & get the distance between the two. b is the endpoint while a is the start point
         dir = float((b % 360.0) - (a % 360.0))
         
-        if math.abs(dir) > 180.0:
+        if math.fabs(dir) > 180.0:
             # we find the sign of dir, (+1, -1, or 0), and multiply it by 360. We then take that negative and add dir
             dir = -(conversions.sign(dir) * 360.0) + dir
         return dir
@@ -31,7 +31,7 @@ class SwerveWheel:
         setpointAngle = self.closestAngle(currentAngle, setpoint)
         # find closest angle + 180
         setpointAngleFlipped = self.closestAngle(currentAngle, setpoint + 180.0)
-        if math.abs(setpointAngle) <= math.abs(setpointAngleFlipped):
+        if math.fabs(setpointAngle) <= math.fabs(setpointAngleFlipped):
             # unflip motor & use setpoint
             self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, currentAngle + setpointAngle) # use motion magic if able
             # gain is positive
@@ -69,11 +69,36 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rearLeftSpeed = ctre.TalonFX(constants.kleftRearSpeedID)
         self.frontRightSpeed = ctre.TalonFX(constants.krightFrontSpeedID)
         self.rearRightSpeed = ctre.TalonFX(constants.krightRearSpeedID)
+
         #init encoders
+        self.frontLeftDirection.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.rearLeftDirection.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.frontRightDirection.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.rearRightDirection.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
         
+        self.frontLeftSpeed.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.rearLeftSpeed.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.frontRightSpeed.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+        self.rearRightSpeed.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
+
+        self.leftFrontWheel = SwerveWheel(self.frontLeftDirection, self.frontLeftSpeed, 0.0, 0.0, 0.0)
+
         #need to create some way to convert from Talon FX units to degrees
         # May try to make a file/method to use the position to do so
         
         #call gyro
-        
-        
+
+    def stopMotors(self):
+        self.frontLeftDirection.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.rearLeftDirection.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRightDirection.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.rearRightDirection.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+
+        self.frontLeftSpeed.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.rearLeftSpeed.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.frontRightSpeed.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.rearRightSpeed.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+
+    def driveLeftFrontWheel(self, direction: float, speed: float):
+        self.leftFrontWheel.setDirection(direction)
+        self.leftFrontWheel.setSpeed(speed)
