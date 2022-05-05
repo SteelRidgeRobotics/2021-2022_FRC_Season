@@ -15,8 +15,9 @@ from commands.spin_intake_bottom import SpinIntakeBottom
 from commands.spin_intake_top import SpinIntakeTop
 from commands.catch_cargo import CatchCargo
 from commands.toggle_intake_position import ToggleIntakePosition
-from commands.timed_drive import TimedDrive
+from commands.simple_auto import SimpleAuto
 from commands.auto_blue_pos2 import AutoBluePos2
+from commands.auto_blue_pos1 import AutoBluePos1
 
 from subsystems.climber import Climber
 from subsystems.launcher import Launcher
@@ -49,10 +50,12 @@ class RobotContainer:
         self.chooser = wpilib.SendableChooser()
         
         # Add commands to autonomous command chooser
-        self.timed_drive = TimedDrive(self.drive)
+        self.timed_drive = SimpleAuto(self.launcher, self.drive)
         self.blue_pos2 = AutoBluePos2(self.intake, self.launcher, self.drive, self.pathTrajectory)
+        self.blue_pos1 = AutoBluePos1(self.intake, self.launcher, self.drive, self.pathTrajectory)
         self.chooser.setDefaultOption("Simple Auto", self.timed_drive)
         self.chooser.addOption("Blue Pos 2", self.blue_pos2)
+        self.chooser.addOption("Blue Pos 1", self.blue_pos1)
         wpilib.SmartDashboard.putData("Autonomous", self.chooser)
                 
         self.configureButtonBindings() 

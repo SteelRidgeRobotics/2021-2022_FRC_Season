@@ -34,6 +34,9 @@ class PathTrajectory:
         reverseConfig.addConstraint(autoVoltageConstraint)
         reverseConfig.setReversed(True)
 
-        self.trajectoryBlue1p1 = TrajectoryGenerator.generateTrajectory(Pose2d(6.95, 4.64, Rotation2d(157.09)), [Translation2d(6.2, 5.16)], Pose2d(5.53, 5.64, Rotation2d(144.25)), reverseConfig)
-        self.trajectoryBlue1p2 = TrajectoryGenerator.generateTrajectory(Pose2d(5.53, 5.64, Rotation2d(144.25)), [Translation2d(6.2, 5.16)], Pose2d(6.95, 4.64, Rotation2d(157.09)), forwardConfig)
+        self.trajectoryBlue1p1 = TrajectoryGenerator.generateTrajectory(Pose2d(6.95, 4.64, Rotation2d(157.09)), [Translation2d(6.2, 5.16)], Pose2d(5.21, 5.86, Rotation2d(144.25)), reverseConfig)
+        self.trajectoryBlue1p2 = TrajectoryGenerator.generateTrajectory(Pose2d(5.21, 5.86, Rotation2d(144.25)), [Translation2d(6.2, 5.16)], Pose2d(6.95, 4.64, Rotation2d(157.09)), forwardConfig)
+
+        self.trajectoryBlue2p1 = TrajectoryGenerator.generateTrajectory(Pose2d(7.90, 2.77, Rotation2d(-110.85)), [Translation2d(7.61, 1.99)], Pose2d(7.44, 1.03, Rotation2d(-88.60)), reverseConfig)
+        self.trajectoryBlue2p2 = TrajectoryGenerator.generateTrajectory(Pose2d(7.44, 1.03, Rotation2d(-88.60)), [Translation2d(7.61, 1.99)], Pose2d(7.90, 2.77, Rotation2d(-110.85)), forwardConfig)
         

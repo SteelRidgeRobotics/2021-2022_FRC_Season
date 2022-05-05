@@ -23,7 +23,7 @@ class DriveByJoystick(commands2.CommandBase):
         self.bumperRight = bumperRight
         self.bumperLeft = bumperLeft
         self.percent = 1.0
-
+        self.isZero = False
         #this command requires the drivetrain class
         self.addRequirements([self.drive])
         
