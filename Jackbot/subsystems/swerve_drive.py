@@ -3,12 +3,11 @@ import ctre
 import constants
 import math
 import conversions
-import wpimath.controller.PIDController as PIDController
+import wpimath.controller
 class SwerveWheel:
     def __init__(self, directionMotor: ctre.TalonFX, speedMotor: ctre.TalonFX, P: float, I: float, D: float):
         # we assume that all the motors are the same: Falcon 500s
-        self.pidController = PIDController
-        self.pidController.setPID(P, I, D)
+        self.pidController = wpimath.controller.PIDController(P, I, D, 0)
         self.directionMotor = directionMotor
         self.speedMotor = speedMotor
         
@@ -27,21 +26,21 @@ class SwerveWheel:
     
     def setDirection(self, setpoint: float):
         #get current angle
-        currentAngle = float(directionMotor.getSelectedSensorPosition())
+        currentAngle = float(self.directionMotor.getSelectedSensorPosition())
         # find closest angle
-        setpointAngle = closestAngle(currentAngle, setpoint)
+        setpointAngle = self.closestAngle(currentAngle, setpoint)
         # find closest angle + 180
-        setpointAngleFlipped = closestAngle(currentAngle, setpoint + 180.0)
+        setpointAngleFlipped = self.closestAngle(currentAngle, setpoint + 180.0)
         if math.abs(setpointAngle) <= math.abs(setpointAngleFlipped):
             # unflip motor & use setpoint
             self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, currentAngle + setpointAngle) # use motion magic if able
             # gain is positive
-            directionMotor.setInverted(False)
+            self.directionMotor.setInverted(False)
         else:
             # flip motor direction
             self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, currentAngle + setpointAngleFlipped) # use motion magic if able
             # gain is negative
-            directionMotor.setInverted(True)
+            self.directionMotor.setInverted(True)
             
         # use the fastest way to get to angle wanted
         """
@@ -54,8 +53,8 @@ class SwerveWheel:
         # may have to be voltage instead of position
         self.directionMotor.set(ctre.TalonFXControlMode.Position, output)
         """
-    def setSpeed(speed: float) -> None:
-        speedMotor.set(ctre.TalonFXControlMode.PercentOutput, speed)
+    def setSpeed(self, speed: float) -> None:
+        self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, speed)
 
 class SwerveDrive(commands2.SubsystemBase):
     def __init__(self) -> None:
