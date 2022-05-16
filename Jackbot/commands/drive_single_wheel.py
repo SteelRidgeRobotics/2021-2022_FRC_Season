@@ -11,7 +11,7 @@ class DriveSingleWheel(commands2.CommandBase):
     This allows us to drive the robot with an xbox controller
     """
     #init function
-    def __init__(self, swerveDrive: SwerveDrive, direction: float, speed: float) -> None:
+    def __init__(self, swerveDrive: SwerveDrive, direction: typing.Callable[[], float], speed: typing.Callable[[], float]) -> None:
     #def __init__(self, drive: Drivetrain, left_axis, right_axis) -> None:
         #initiate from the parent class, super() refers to commands2.CommandBase
         super().__init__()
@@ -19,9 +19,10 @@ class DriveSingleWheel(commands2.CommandBase):
         self.direction = direction
         self.speed = speed
         self.swerveDrive = swerveDrive
+        #self.addRequirements([self.swerveDrive])
 
         #add requirement
-        self.addRequirements([self.swerveDrive])
+        #self.addRequirements([self.swerveDrive])
     def execute(self) -> None:
         self.swerveDrive.driveLeftFrontWheel(self.swerveDrive, self.direction, self.speed)
         wpilib.SmartDashboard.putNumber("   direction - ", self.direction)
