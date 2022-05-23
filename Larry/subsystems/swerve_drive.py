@@ -82,6 +82,10 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rearRightSpeed.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, constants.ktimeoutMs)
 
         self.leftFrontWheel = SwerveWheel(self.frontLeftDirection, self.frontLeftSpeed, 0.0, 0.0, 0.0)
+        self.rightFrontWheel = SwerveWheel(self.frontRightDirection, self.frontRightSpeed, 0.0, 0.0, 0.0)
+
+        self.leftBackWheel = SwerveWheel(self.rearLeftDirection, self.rearLeftSpeed, 0.0, 0.0, 0.0)
+        self.rightBackWheel = SwerveWheel(self.rearRightDirection, self.rearRightSpeed, 0.0, 0.0, 0.0)
 
         #need to create some way to convert from Talon FX units to degrees
         # May try to make a file/method to use the position to do so
@@ -102,3 +106,14 @@ class SwerveDrive(commands2.SubsystemBase):
     def driveLeftFrontWheel(self, direction: float, speed: float):
         self.leftFrontWheel.setDirection(direction)
         self.leftFrontWheel.setSpeed(speed)
+
+    def translate(self, direction: float, speed: float):
+        self.leftFrontWheel.setDirection(direction)
+        self.rightFrontWheel.setDirection(direction)
+        self.leftBackWheel.setDirection(direction)
+        self.rightBackWheel.setDirection(direction)
+
+        self.leftFrontWheel.setSpeed(speed)
+        self.rightFrontWheel.setSpeed(speed)
+        self.leftBackWheel.setSpeed(speed)
+        self.rightBackWheel.setSpeed(speed)

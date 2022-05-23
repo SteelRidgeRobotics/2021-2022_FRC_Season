@@ -9,6 +9,7 @@ import conversions
 from subsystems.swerve_drive import SwerveDrive
 #import commands
 from commands.drive_single_wheel import DriveSingleWheel
+from commands.drive_by_joystick import DriveByJoystick
 
 class RobotContainer:
     def __init__(self) -> None:
@@ -36,7 +37,7 @@ class RobotContainer:
         
         self.configureButtonBindings()
 
-        self.swerveDrive.setDefaultCommand(DriveSingleWheel(self.swerveDrive, lambda: conversions.convertJoystickInputToDegrees(self.driverController.getLeftX(), self.driverController.getLeftY()), lambda: self.driverController.getRightY()))
+        self.swerveDrive.setDefaultCommand(DriveByJoystick(self.swerveDrive, conversions.convertJoystickInputToDegrees(lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY()), lambda: self.driverController.getRightY()))
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
     """    
