@@ -15,4 +15,4 @@ def sign(num) -> int:
         return 0
 
 def convertJoystickInputToDegrees(x: float, y: float):
-    return float(math.atan2(y, x))
+    return float(math.degrees(math.atan2(y, x)))

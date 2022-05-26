@@ -21,7 +21,7 @@ class RobotContainer:
         self.timer = wpilib.Timer
         
         #init subsystems
-        self.swerveDrive = SwerveDrive
+        self.swerveDrive = SwerveDrive()
         
         #auto chooser
         #self.chooser = wpilib.SendableChooser()
@@ -37,7 +37,7 @@ class RobotContainer:
         
         self.configureButtonBindings()
 
-        self.swerveDrive.setDefaultCommand(DriveByJoystick(self.swerveDrive, conversions.convertJoystickInputToDegrees(lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY()), lambda: self.driverController.getRightY()))
+        self.swerveDrive.setDefaultCommand(DriveByJoystick(self.swerveDrive, conversions.convertJoystickInputToDegrees(self.driverController.getLeftX(), -self.driverController.getLeftY()), lambda: -self.driverController.getRightY()))
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
     """    

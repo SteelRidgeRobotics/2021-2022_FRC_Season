@@ -12,6 +12,8 @@ class DriveByJoystick(commands2.CommandBase):
         self.direction = direction
         self.speed = rightJoyY
 
+        self.addRequirements((self.drive))
+
     def execute(self) -> None:
         self.drive.translate(self.direction, self.speed)
     
