@@ -37,7 +37,7 @@ class RobotContainer:
         
         self.configureButtonBindings()
 
-        self.swerveDrive.setDefaultCommand(DriveByJoystick(self.swerveDrive, conversions.convertJoystickInputToDegrees(self.driverController.getLeftX(), -self.driverController.getLeftY()), lambda: -self.driverController.getRightY()))
+        self.swerveDrive.setDefaultCommand(DriveByJoystick(self.swerveDrive, conversions.convertJoystickInputToDegrees(self.driverController.getLeftX(), -self.driverController.getLeftY()), -self.driverController.getRightY()))
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
     """    
