@@ -54,7 +54,7 @@ class SwerveWheel:
         self.directionMotor.set(ctre.TalonFXControlMode.Position, output)
         """
     def setSpeed(self, speed: float) -> None:
-        self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, speed)
+        self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, float(speed))
 
 class SwerveDrive(commands2.SubsystemBase):
     def __init__(self) -> None:
