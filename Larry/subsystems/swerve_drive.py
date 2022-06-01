@@ -117,3 +117,14 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rightFrontWheel.setSpeed(speed)
         self.leftBackWheel.setSpeed(speed)
         self.rightBackWheel.setSpeed(speed)
+    def turnInPlace(self, speed: float):
+        self.leftFrontWheel.setDirection(135.0)
+        self.rightFrontWheel.setDirection(45.0)
+        self.leftBackWheel.setDirection(-45.0)
+        self.rightBackWheel.setDirection(-135.0)
+
+        self.leftFrontWheel.setSpeed(speed)
+        self.rightFrontWheel.setSpeed(speed)
+        self.leftBackWheel.setSpeed(speed)
+        self.rightBackWheel.setSpeed(speed)
+        
