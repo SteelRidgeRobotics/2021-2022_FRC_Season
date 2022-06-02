@@ -21,7 +21,7 @@ class SwerveWheel:
         
         if math.fabs(dir) > 180.0:
             # we find the sign of dir, (+1, -1, or 0), and multiply it by 360. We then take that negative and add dir
-            dir = -(conversions.sign(dir) * 360.0) + dir
+            dir = -(conversions.Conversions.sign(dir) * 360.0) + dir
         return dir
     
     def setDirection(self, setpoint: float):
@@ -117,6 +117,7 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rightFrontWheel.setSpeed(speed)
         self.leftBackWheel.setSpeed(speed)
         self.rightBackWheel.setSpeed(speed)
+        
     def turnInPlace(self, speed: float):
         self.leftFrontWheel.setDirection(135.0)
         self.rightFrontWheel.setDirection(45.0)

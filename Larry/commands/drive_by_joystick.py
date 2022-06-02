@@ -19,9 +19,9 @@ class DriveByJoystick(commands2.CommandBase):
 
     def execute(self) -> None:
         self.direction = conversions.Conversions.convertJoystickInputToDegrees(self.leftx(), self.lefty())
-        wpilib.SmartDashboard.putNumber("   direction - ", self.direction())
+        wpilib.SmartDashboard.putNumber("   direction - ", self.direction)
         wpilib.SmartDashboard.putNumber("   speed - ", self.speed())
-        self.drive.translate(self.direction(), self.speed())
+        self.drive.translate(self.direction, self.speed())
     
     def end(self, interrupted: bool) -> None:
         self.drive.stopMotors()
