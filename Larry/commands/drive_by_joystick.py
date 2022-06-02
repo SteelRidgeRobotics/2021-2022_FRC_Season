@@ -18,7 +18,10 @@ class DriveByJoystick(commands2.CommandBase):
         self.addRequirements((self.drive))
 
     def execute(self) -> None:
-        self.magnitude = math.hypot(self.leftx(), self.lefty())
+        if conversions.Conversions.sign(self.lefty()) == -1:
+            self.magnitude = -(math.hypot(self.leftx(), self.lefty()))
+        else:
+            self.magnitude = math.hypot(self.leftx(), self.lefty())
         self.direction = conversions.Conversions.convertJoystickInputToDegrees(self.leftx(), self.lefty())
         wpilib.SmartDashboard.putNumber("   direction - ", self.direction)
         wpilib.SmartDashboard.putNumber("   speed - ", self.magnitude)
