@@ -128,4 +128,36 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rightFrontWheel.setSpeed(speed)
         self.leftBackWheel.setSpeed(speed)
         self.rightBackWheel.setSpeed(speed)
+    
+    def closestAngle(self, a: float, b: float) -> float:
+        # this converts to angles & get the distance between the two. b is the endpoint while a is the start point
+        dir = float((b % 360.0) - (a % 360.0))
+        
+        if math.fabs(dir) > 180.0:
+            # we find the sign of dir, (+1, -1, or 0), and multiply it by 360. We then take that negative and add dir
+            dir = -(conversions.Conversions.sign(dir) * 360.0) + dir
+        return dir
+
+    def turnWhileMoving(self, direction: float, translatePwr: float, turnPwr: float):
+        self.turnAngle = turnPwr * 45.0
+        # left front wheel 135
+        if (self.closestAngle(direction, 135.0)) >= 90.0:
+            self.leftFrontWheel.setDirection(direction + self.turnAngle)
+        else:
+            self.leftFrontWheel.setDirection(direction - self.turnAngle)
+        # left back wheel 225
+        if (self.closestAngle(direction, 225.0) > 90.0):
+            self.leftBackWheel.setDirection(direction + self.turnAngle)
+        else:
+            self.leftBackWheel.setDirection(direction - self.turnAngle)
+        # right front wheel 45
+        if (self.closestAngle(direction, 45.0)) > 90.0:
+            self.rightFrontWheel.setDirection(direction + self.turnAngle)
+        else:
+            self.rightFrontWheel.setDirection(direction - self.turnAngle)
+        # right back wheel 315
+        if (self.closestAngle(direction, 315)) >= 90.0:
+            self.rightBackWheel.setDirection(direction + self.turnAngle)
+        else:
+            self.rightBackWheel.setDirection(direction - self.turnAngle)
         
