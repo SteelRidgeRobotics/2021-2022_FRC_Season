@@ -28,6 +28,9 @@ class DriveByJoystick(commands2.CommandBase):
         
         self.direction = conversions.Conversions.convertJoystickInputToDegrees(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband))
         
+        # field concentric
+        self.direction -= self.drive.gyro.get()
+        
         wpilib.SmartDashboard.putNumber("   direction - ", self.direction)
         wpilib.SmartDashboard.putNumber("   speed - ", self.magnitude)
         wpilib.SmartDashboard.putNumber("   turn power - ", self.turnPower())
