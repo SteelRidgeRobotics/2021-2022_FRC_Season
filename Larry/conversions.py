@@ -18,3 +18,9 @@ class Conversions():
 
     def convertJoystickInputToDegrees(x: float, y: float):
         return float(math.degrees(math.atan2(y, x)))
+    
+    def deadband(num: float, deadband_value: float):
+        if math.fabs(num) < deadband_value:
+            return 0
+        else:
+            return num
