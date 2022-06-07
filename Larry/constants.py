@@ -17,4 +17,5 @@ krightFrontDirectionID = 6
 krightRearDirectionID = 7
 ktimeoutMs = 10
 
-
+#deadband
+kdeadband = 0.01
