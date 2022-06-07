@@ -3,6 +3,7 @@ import commands2
 from subsystems.swerve_drive import SwerveDrive
 import wpilib
 import conversions
+import constants
 import math
 
 class DriveByJoystick(commands2.CommandBase):
@@ -21,10 +22,12 @@ class DriveByJoystick(commands2.CommandBase):
     def execute(self) -> None:
         
         if conversions.Conversions.sign(self.lefty()) == -1:
-            self.magnitude = -(math.hypot(conversions.Conversions.deadband(self.leftx(), 0.01), conversions.Conversions.deadband(self.lefty(), 0.01)))
+            self.magnitude = -(math.hypot(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband)))
         else:
-            self.magnitude = math.hypot(conversions.Conversions.deadband(self.leftx(), 0.01), conversions.Conversions.deadband(self.lefty(), 0.01))
-        self.direction = conversions.Conversions.convertJoystickInputToDegrees(conversions.Conversions.deadband(self.leftx(), 0.01), conversions.Conversions.deadband(self.lefty(), 0.01))
+            self.magnitude = math.hypot(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband))
+        
+        self.direction = conversions.Conversions.convertJoystickInputToDegrees(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband))
+        
         wpilib.SmartDashboard.putNumber("   direction - ", self.direction)
         wpilib.SmartDashboard.putNumber("   speed - ", self.magnitude)
         wpilib.SmartDashboard.putNumber("   turn power - ", self.turnPower())
