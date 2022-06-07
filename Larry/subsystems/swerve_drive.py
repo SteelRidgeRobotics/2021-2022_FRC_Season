@@ -4,6 +4,7 @@ import constants
 import math
 import conversions
 import wpimath.controller
+from wpilib import ADXRS450_Gyro
 class SwerveWheel:
     def __init__(self, directionMotor: ctre.TalonFX, speedMotor: ctre.TalonFX, P: float, I: float, D: float):
         # we assume that all the motors are the same: Falcon 500s
@@ -91,7 +92,8 @@ class SwerveDrive(commands2.SubsystemBase):
         # May try to make a file/method to use the position to do so
         
         #call gyro
-
+        self.gyro = ADXRS450_Gyro()
+        
     def stopMotors(self):
         self.frontLeftDirection.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
         self.rearLeftDirection.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
