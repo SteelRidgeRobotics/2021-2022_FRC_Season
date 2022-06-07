@@ -29,18 +29,20 @@ class DriveByJoystick(commands2.CommandBase):
         self.direction = conversions.Conversions.convertJoystickInputToDegrees(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband))
         
         # field concentric
-        self.direction -= self.drive.gyro.get()
+        self.direction -= self.drive.gyro.getAngle()
         
         wpilib.SmartDashboard.putNumber("   direction - ", self.direction)
         wpilib.SmartDashboard.putNumber("   speed - ", self.magnitude)
         wpilib.SmartDashboard.putNumber("   turn power - ", self.turnPower())
         
-        if self.magnitude == 0.0 and self.turnPower() != 0.0:
-            self.drive.turnInPlace(self.turnPower())
-        elif self.magnitude != 0.0 and self.turnPower() == 0.0
+        self.twist = conversions.Conversions.deadband(self.turnPower(), constants.kdeadband)
+
+        if self.magnitude == 0.0 and self.twist != 0.0:
+            self.drive.turnInPlace(self.twist)
+        elif self.magnitude != 0.0 and self.twist == 0.0:
             self.drive.translate(self.direction, self.magnitude)
         else:
-            self.drive.turnWhileMoving(self.direction, self.magnitude, self.turnPower)
+            self.drive.turnWhileMoving(self.direction, self.magnitude, self.twist)
     
     def end(self, interrupted: bool) -> None:
         self.drive.stopMotors()
