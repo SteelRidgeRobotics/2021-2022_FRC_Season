@@ -18,4 +18,4 @@ krightRearDirectionID = 7
 ktimeoutMs = 10
 
 #deadband
-kdeadband = 0.01
+kdeadband = 0.00001

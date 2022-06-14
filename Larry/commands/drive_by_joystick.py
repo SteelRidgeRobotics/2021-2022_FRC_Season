@@ -22,20 +22,19 @@ class DriveByJoystick(commands2.CommandBase):
     def execute(self) -> None:
         
         if conversions.Conversions.sign(self.lefty()) == -1:
-            self.magnitude = -(math.hypot(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband)))
+            self.magnitude = -(math.hypot(self.leftx(), self.lefty()))
         else:
-            self.magnitude = math.hypot(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband))
+            self.magnitude = math.hypot(self.leftx(), self.lefty())
         
-        self.direction = conversions.Conversions.convertJoystickInputToDegrees(conversions.Conversions.deadband(self.leftx(), constants.kdeadband), conversions.Conversions.deadband(self.lefty(), constants.kdeadband))
+        self.direction = conversions.Conversions.convertJoystickInputToDegrees(self.leftx(), self.lefty())
         
         # field concentric
         self.direction -= self.drive.gyro.getAngle()
-        
+        self.twist = self.turnPower()
+
         wpilib.SmartDashboard.putNumber("   direction - ", self.direction)
         wpilib.SmartDashboard.putNumber("   speed - ", self.magnitude)
-        wpilib.SmartDashboard.putNumber("   turn power - ", self.turnPower())
-        
-        self.twist = conversions.Conversions.deadband(self.turnPower(), constants.kdeadband)
+        wpilib.SmartDashboard.putNumber("   turn power - ", self.twist)
 
         if self.magnitude == 0.0 and self.twist != 0.0:
             self.drive.turnInPlace(self.twist)
