@@ -1,5 +1,7 @@
 import wpilib
 import commands2
+from commands.drive_swerve_wheel_by_joystick import DriveSwerveWheelByJoysticks
+
 import constants
 import ctre
 from wpilib import XboxController
@@ -35,7 +37,8 @@ class RobotContainer:
         self.configureButtonBindings()
 
 
-        self.swerveDrive.setDefaultCommand(Joysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY(), lambda: self.driverController.getRightX(), lambda: self.driverController.getRightY()))
+        #self.swerveDrive.setDefaultCommand(Joysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY(), lambda: self.driverController.getRightX(), lambda: self.driverController.getRightY()))
+        self.swerveDrive.setDefaultCommand(DriveSwerveWheelByJoysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getRightY()))
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
     """    
