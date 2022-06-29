@@ -24,3 +24,7 @@ kD = 0.0 #Derivative
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
 kcruiseAccel = 10567.0 #Cruise Acceleration same as velocity
 kticksPerRev = 2048
+kSlotIdx = 0
+kPIDLoopIdx = 0 
+
+ksteeringGearRatio = 150/7

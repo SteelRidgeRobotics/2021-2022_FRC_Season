@@ -44,7 +44,7 @@ class RobotContainer:
         ##self.swerveDrive.setDefaultCommand(DriveSwerveWheelByJoysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getRightY()))
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
-        (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(TurnToSpecificPoint(self.swerveDrive, 500)))
+        (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(TurnToSpecificPoint(self.swerveDrive, 204800)))
     """    
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()
