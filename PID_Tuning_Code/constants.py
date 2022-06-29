@@ -8,7 +8,7 @@ kdriverControllerPort = 0
 
 #Motors
 kfrontLeft = 0
-kbackLeft = 1
+kbackLeft = 4
 kfrontRight = 2
 kbackRight = 3
 

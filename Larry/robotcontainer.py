@@ -1,6 +1,9 @@
+from hal import JoystickButtons
 import wpilib
 import commands2
+from commands2.button import JoystickButton
 from commands.drive_swerve_wheel_by_joystick import DriveSwerveWheelByJoysticks
+from commands.turn_to_specific_point import TurnToSpecificPoint
 
 import constants
 import ctre
@@ -38,9 +41,10 @@ class RobotContainer:
 
 
         #self.swerveDrive.setDefaultCommand(Joysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY(), lambda: self.driverController.getRightX(), lambda: self.driverController.getRightY()))
-        self.swerveDrive.setDefaultCommand(DriveSwerveWheelByJoysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getRightY()))
+        ##self.swerveDrive.setDefaultCommand(DriveSwerveWheelByJoysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getRightY()))
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
+        (JoystickButton(self.driverController, XboxController.Button.kA).whenPressed(TurnToSpecificPoint(self.swerveDrive, 500)))
     """    
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()
