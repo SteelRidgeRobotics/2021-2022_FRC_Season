@@ -34,6 +34,8 @@ class SwerveWheel(commands2.SubsystemBase):
         
         self.directionMotor.setNeutralMode(ctre.NeutralMode.Brake)
 
+        self.directionMotor.setSelectedSensorPosition(0.0, kPIDLoopIdx, ktimeoutMs)
+
         wpilib.SmartDashboard.putNumber(" P -", kP)
         wpilib.SmartDashboard.putNumber(" I -", kI)
         wpilib.SmartDashboard.putNumber(" D -", kD)
