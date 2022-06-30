@@ -22,4 +22,4 @@ class TurnToSpecificPoint(commands2.CommandBase):
         self.wheel.stopAllMotors()
 
     def isFinished(self) -> bool:
-        return self.wheel.rotating
+        return self.wheel.isNotrotating
