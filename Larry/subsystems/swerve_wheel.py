@@ -2,6 +2,9 @@ import commands2
 import ctre
 from constants import *
 import wpilib
+from conversions import *
+
+from conversions import convertDegreesToTalonFXUnits
 class SwerveWheel(commands2.SubsystemBase):
     def __init__(self) -> None:
         super().__init__()
@@ -48,6 +51,15 @@ class SwerveWheel(commands2.SubsystemBase):
         current_pos = self.directionMotor.getSelectedSensorPosition()
         self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(set_point))
         wpilib.SmartDashboard.putNumber("Sensor - ", current_pos)
+
+    def translate(self, direction: float, speed: float):
+        # Before putting joystick input, make sure that the joystick is actually in use and not at rest.
+        # check for the closest angle (effeciency)
+             #ex) want to go -270, and +90 degrees is faster, so we would go to 90 degrees and make the wheel spin in the opposite direction
+            # convert angle to talon fx units
+            # go to closest angle
+            # check if the direction of the wheel needs to change
+        print()
 
     def move(self, joystick_input: float):
         self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, 0.1*joystick_input)
