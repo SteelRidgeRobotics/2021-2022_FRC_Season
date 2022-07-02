@@ -37,29 +37,38 @@ class SwerveWheel(commands2.SubsystemBase):
         
         self.directionMotor.setNeutralMode(ctre.NeutralMode.Coast)
 
-        #self.directionMotor.setSelectedSensorPosition(0.0, kPIDLoopIdx, ktimeoutMs)
+        self.directionMotor.setSelectedSensorPosition(0.0, kPIDLoopIdx, ktimeoutMs)
 
         wpilib.SmartDashboard.putNumber(" P -", kP)
         wpilib.SmartDashboard.putNumber(" I -", kI)
         wpilib.SmartDashboard.putNumber(" D -", kD)
         wpilib.SmartDashboard.putNumber(" F -", kF)
         wpilib.SmartDashboard.putNumber(" Sensor Position -", self.directionMotor.getSelectedSensorPosition())
-        self.isNotrotating = True
-
+        self.notTurning = True
+    # this is are testing turn method
     def turn(self, set_point: float):
-        self.isNotrotating = False
+        self.notTurning = False
         current_pos = self.directionMotor.getSelectedSensorPosition()
         self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(set_point))
-        wpilib.SmartDashboard.putNumber("Sensor - ", current_pos)
+#
+#    def translate(self, direction: float, speed: float):
+#        # Before putting joystick input, make sure that the joystick is actually in use and not at rest.
+#        # check for the closest angle (effeciency)
+#             #ex) want to go -270, and +90 degrees is faster, so we would go to 90 degrees and make the wheel spin in the opposite direction
+#            # convert angle to talon fx units
+#            # go to closest angle
+#            # check if the direction of the wheel needs to change
+#        print()
+#    # how fast the wheels will be spinning
 
-    def translate(self, direction: float, speed: float):
-        # Before putting joystick input, make sure that the joystick is actually in use and not at rest.
-        # check for the closest angle (effeciency)
-             #ex) want to go -270, and +90 degrees is faster, so we would go to 90 degrees and make the wheel spin in the opposite direction
-            # convert angle to talon fx units
-            # go to closest angle
-            # check if the direction of the wheel needs to change
-        print()
+#    def isNotinMotion(self) -> bool:
+
+#        if self.directionMotor.getActiveTrajectoryVelocity() == 0.0:
+#            self.notTurning = True
+#        else:
+#            self.notTurning = False
+
+#        return self.notTurning
 
     def move(self, joystick_input: float):
         self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, 0.1*joystick_input)
@@ -74,7 +83,8 @@ class SwerveWheel(commands2.SubsystemBase):
         wpilib.SmartDashboard.putNumber(" D -", kD)
         wpilib.SmartDashboard.putNumber(" F -", kF)
         wpilib.SmartDashboard.putNumber(" Sensor Position -", self.directionMotor.getSelectedSensorPosition())
-        wpilib.SmartDashboard.putBoolean(" Is Not Moving? -", self.isNotrotating)
+        wpilib.SmartDashboard.putNumber(" Sensor Velocity -", self.directionMotor.getSelectedSensorVelocity())
+        wpilib.SmartDashboard.putBoolean(" Is Not Moving? -", self.notTurning)
         
         
         """
