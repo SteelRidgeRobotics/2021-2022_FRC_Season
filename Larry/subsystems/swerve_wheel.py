@@ -50,16 +50,25 @@ class SwerveWheel(commands2.SubsystemBase):
         self.notTurning = False
         current_pos = self.directionMotor.getSelectedSensorPosition()
         self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(set_point))
-#
-#    def translate(self, direction: float, speed: float):
-#        # Before putting joystick input, make sure that the joystick is actually in use and not at rest.
-#        # check for the closest angle (effeciency)
-#             #ex) want to go -270, and +90 degrees is faster, so we would go to 90 degrees and make the wheel spin in the opposite direction
-#            # convert angle to talon fx units
-#            # go to closest angle
-#            # check if the direction of the wheel needs to change
-#        print()
-#    # how fast the wheels will be spinning
+
+    def translate(self, direction: float, speed: float):
+        # check for the closest angle (effeciency)
+        currentAngle = convertTalonFXUnitsToDegrees(self.directionMotor.getSelectedSensorPosition())
+        if math.fabs(direction) >= 180.0:
+            opposAngle = math.fabs(direction) - 180.0
+        else:
+            opposAngle = math.fabs(direction) + 180.0
+        wpilib.SmartDashboard.putNumber(" Original Angle -", direction)
+        wpilib.SmartDashboard.putNumber(" Abs Opposit Angle -", opposAngle)
+        if math.fabs(currentAngle - direction) <= math.fabs(currentAngle - opposAngle):
+            #turn to the original angle
+            self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(convertDegreesToTalonFXUnits(direction))*ksteeringGearRatio)
+            self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, speed)
+        else:
+            #turn to the other angle
+            #change direction of the speed motor
+            self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(convertDegreesToTalonFXUnits(opposAngle))*ksteeringGearRatio)
+            self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, -speed)
 
 #    def isNotinMotion(self) -> bool:
 

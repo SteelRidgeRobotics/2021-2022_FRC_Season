@@ -5,6 +5,10 @@ def convertDegreesToTalonFXUnits(num: float) -> float:
     num *= conversionFactor
     return num
 
+def convertTalonFXUnitsToDegrees(num: float) -> float:
+    num *= (360/2048)
+    return num
+
 def sign(num) -> int:
     if num > 0:
         # positive
