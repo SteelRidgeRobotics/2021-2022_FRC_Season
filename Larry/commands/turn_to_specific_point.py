@@ -57,3 +57,4 @@ class TurnToSpecificPoint(commands2.CommandBase):
 
     def isFinished(self) -> bool:
         return self.wheel.notTurning
+    
