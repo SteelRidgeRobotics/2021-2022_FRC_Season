@@ -71,6 +71,18 @@ class SwerveDrive(commands2.SubsystemBase):
                     module.turn(conversions.convertDegreesToTalonFXUnits(opposAngle)*constants.ksteeringGearRatio)
                 #move in the opposite directionj
                 module.move(-magnitude)
+
+    def translate(self, direction: float, magnitude: float):
+        self.turnWheel(self.leftFrontSwerveModule, direction, magnitude)
+        self.turnWheel(self.leftRearSwerveModule, direction, magnitude)
+        self.turnWheel(self.rightFrontSwerveModule, direction, magnitude)
+        self.turnWheel(self.rightRearSwerveModule, direction, magnitude)
+    
+    def turnInPlace(self, turnPower: float):
+        self.turnWheel(self.leftFrontSwerveModule, 45.0, turnPower)
+        self.turnWheel(self.rightFrontSwerveModule, 135.0, turnPower)
+        self.turnWheel(self.rightRearSwerveModule, 225.0, turnPower)
+        self.turnWheel(self.leftRearSwerveModule, 315.0, turnPower)
         
     def stopAllMotors(self):
         self.leftFrontSwerveModule.stopAllMotors()
