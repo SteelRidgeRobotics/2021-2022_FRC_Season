@@ -6,10 +6,10 @@ from conversions import *
 
 from conversions import convertDegreesToTalonFXUnits
 class SwerveWheel(commands2.SubsystemBase):
-    def __init__(self) -> None:
+    def __init__(self, directionMotor: ctre.TalonFX, speedMotor:ctre.TalonFX) -> None:
         super().__init__()
-        self.directionMotor = ctre.TalonFX(kleftFrontDirectionID)
-        self.speedMotor = ctre.TalonFX(kleftFrontSpeedID)
+        self.directionMotor = directionMotor
+        self.speedMotor = speedMotor
 
         self.directionMotor.configSelectedFeedbackSensor(ctre.FeedbackDevice.IntegratedSensor, 0, ktimeoutMs)
 

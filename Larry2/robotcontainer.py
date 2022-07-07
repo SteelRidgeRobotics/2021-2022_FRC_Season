@@ -2,17 +2,17 @@ from hal import JoystickButtons
 import wpilib
 import commands2
 from commands2.button import JoystickButton
-from commands.drive_swerve_wheel_by_joystick import DriveSwerveWheelByJoysticks
-from commands.turn_to_specific_point import TurnToSpecificPoint
 
 import constants
 import ctre
 from wpilib import XboxController
 
 #import subsystems
-from subsystems.swerve_wheel import SwerveWheel
+from subsystems.swerve_drive import SwerveDrive
 #import commands
 from commands.joysticks import Joysticks
+from commands.turn_to_specific_point import TurnToSpecificPoint
+from commands.drive_left_front import DriveLeftFront
 
 class RobotContainer:
     def __init__(self) -> None:
@@ -24,7 +24,7 @@ class RobotContainer:
         self.timer = wpilib.Timer
         
         #init subsystems
-        self.swerveDrive = SwerveWheel()
+        self.swerveDrive = SwerveDrive()
         #auto chooser
         #self.chooser = wpilib.SendableChooser()
         
@@ -39,9 +39,10 @@ class RobotContainer:
         
         self.configureButtonBindings()
 
-        self.swerveDrive.setDefaultCommand(TurnToSpecificPoint(self.swerveDrive,  lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY()))
+        self.swerveDrive.setDefaultCommand(DriveLeftFront(self.swerveDrive,  lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY()))
+        #self.swerveDrive.setDefaultCommand(TurnToSpecificPoint(self.swerveDrive,  lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY()))
         #self.swerveDrive.setDefaultCommand(Joysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getLeftY(), lambda: self.driverController.getRightX(), lambda: self.driverController.getRightY()))
-        ##self.swerveDrive.setDefaultCommand(DriveSwerveWheelByJoysticks(self.swerveDrive, lambda: self.driverController.getLeftX(), lambda: self.driverController.getRightY()))
+
     def configureButtonBindings(self):
         """This is where our trigger bindings for commands go"""
     """    
