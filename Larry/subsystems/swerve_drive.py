@@ -29,6 +29,7 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rightFrontSwerveModule = SwerveWheel(self.rightFrontDirection, self.rightFrontSpeed)
         self.rightRearSwerveModule = SwerveWheel(self.rightRearDirection, self.rightRearSpeed)
 
+
     def turnWheel(self, module: SwerveWheel, direction: float, magnitude: float):
         self.units = conversions.convertDegreesToTalonFXUnits(direction)
         if magnitude >= 1.0:

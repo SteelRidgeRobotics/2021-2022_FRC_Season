@@ -35,13 +35,25 @@ class TurnToSpecificPoint(commands2.CommandBase):
         if self.magnitude != 0.0:
             if math.fabs(currentAngle - self.angle) <= math.fabs(currentAngle - opposAngle):
                 #turn to the original angle
-                self.wheel.turn(self.units*constants.ksteeringGearRatio)
+                if self.angle == 0.0:
+                    if (2048*constants.ksteeringGearRatio) - self.units < self.wheel.directionMotor.getSelectedSensorPosition():
+                        self.wheel.turn(2048*constants.ksteeringGearRatio)
+                    else:
+                        self.wheel.turn(0.0)
+                else:
+                    self.wheel.turn(self.units*constants.ksteeringGearRatio)
                 #move command
                 self.wheel.move(self.magnitude)
             else:
                 #turn to the other angle
+                if self.angle == 0.0:
+                    if (2048*constants.ksteeringGearRatio) - conversions.convertDegreesToTalonFXUnits(opposAngle) < self.wheel.directionMotor.getSelectedSensorPosition():
+                        self.wheel.turn(2048*constants.ksteeringGearRatio)
+                    else:
+                        self.wheel.turn(0.0)
+                else:
                 #change direction of the speed motor
-                self.wheel.turn(conversions.convertDegreesToTalonFXUnits(opposAngle)*constants.ksteeringGearRatio)
+                    self.wheel.turn(conversions.convertDegreesToTalonFXUnits(opposAngle)*constants.ksteeringGearRatio)
                 #move command
                 self.wheel.move(-self.magnitude)
 
@@ -50,11 +62,12 @@ class TurnToSpecificPoint(commands2.CommandBase):
         wpilib.SmartDashboard.putNumber("Angle -", self.angle)
         wpilib.SmartDashboard.putNumber("Input to wheel -", self.units*constants.ksteeringGearRatio)
         wpilib.SmartDashboard.putNumber("Magnitude -", self.magnitude)
+        wpilib.SmartDashboard.putNumber("Difference fro 2048 -", float((2048*constants.ksteeringGearRatio) - self.wheel.directionMotor.getSelectedSensorPosition()))
         
 
     def end(self, interrupted: bool) -> None:
         self.wheel.stopAllMotors()
 
     def isFinished(self) -> bool:
-        return self.wheel.notTurning
+        return False
     
