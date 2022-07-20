@@ -29,6 +29,8 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rightFrontSwerveModule = SwerveWheel(self.rightFrontDirection, self.rightFrontSpeed)
         self.rightRearSwerveModule = SwerveWheel(self.rightRearDirection, self.rightRearSpeed)
 
+        self.gyro = wpilib.ADXRS450_Gyro()
+        self.gyro.reset()
 
     def turnWheel(self, module: SwerveWheel, direction: float, magnitude: float):
         self.units = conversions.convertDegreesToTalonFXUnits(direction)
@@ -90,3 +92,17 @@ class SwerveDrive(commands2.SubsystemBase):
         self.leftRearSwerveModule.stopAllMotors()
         self.rightFrontSwerveModule.stopAllMotors()
         self.rightRearSwerveModule.stopAllMotors()
+        
+    def showWheelStats(self):
+        wpilib.SmartDashboard.putNumber(" LF Angle ", self.leftFrontSwerveModule.getCurrentAngle())
+        wpilib.SmartDashboard.putNumber(" LR Angle ", self.leftRearSwerveModule.getCurrentAngle())
+        wpilib.SmartDashboard.putNumber(" RF Angle ", self.rightFrontSwerveModule.getCurrentAngle())
+        wpilib.SmartDashboard.putNumber(" RR Angle ", self.rightRearSwerveModule.getCurrentAngle())
+
+        wpilib.SmartDashboard.putNumber(" LF Speed ", self.leftFrontSwerveModule.getVelocity())      
+        wpilib.SmartDashboard.putNumber(" LR Speed ", self.leftRearSwerveModule.getVelocity())   
+        wpilib.SmartDashboard.putNumber(" RF Speed ", self.rightFrontSwerveModule.getVelocity())      
+        wpilib.SmartDashboard.putNumber(" RR Speed ", self.rightRearSwerveModule.getVelocity()) 
+
+    def getGyroAngle(self) -> float:
+        return self.gyro.getAngle()

@@ -18,14 +18,25 @@ class DriveWithController(commands2.CommandBase):
     def execute(self) -> None:
         self.angle = conversions.convertJoystickInputToDegrees(conversions.deadband(self.x(), constants.kdeadband), conversions.deadband(self.y(), constants.kdeadband))
         self.magnitude = math.hypot(conversions.deadband(self.x(), constants.kdeadband), conversions.deadband(self.y(), constants.kdeadband))
-        self.magnitude *= 0.1
+        #self.magnitude *= 0.5
+        #self.angle -= self.drive.getGyroAngle()
+        
+        if self.magnitude >= 1.0:
+            self.magnitude = 1.0
+
         if self.magnitude == 0.0:
             self.drive.turnInPlace(conversions.deadband(self.rightx(), constants.kdeadband))
-            wpilib.SmartDashboard.putNumber("Turn Power -", conversions.deadband(self.x(), constants.kdeadband))
+            
         else:
             self.drive.translate(self.angle, self.magnitude)
-            wpilib.SmartDashboard.putNumber("Angle -", self.angle)
-            wpilib.SmartDashboard.putNumber("Magnitude -", self.magnitude)
+        
+        self.drive.showWheelStats()
+        wpilib.SmartDashboard.putNumber("Turn Power -", conversions.deadband(self.rightx(), constants.kdeadband))
+        wpilib.SmartDashboard.putNumber("Angle -", self.angle)
+        wpilib.SmartDashboard.putNumber("Magnitude -", self.magnitude)
+        wpilib.SmartDashboard.putNumber("X -", conversions.deadband(self.x(), constants.kdeadband))
+        wpilib.SmartDashboard.putNumber("Y -", conversions.deadband(self.y(), constants.kdeadband))
+        wpilib.SmartDashboard.putNumber(" Gyro -", self.drive.getGyroAngle())
 
         
         

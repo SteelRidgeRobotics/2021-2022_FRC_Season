@@ -1,13 +1,13 @@
-import commands2
+#import commands2
 import ctre
 from constants import *
 import wpilib
 from conversions import *
 
 from conversions import convertDegreesToTalonFXUnits
-class SwerveWheel(commands2.SubsystemBase):
+class SwerveWheel():
     def __init__(self, directionMotor: ctre.TalonFX, speedMotor:ctre.TalonFX) -> None:
-        super().__init__()
+        #super().__init__()
         self.directionMotor = directionMotor
         self.speedMotor = speedMotor
 
@@ -35,9 +35,9 @@ class SwerveWheel(commands2.SubsystemBase):
         self.directionMotor.configMotionCruiseVelocity(kcruiseVel, ktimeoutMs)
         self.directionMotor.configMotionAcceleration(kcruiseAccel, ktimeoutMs)
         
-        self.directionMotor.setNeutralMode(ctre.NeutralMode.Coast)
+        self.directionMotor.setNeutralMode(ctre.NeutralMode.Brake)
 
-        #self.directionMotor.setSelectedSensorPosition(0.0, kPIDLoopIdx, ktimeoutMs)
+        self.directionMotor.setSelectedSensorPosition(0.0, kPIDLoopIdx, ktimeoutMs)
 
         wpilib.SmartDashboard.putNumber(" P -", kP)
         wpilib.SmartDashboard.putNumber(" I -", kI)
@@ -50,25 +50,6 @@ class SwerveWheel(commands2.SubsystemBase):
         self.notTurning = False
         current_pos = self.directionMotor.getSelectedSensorPosition()
         self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(set_point))
-
-    def translate(self, direction: float, speed: float):
-        # check for the closest angle (effeciency)
-        currentAngle = convertTalonFXUnitsToDegrees(self.directionMotor.getSelectedSensorPosition())
-        if math.fabs(direction) >= 180.0:
-            opposAngle = math.fabs(direction) - 180.0
-        else:
-            opposAngle = math.fabs(direction) + 180.0
-        wpilib.SmartDashboard.putNumber(" Original Angle -", direction)
-        wpilib.SmartDashboard.putNumber(" Abs Opposit Angle -", opposAngle)
-        if math.fabs(currentAngle - direction) <= math.fabs(currentAngle - opposAngle):
-            #turn to the original angle
-            self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(convertDegreesToTalonFXUnits(direction))*ksteeringGearRatio)
-            self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, speed)
-        else:
-            #turn to the other angle
-            #change direction of the speed motor
-            self.directionMotor.set(ctre.TalonFXControlMode.MotionMagic, int(convertDegreesToTalonFXUnits(opposAngle))*ksteeringGearRatio)
-            self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, -speed)
 
     def isNotinMotion(self) -> bool:
 
@@ -84,6 +65,13 @@ class SwerveWheel(commands2.SubsystemBase):
     def stopAllMotors(self):
         self.directionMotor.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
         self.speedMotor.set(ctre.TalonFXControlMode.PercentOutput, 0.0)
+        self.directionMotor.setNeutralMode(ctre.NeutralMode.Coast)
+
+    def getCurrentAngle(self):
+        return convertTalonFXUnitsToDegrees(self.directionMotor.getSelectedSensorPosition())
+
+    def getVelocity(self):
+        return self.speedMotor.getSelectedSensorVelocity()
 
     def showStats(self):
         wpilib.SmartDashboard.putNumber(" P -", kP)

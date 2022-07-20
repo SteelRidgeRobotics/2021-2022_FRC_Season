@@ -13,7 +13,7 @@ krightRearDirectionID = 7
 
 
 kdriverControllerPort = 0
-kdeadband = 0.085
+kdeadband = 0.15
 
 #Encoders
 ktimeoutMs = 10
