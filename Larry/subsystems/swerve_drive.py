@@ -96,10 +96,10 @@ class SwerveDrive(commands2.SubsystemBase):
         self.rightRearSwerveModule.stopAllMotors()
 
     def showWheelStats(self):
-        wpilib.SmartDashboard.putNumber(" LF Angle ", self.leftFrontSwerveModule.getCurrentAngle())
-        wpilib.SmartDashboard.putNumber(" LR Angle ", self.leftRearSwerveModule.getCurrentAngle())
-        wpilib.SmartDashboard.putNumber(" RF Angle ", self.rightFrontSwerveModule.getCurrentAngle())
-        wpilib.SmartDashboard.putNumber(" RR Angle ", self.rightRearSwerveModule.getCurrentAngle())
+        wpilib.SmartDashboard.putNumber(" LF Angle Error", self.leftFrontSwerveModule.directionMotor.getClosedLoopError(0))
+        wpilib.SmartDashboard.putNumber(" LR Angle Error", self.leftRearSwerveModule.directionMotor.getClosedLoopError(0))
+        wpilib.SmartDashboard.putNumber(" RF Angle Error", self.rightFrontSwerveModule.directionMotor.getClosedLoopError(0))
+        wpilib.SmartDashboard.putNumber(" RR Angle Error", self.rightRearSwerveModule.directionMotor.getClosedLoopError(0))
 
         wpilib.SmartDashboard.putNumber(" LF Speed ", self.leftFrontSwerveModule.getVelocity())      
         wpilib.SmartDashboard.putNumber(" LR Speed ", self.leftRearSwerveModule.getVelocity())   

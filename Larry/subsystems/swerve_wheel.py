@@ -45,7 +45,7 @@ class SwerveWheel():
         wpilib.SmartDashboard.putNumber(" I -", kI)
         wpilib.SmartDashboard.putNumber(" D -", kD)
         wpilib.SmartDashboard.putNumber(" F -", kF)
-        wpilib.SmartDashboard.putNumber(" Sensor Position -", self.directionMotor.getSelectedSensorPosition())
+        #wpilib.SmartDashboard.putNumber(" Sensor Position -", self.directionMotor.getSelectedSensorPosition())
         self.notTurning = True
     # this is are testing turn method
     def turn(self, set_point: float):
@@ -80,9 +80,9 @@ class SwerveWheel():
         wpilib.SmartDashboard.putNumber(" I -", kI)
         wpilib.SmartDashboard.putNumber(" D -", kD)
         wpilib.SmartDashboard.putNumber(" F -", kF)
-        wpilib.SmartDashboard.putNumber(" Sensor Position -", self.directionMotor.getSelectedSensorPosition())
-        wpilib.SmartDashboard.putNumber(" Sensor Velocity -", self.directionMotor.getSelectedSensorVelocity())
-        wpilib.SmartDashboard.putBoolean(" Is Not Moving? -", self.isNotinMotion())
+        #wpilib.SmartDashboard.putNumber(" Sensor Position -", self.directionMotor.getSelectedSensorPosition())
+        #wpilib.SmartDashboard.putNumber(" Sensor Velocity -", self.directionMotor.getSelectedSensorVelocity())
+        #wpilib.SmartDashboard.putBoolean(" Is Not Moving? -", self.isNotinMotion())
         
         
         """
