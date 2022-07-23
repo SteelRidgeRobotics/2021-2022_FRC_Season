@@ -21,16 +21,18 @@ class SwerveDrive(commands2.SubsystemBase):
 
         self.rightRearDirection = ctre.TalonFX(constants.krightRearDirectionID)
         self.rightRearSpeed = ctre.TalonFX(constants.krightRearSpeedID)
-
+        
         # init swerve modules
         self.leftFrontSwerveModule = SwerveWheel(self.leftFrontDirection, self.leftFrontSpeed)
         self.leftRearSwerveModule = SwerveWheel(self.leftRearDirection, self.leftRearSpeed)
 
         self.rightFrontSwerveModule = SwerveWheel(self.rightFrontDirection, self.rightFrontSpeed)
         self.rightRearSwerveModule = SwerveWheel(self.rightRearDirection, self.rightRearSpeed)
+        
 
         self.gyro = wpilib.ADXRS450_Gyro()
         self.gyro.reset()
+        self.gyro.calibrate()
 
     def turnWheel(self, module: SwerveWheel, direction: float, magnitude: float):
         self.units = conversions.convertDegreesToTalonFXUnits(direction)
@@ -92,7 +94,7 @@ class SwerveDrive(commands2.SubsystemBase):
         self.leftRearSwerveModule.stopAllMotors()
         self.rightFrontSwerveModule.stopAllMotors()
         self.rightRearSwerveModule.stopAllMotors()
-        
+
     def showWheelStats(self):
         wpilib.SmartDashboard.putNumber(" LF Angle ", self.leftFrontSwerveModule.getCurrentAngle())
         wpilib.SmartDashboard.putNumber(" LR Angle ", self.leftRearSwerveModule.getCurrentAngle())
@@ -106,3 +108,27 @@ class SwerveDrive(commands2.SubsystemBase):
 
     def getGyroAngle(self) -> float:
         return self.gyro.getAngle()
+    
+    def flushWheels(self):
+        self.turnWheel(self.leftFrontSwerveModule, 0.0, 0.01)
+        self.turnWheel(self.leftRearSwerveModule, 0.0, 0.01)
+        self.turnWheel(self.rightFrontSwerveModule, 0.0, 0.01)
+        self.turnWheel(self.rightRearSwerveModule, 0.0, 0.01)
+
+        self.stopAllMotors()
+
+    def reset(self):
+        self.gyro.reset()
+        self.gyro.calibrate()
+
+        self.leftFrontDirection.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+        self.leftFrontSpeed.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+
+        self.leftRearDirection.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+        self.leftRearSpeed.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+
+        self.rightFrontDirection.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+        self.rightFrontSpeed.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+
+        self.rightRearDirection.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)
+        self.rightRearSpeed.setSelectedSensorPosition(0.0, constants.kPIDLoopIdx, constants.ktimeoutMs)

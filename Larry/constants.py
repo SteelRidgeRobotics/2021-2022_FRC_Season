@@ -17,10 +17,11 @@ kdeadband = 0.15
 
 #Encoders
 ktimeoutMs = 10
-kF = 0.0455 #Feed forward
-kP = 0.01 #Proportional
-kI = 0.0 #Integral
-kD = 0.0 #Derivative
+kF = 0.05282272 #Feed forward
+kP = 0.3 #Proportional
+kI = 0.002 #Integral
+kD = 3 #Derivative
+kIzone = 130
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
 kcruiseAccel = 10567.0 #Cruise Acceleration same as velocity
 kticksPerRev = 2048

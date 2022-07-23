@@ -23,6 +23,8 @@ class SwerveWheel():
 
         self.directionMotor.config_kD(0, kD, ktimeoutMs)
 
+        self.directionMotor.config_IntegralZone(0, kIzone, ktimeoutMs)
+
         # MOTOR CONFIG
         self.directionMotor.configNominalOutputForward(0, ktimeoutMs)
         self.directionMotor.configNominalOutputReverse(0, ktimeoutMs)
