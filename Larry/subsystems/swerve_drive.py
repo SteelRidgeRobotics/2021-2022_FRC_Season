@@ -40,6 +40,7 @@ class SwerveDrive(commands2.SubsystemBase):
             magnitude = 1.0
         # find current angle
         currentAngle = conversions.convertTalonFXUnitsToDegrees(module.directionMotor.getSelectedSensorPosition())
+        currentAngle /= constants.ksteeringGearRatio
         # see if the abs value is greater than 180
         if math.fabs(direction) >= 180.0:
             # find the abs value of the opposite angle
@@ -52,29 +53,26 @@ class SwerveDrive(commands2.SubsystemBase):
         wpilib.SmartDashboard.putNumber(" Abs Opposit Angle -", opposAngle)
         # check if the joystick is in use
         if magnitude != 0.0:
-            # if the original angle is closer
-            if math.fabs(currentAngle - direction) <= math.fabs(currentAngle - opposAngle):
-                #turn to the original angle
+            # this is to test that if 360 or zero is closer it goes to 0
+            if (direction == 0.0 or direction == 180.0) and math.fabs(360 - currentAngle) <= math.fabs(currentAngle - opposAngle):
+                # this means that 360 or zero is the shortest distance
+                # now we have to find if 0.0 is the direction or the opposite angle
                 if direction == 0.0:
-                    if (2048*constants.ksteeringGearRatio) - self.units < module.directionMotor.getSelectedSensorPosition():
-                        module.turn(2048*constants.ksteeringGearRatio)
-                    else:
-                        module.turn(0.0)
-                else:
                     module.turn(self.units*constants.ksteeringGearRatio)
+                    module.move(magnitude)
+                else:
+                    module.turn(conversions.convertDegreesToTalonFXUnits(opposAngle)*constants.ksteeringGearRatio)
+                    module.move(-magnitude)
+            # if the original angle is closer
+            elif math.fabs(currentAngle - direction) <= math.fabs(currentAngle - opposAngle):
+                #turn to the original angle
+                module.turn(self.units*constants.ksteeringGearRatio)
                 #move in the normal way
                 module.move(magnitude)
             else: # the opposite angle is closer
                 #turn to the other angle
-                if direction == 0.0:
-                    if (2048*constants.ksteeringGearRatio) - conversions.convertDegreesToTalonFXUnits(opposAngle) < module.directionMotor.getSelectedSensorPosition():
-                        module.turn(2048*constants.ksteeringGearRatio)
-                    else:
-                        module.turn(0.0)
-                else:
-                #change direction of the speed motor
-                    module.turn(conversions.convertDegreesToTalonFXUnits(opposAngle)*constants.ksteeringGearRatio)
-                #move in the opposite directionj
+                module.turn(conversions.convertDegreesToTalonFXUnits(opposAngle)*constants.ksteeringGearRatio)
+                #move in the opposite direction
                 module.move(-magnitude)
 
     def translate(self, direction: float, magnitude: float):
