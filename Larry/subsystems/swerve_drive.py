@@ -33,6 +33,7 @@ class SwerveDrive(commands2.SubsystemBase):
         self.gyro = wpilib.ADXRS450_Gyro()
         self.gyro.reset()
         self.gyro.calibrate()
+        self.PDP = wpilib.PowerDistribution(0, wpilib.PowerDistribution.ModuleType.kCTRE)
 
     def turnWheel(self, module: SwerveWheel, direction: float, magnitude: float):
         self.units = conversions.convertDegreesToTalonFXUnits(direction)
@@ -104,6 +105,19 @@ class SwerveDrive(commands2.SubsystemBase):
         wpilib.SmartDashboard.putNumber(" RF Speed ", self.rightFrontSwerveModule.getVelocity())      
         wpilib.SmartDashboard.putNumber(" RR Speed ", self.rightRearSwerveModule.getVelocity()) 
 
+        wpilib.SmartDashboard.putNumber(" PDP Channel 0", self.PDP.getCurrent(0))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 1", self.PDP.getCurrent(1))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 2", self.PDP.getCurrent(2))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 3", self.PDP.getCurrent(3))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 4", self.PDP.getCurrent(4))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 5", self.PDP.getCurrent(5))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 6", self.PDP.getCurrent(6))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 7", self.PDP.getCurrent(7))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 8", self.PDP.getCurrent(8))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 9", self.PDP.getCurrent(9))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 10", self.PDP.getCurrent(10))
+        wpilib.SmartDashboard.putNumber(" PDP Channel 11", self.PDP.getCurrent(11))
+
     def getGyroAngle(self) -> float:
         return self.gyro.getAngle()
     
@@ -115,6 +129,45 @@ class SwerveDrive(commands2.SubsystemBase):
 
         self.stopAllMotors()
 
+    def moveWhileSpinning(self, leftx: float, lefty: float, turnPower: float):
+        straff = -lefty*math.sin(self.getGyroAngle())+leftx*math.cos(self.getGyroAngle())
+        fwrd = lefty*math.cos(self.getGyroAngle())+leftx*math.sin(self.getGyroAngle())
+        a = straff - turnPower*(constants.klength/constants.kr)
+        b = straff + turnPower*(constants.klength/constants.kr)
+        c = fwrd - turnPower*(constants.kwidth/constants.kr)
+        d = fwrd + turnPower*(constants.kwidth/constants.kr)
+        
+        frspeed = math.sqrt(b**2+c**2)
+        flspeed = math.sqrt(b**2+d**2)
+        rlspeed = math.sqrt(a**2+d**2)
+        rrspeed = math.sqrt(a**2+c**2)
+
+        frangle = math.atan2(b,c)*180/math.pi
+        flangle = math.atan2(b,d)*180/math.pi
+        rlangle = math.atan2(a,d)*180/math.pi
+        rrangle = math.atan2(a,c)*180/math.pi
+
+        #the block below checks for the highest speed that a wheel will be turning
+        #if the highest speed is greater than one, we then make the largest value equal one, while keeping the ratios the same
+        max = frspeed
+        if flspeed > max:
+            max = flspeed # would use elif, but we can't gurantee that only one value will be larger than the front right wheel speed
+        if rlspeed > max:
+            max = rlspeed
+        if rrspeed > max:
+            max = rrspeed
+        
+        if max > 1:
+            frspeed/=max
+            flspeed/=max
+            rlspeed/=max
+            rrspeed/=max
+
+        # make wheels turn and spin at the speeds and angles calculated above
+        self.turnWheel(self, self.leftFrontSwerveModule, flangle, flspeed)
+        self.turnWheel(self, self.leftRearSwerveModule, rlangle, rlspeed)
+        self.turnWheel(self, self.rightFrontSwerveModule, frspeed, frspeed)
+        self.turnWheel(self, self.rightRearSwerveModule, rrangle, rrspeed)
     def reset(self):
         self.gyro.reset()
         self.gyro.calibrate()

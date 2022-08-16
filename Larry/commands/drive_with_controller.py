@@ -26,10 +26,15 @@ class DriveWithController(commands2.CommandBase):
             self.magnitude = 1.0
 
         if self.magnitude == 0.0:
+            # only rotation
             self.drive.turnInPlace(conversions.deadband(self.rightx(), constants.kdeadband))
-            
         else:
-            self.drive.translate(self.angle, self.magnitude)
+            if self.magnitude != 0.0 and self.rightx != 0.0:
+                # checks if both joysticks are being used
+                self.drive.moveWhileSpinning(self.x, self.y, self.rightx)
+            else:
+                # no rotation wanted
+                self.drive.translate(self.angle, self.magnitude)
         
         self.drive.showWheelStats()
         wpilib.SmartDashboard.putNumber(" Turn Power -", conversions.deadband(self.rightx(), constants.kdeadband))

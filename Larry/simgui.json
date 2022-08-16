@@ -20,5 +20,8 @@
     "SmartDashboard": {
       "open": true
     }
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

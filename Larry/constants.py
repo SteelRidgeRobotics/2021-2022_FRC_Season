@@ -18,10 +18,10 @@ kdeadband = 0.15
 #Encoders
 ktimeoutMs = 10
 kF = 0.05282272 #Feed forward
-kP = 0.3 #Proportional
-kI = 0.002 #Integral
-kD = 3 #Derivative
-kIzone = 130
+kP = 0.2 #Proportional
+kI = 0.004 #Integral
+kD = 2 #Derivative
+kIzone = 150
 kcruiseVel = 10567.0 #Cruise Velocity at 50% of max
 kcruiseAccel = 10567.0 #Cruise Acceleration same as velocity
 kticksPerRev = 2048
@@ -29,3 +29,7 @@ kSlotIdx = 0
 kPIDLoopIdx = 0 
 
 ksteeringGearRatio = 150/7
+
+klength = 29
+kwidth = 29
+kr = math.sqrt((klength**2)+(kwidth**2)) # ** is the exponent operator
