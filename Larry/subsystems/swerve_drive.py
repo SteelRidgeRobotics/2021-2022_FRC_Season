@@ -21,6 +21,19 @@ class SwerveDrive(commands2.SubsystemBase):
 
         self.rightRearDirection = ctre.TalonFX(constants.krightRearDirectionID)
         self.rightRearSpeed = ctre.TalonFX(constants.krightRearSpeedID)
+
+        #fix inverse
+        self.leftFrontSpeed.setInverted(False)
+        self.leftRearSpeed.setInverted(False)
+
+        self.rightFrontSpeed.setInverted(True)
+        self.rightRearSpeed.setInverted(True)
+
+        self.leftFrontDirection.setInverted(False)
+        self.leftRearDirection.setInverted(False)
+
+        self.rightFrontDirection.setInverted(False)
+        self.rightRearDirection.setInverted(False)
         
         # init swerve modules
         self.leftFrontSwerveModule = SwerveWheel(self.leftFrontDirection, self.leftFrontSpeed)
@@ -164,10 +177,11 @@ class SwerveDrive(commands2.SubsystemBase):
             rrspeed/=max
 
         # make wheels turn and spin at the speeds and angles calculated above
-        self.turnWheel(self, self.leftFrontSwerveModule, flangle, flspeed)
-        self.turnWheel(self, self.leftRearSwerveModule, rlangle, rlspeed)
-        self.turnWheel(self, self.rightFrontSwerveModule, frspeed, frspeed)
-        self.turnWheel(self, self.rightRearSwerveModule, rrangle, rrspeed)
+        self.turnWheel(self.leftFrontSwerveModule, flangle, flspeed)
+        self.turnWheel(self.leftRearSwerveModule, rlangle, rlspeed)
+        self.turnWheel(self.rightFrontSwerveModule, frspeed, frspeed)
+        self.turnWheel(self.rightRearSwerveModule, rrangle, rrspeed)
+
     def reset(self):
         self.gyro.reset()
         self.gyro.calibrate()
