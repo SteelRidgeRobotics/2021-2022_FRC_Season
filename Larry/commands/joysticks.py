@@ -1,11 +1,12 @@
 import commands2
 import wpilib
 import typing
-from subsystems.swerve_drive import SwerveDrive
+from subsystems.swerve_wheel import SwerveWheel
 import conversions
+import constants
 class Joysticks(commands2.CommandBase):
 
-    def __init__(self, robotcontainer: SwerveDrive, LeftX: typing.Callable[[], float], LeftY: typing.Callable[[], float], RightX: typing.Callable[[], float], RightY: typing.Callable[[], float]) -> None:
+    def __init__(self, robotcontainer: SwerveWheel, LeftX: typing.Callable[[], float], LeftY: typing.Callable[[], float], RightX: typing.Callable[[], float], RightY: typing.Callable[[], float]) -> None:
         super().__init__()
         self.robotcontainer = robotcontainer
 
@@ -13,17 +14,17 @@ class Joysticks(commands2.CommandBase):
         self.lefty = LeftY
         self.rightx = RightX
         self.righty = RightY
-        self.degrees = conversions.Conversions.convertJoystickInputToDegrees(LeftX(), LeftY())
+        #self.degrees = conversions.Conversions.convertJoystickInputToDegrees(LeftX(), LeftY())
 
         self.addRequirements((self.robotcontainer))
 
     def execute(self) -> None:
-        self.degrees = conversions.Conversions.convertJoystickInputToDegrees(self.leftx(), self.lefty())
-        wpilib.SmartDashboard.putNumber("   LeftX - ", self.leftx())
-        wpilib.SmartDashboard.putNumber("   Left Y - ", self.lefty())
-        wpilib.SmartDashboard.putNumber("   RightX - ", self.rightx())
-        wpilib.SmartDashboard.putNumber("   Right Y - ", self.righty())
-        wpilib.SmartDashboard.putNumber("   Left Degrees - ", self.degrees)
+        #self.degrees = conversions.Conversions.convertJoystickInputToDegrees(self.leftx(), self.lefty())
+        wpilib.SmartDashboard.putNumber("   LeftX - ", conversions.deadband(self.leftx(), constants.kdeadband))
+        wpilib.SmartDashboard.putNumber("   Left Y - ", conversions.deadband(self.lefty(), constants.kdeadband))
+        wpilib.SmartDashboard.putNumber("   RightX - ", conversions.deadband(self.rightx(), constants.kdeadband))
+        wpilib.SmartDashboard.putNumber("   Right Y - ", conversions.deadband(self.righty(), constants.kdeadband))
+        #wpilib.SmartDashboard.putNumber("   Left Degrees - ", self.degrees)
         
     
     def end(self, interrupted: bool) -> None:
