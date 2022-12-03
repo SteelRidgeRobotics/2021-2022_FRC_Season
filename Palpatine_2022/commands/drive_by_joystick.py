@@ -32,13 +32,13 @@ class DriveByJoystick(commands2.CommandBase):
         
         # when the one of the bumpers is pressed, halve the speed
         if self.bumperRight() or self.bumperLeft():
-            self.percent = 0.5
+            self.percent = 0.125
             self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         # 
         #elif (self.bumperRight or self.bumperLeft) and self.slowFactor == 0.5:
         #    self.slowFactor = 1.0 
         else:
-            self.percent = 1.0
+            self.percent = 0.25
             self.drive.userDrive(self.left_axis(), self.right_axis(), self.percent)
         
         #self.drive.userDrive(self.left_axis(), self.right_axis())
